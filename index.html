@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Alpha 积分计算器（优化版）</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #e0f2fe, #bfdbfe);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2563eb;
+        }
+        input, select {
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: 500;
+        }
+        #resultPure, #resultSpecial {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Binance Alpha 积分计算器（优化版）</h1>
+        
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4">活动规则</h2>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>目标单位 for 15分: 32768</li>
+                <li>for 16分: 65536</li>
+                <li>普通链: 1u 交易额 = 1 单位</li>
+                <li>BSC链: 1u 交易额 = 2 单位</li>
+                <li>限价: 1u 交易额 = 4 单位</li>
+                <li>每笔交易的交易额 = 余额 u（假设每笔刷余额金额的交易）</li>
+                <li>笔数使用向上取整，但优化为全笔 + 部分笔建议</li>
+                <li>默认添加200单位冗余以防万一</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4">单账号纯刷计算</h2>
+            <form id="accountsForm" class="space-y-4">
+                <div class="flex items-center">
+                    <label>账号余额:</label>
+                    <input type="number" id="bal1" min="0" placeholder="输入余额">
+                </div>
+                <div class="flex items-center">
+                    <label>目标分数:</label>
+                    <select id="targetScore">
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                    </select>
+                </div>
+                <div class="flex items-center">
+                    <label>交易类型:</label>
+                    <select id="type">
+                        <option value="普通链">普通链</option>
+                        <option value="BSC链">BSC链</option>
+                        <option value="限价">限价</option>
+                    </select>
+                </div>
+                <button type="button" onclick="calcPure()" class="btn">计算</button>
+                <div id="resultPure" class="text-gray-800"></div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4">特定场景: 已刷BSC后补限价</h2>
+            <form id="specialForm" class="space-y-4">
+                <div class="flex items-center">
+                    <label>余额:</label>
+                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额">
+                </div>
+                <div class="flex items-center">
+                    <label>已刷BSC笔数:</label>
+                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数">
+                </div>
+                <div class="flex items-center">
+                    <label>已刷BSC每笔金额:</label>
+                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额">
+                </div>
+                <div class="flex items-center">
+                    <label>目标分数:</label>
+                    <select id="targetSpecial">
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                    </select>
+                </div>
+                <div class="flex items-center">
+                    <label>冗余单位:</label>
+                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入冗余单位">
+                </div>
+                <button type="button" onclick="calcSpecial()" class="btn">计算所需限价笔数</button>
+                <div id="resultSpecial" class="text-gray-800"></div>
+            </form>
+        </div>
+
+        <footer>
+            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank" class="text-blue-500 hover:underline">@0xTimor</a>！</p>
+            <p>查看 <a href="https://x.com/0xTimor" target="_blank" class="text-blue-500 hover:underline">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
+        </footer>
+    </div>
+
+    <script>
+        function getMultiplier(type) {
+            if (type === '普通链') return 1;
+            if (type === 'BSC链') return 2;
+            if (type === '限价') return 4;
+            return 1;
+        }
+
+        function getTargetUnits(score) {
+            return Math.pow(2, parseInt(score));
+        }
+
+        function calcPure() {
+            const bal = parseFloat(document.getElementById('bal1').value);
+            const score = document.getElementById('targetScore').value;
+            const type = document.getElementById('type').value;
+            const mult = getMultiplier(type);
+            const target = getTargetUnits(score);
+            const reqVol = target / mult;
+
+            let result = '';
+            if (isNaN(bal) || bal <= 0) {
+                result = '请填写有效余额';
+            } else {
+                const pens = Math.ceil(reqVol / bal);
+                result = `账号 (余额 ${bal}): 需要 ${pens} 笔 ${type} 交易（总交易额约 ${pens * bal} u，目标 ${reqVol.toFixed(2)} u）`;
+            }
+
+            document.getElementById('resultPure').innerHTML = result;
+        }
+
+        function calcSpecial() {
+            const bal = parseFloat(document.getElementById('balSpecial').value);
+            const bscPens = parseInt(document.getElementById('bscPens').value);
+            const bscAmount = parseFloat(document.getElementById('bscAmount').value);
+            const score = document.getElementById('targetSpecial').value;
+            const redundancy = parseFloat(document.getElementById('redundancy').value) || 200;
+
+            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || isNaN(bscAmount) || bscAmount <= 0) {
+                document.getElementById('resultSpecial').innerHTML = '请输入有效值';
+                return;
+            }
+
+            const target = getTargetUnits(score);
+            const contributed = bscPens * bscAmount * 2; // BSC multiplier 2
+            const remaining = target - contributed;
+            if (remaining <= 0) {
+                document.getElementById('resultSpecial').innerHTML = '已达到或超过目标，无需额外交易';
+                return;
+            }
+            const targetWithRedundancy = remaining + redundancy;
+            const reqLimitVol = targetWithRedundancy / 4; // 限价 multiplier 4
+            const fullPens = Math.floor(reqLimitVol / bal);
+            const partial = reqLimitVol - fullPens * bal;
+            let suggestion = `需要额外 ${fullPens} 笔全额限价交易（每笔 ${bal} u）`;
+            if (partial > 0) {
+                suggestion += ` + 1 笔部分限价交易（约 ${partial.toFixed(2)} u）`;
+            }
+            suggestion += `<br>（所需限价交易额约 ${reqLimitVol.toFixed(2)} u，包括 ${redundancy} 单位冗余）`;
+            document.getElementById('resultSpecial').innerHTML = suggestion;
+        }
+    </script>
+</body>
+</html>
