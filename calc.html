@@ -5,201 +5,650 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binance Alpha 积分计算器（优化版）</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(to bottom right, #e0f2fe, #bfdbfe);
-            min-height: 100vh;
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --dark: #0d1b2a;
+            --darker: #070f18;
+            --light: #e0e1dd;
+            --success: #06d6a0;
+            --warning: #ffd166;
         }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(58, 134, 255, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(131, 56, 236, 0.15) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-top: 20px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(58, 134, 255, 0.5);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .subtitle {
+            color: #a3b3cc;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
         .card {
-            background: white;
+            background: rgba(16, 31, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(58, 134, 255, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 134, 255, 0.2);
+            border-color: rgba(58, 134, 255, 0.4);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(58, 134, 255, 0.2);
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .form-group {
             margin-bottom: 20px;
         }
-        .btn {
-            background-color: #3b82f6;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #2563eb;
-        }
-        input, select {
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            padding: 8px;
-            width: 100%;
-            max-width: 300px;
-        }
+        
         label {
-            display: inline-block;
-            width: 150px;
+            display: block;
+            margin-bottom: 8px;
+            color: #a3b3cc;
             font-weight: 500;
         }
-        #resultPure, #resultSpecial {
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
+        
+        .input-group {
+            position: relative;
         }
+        
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            background: rgba(10, 20, 35, 0.7);
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.3);
+        }
+        
+        input::placeholder {
+            color: #5a6d8a;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .result-box {
+            background: rgba(10, 20, 35, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid var(--primary);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .result-content {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .success {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
         footer {
             text-align: center;
-            margin-top: 30px;
-            color: #4b5563;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(58, 134, 255, 0.2);
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .social-link:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .info-text {
+            color: #a3b3cc;
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .rule-item {
+            background: rgba(10, 20, 35, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .rule-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+            margin: 5px 0;
+        }
+        
+        /* 按钮组样式 */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .option-btn {
+            flex: 1;
+            min-width: 100px;
+            background: rgba(10, 20, 35, 0.7);
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #a3b3cc;
+            font-weight: 500;
+        }
+        
+        .option-btn.active {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: rgba(58, 134, 255, 0.6);
+            box-shadow: 0 0 10px rgba(58, 134, 255, 0.4);
+        }
+        
+        .option-btn:hover:not(.active) {
+            background: rgba(58, 134, 255, 0.2);
+            border-color: rgba(58, 134, 255, 0.6);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .badge-success {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: rgba(255, 209, 102, 0.2);
+            color: var(--warning);
+        }
+        
+        .badge-primary {
+            background: rgba(58, 134, 255, 0.2);
+            color: var(--primary);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-btn {
+                min-width: 80px;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Binance Alpha 积分计算器（优化版）</h1>
+        <header>
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <h1>Binance Alpha 积分计算器</h1>
+            <p class="subtitle">优化交易策略，最大化您的积分收益。科技优化版提供更精准的计算和更好的用户体验</p>
+        </header>
         
         <div class="card">
-            <h2 class="text-xl font-semibold mb-4">活动规则</h2>
-            <ul class="list-disc pl-6 text-gray-700">
-                <li>目标单位 for 15分: 32768</li>
-                <li>for 16分: 65536</li>
-                <li>普通链: 1u 交易额 = 1 单位</li>
-                <li>BSC链: 1u 交易额 = 2 单位</li>
-                <li>限价: 1u 交易额 = 4 单位</li>
-                <li>每笔交易的交易额 = 余额 u（假设每笔刷余额金额的交易）</li>
-                <li>笔数使用向上取整，但优化为全笔 + 部分笔建议</li>
-                <li>默认添加200单位冗余以防万一</li>
-            </ul>
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-list-check"></i>
+                </div>
+                <h2>活动规则</h2>
+            </div>
+            <div class="rules-grid">
+                <div class="rule-item">
+                    <div>目标单位 (15分)</div>
+                    <div class="rule-value">32768</div>
+                </div>
+                <div class="rule-item">
+                    <div>目标单位 (16分)</div>
+                    <div class="rule-value">65536</div>
+                </div>
+                <div class="rule-item">
+                    <div>普通链单位</div>
+                    <div class="rule-value">1u = 1单位</div>
+                </div>
+                <div class="rule-item">
+                    <div>BSC链单位</div>
+                    <div class="rule-value">1u = 2单位</div>
+                </div>
+                <div class="rule-item">
+                    <div>限价单位</div>
+                    <div class="rule-value">1u = 4单位</div>
+                </div>
+                <div class="rule-item">
+                    <div>余量单位</div>
+                    <div class="rule-value">+200 单位</div>
+                </div>
+            </div>
         </div>
 
         <div class="card">
-            <h2 class="text-xl font-semibold mb-4">单账号纯刷计算</h2>
-            <form id="accountsForm" class="space-y-4">
-                <div class="flex items-center">
-                    <label>账号余额:</label>
-                    <input type="number" id="bal1" min="0" placeholder="输入余额">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-user"></i>
                 </div>
-                <div class="flex items-center">
-                    <label>目标分数:</label>
-                    <select id="targetScore">
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                    </select>
+                <h2>单账号纯刷计算</h2>
+            </div>
+            <div class="form-group">
+                <label for="bal1"><i class="fas fa-wallet"></i> 账号余额 (USDT)</label>
+                <input type="number" id="bal1" min="0" placeholder="输入账号余额" value="1000">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-bullseye"></i> 目标分数</label>
+                <div class="btn-group">
+                    <div class="option-btn active" data-value="15">15分 <span class="badge badge-primary">32768单位</span></div>
+                    <div class="option-btn" data-value="16">16分 <span class="badge badge-primary">65536单位</span></div>
                 </div>
-                <div class="flex items-center">
-                    <label>交易类型:</label>
-                    <select id="type">
-                        <option value="普通链">普通链</option>
-                        <option value="BSC链">BSC链</option>
-                        <option value="限价">限价</option>
-                    </select>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-exchange-alt"></i> 交易类型</label>
+                <div class="btn-group">
+                    <div class="option-btn" data-value="普通链">普通链 <span class="badge badge-success">1u=1单位</span></div>
+                    <div class="option-btn" data-value="BSC链">BSC链 <span class="badge badge-success">1u=2单位</span></div>
+                    <div class="option-btn active" data-value="限价">限价 <span class="badge badge-success">1u=4单位</span></div>
                 </div>
-                <button type="button" onclick="calcPure()" class="btn">计算</button>
-                <div id="resultPure" class="text-gray-800"></div>
-            </form>
+            </div>
+            
+            <div class="form-group">
+                <label for="redundancyPure"><i class="fas fa-shield-alt"></i> 余量单位</label>
+                <input type="number" id="redundancyPure" value="200" min="0" placeholder="输入余量单位">
+            </div>
+            
+            <button class="btn" onclick="calcPure()">
+                <i class="fas fa-calculator"></i> 计算交易需求
+            </button>
+            
+            <div id="resultPure" class="result-box" style="display: none;">
+                <div class="result-title">计算结果</div>
+                <div class="result-content" id="pureResultContent"></div>
+            </div>
         </div>
 
         <div class="card">
-            <h2 class="text-xl font-semibold mb-4">特定场景: 已刷BSC后补限价</h2>
-            <form id="specialForm" class="space-y-4">
-                <div class="flex items-center">
-                    <label>余额:</label>
-                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-sync-alt"></i>
                 </div>
-                <div class="flex items-center">
-                    <label>已刷BSC笔数:</label>
-                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数">
+                <h2>特定场景 - 双活动策略</h2>
+            </div>
+            <div class="form-group">
+                <label for="balSpecial"><i class="fas fa-wallet"></i> 账户余额 (USDT)</label>
+                <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入账户余额">
+            </div>
+            <div class="form-group">
+                <label for="bscPens"><i class="fas fa-list-ol"></i> 已刷BSC笔数</label>
+                <input type="number" id="bscPens" value="2" min="0" placeholder="输入BSC交易笔数">
+            </div>
+            <div class="form-group">
+                <label for="bscAmount"><i class="fas fa-money-bill-wave"></i> 已刷BSC每笔金额</label>
+                <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入每笔交易金额">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-bullseye"></i> 目标分数</label>
+                <div class="btn-group">
+                    <div class="option-btn active" data-value="15">15分 <span class="badge badge-primary">32768单位</span></div>
+                    <div class="option-btn" data-value="16">16分 <span class="badge badge-primary">65536单位</span></div>
                 </div>
-                <div class="flex items-center">
-                    <label>已刷BSC每笔金额:</label>
-                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额">
-                </div>
-                <div class="flex items-center">
-                    <label>目标分数:</label>
-                    <select id="targetSpecial">
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                    </select>
-                </div>
-                <div class="flex items-center">
-                    <label>冗余单位:</label>
-                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入冗余单位">
-                </div>
-                <button type="button" onclick="calcSpecial()" class="btn">计算所需限价笔数</button>
-                <div id="resultSpecial" class="text-gray-800"></div>
-            </form>
+            </div>
+            
+            <div class="form-group">
+                <label for="redundancy"><i class="fas fa-shield-alt"></i> 余量单位</label>
+                <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位">
+            </div>
+            
+            <button class="btn" onclick="calcSpecial()">
+                <i class="fas fa-calculator"></i> 计算所需限价笔数
+            </button>
+            
+            <div id="resultSpecial" class="result-box" style="display: none;">
+                <div class="result-title">计算结果</div>
+                <div class="result-content" id="specialResultContent"></div>
+            </div>
         </div>
 
         <footer>
-            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank" class="text-blue-500 hover:underline">@0xTimor</a>！</p>
-            <p>查看 <a href="https://x.com/0xTimor" target="_blank" class="text-blue-500 hover:underline">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
+            <a href="https://x.com/0xTimor" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i> 关注 @0xTimor 获取更多撸毛技巧
+            </a>
+            <p class="info-text">查看 <a href="https://x.com/0xTimor" target="_blank" style="color: var(--primary);">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
+            <p class="info-text" style="margin-top: 20px; color: #5a6d8a;">
+                <i class="fas fa-code"></i> 科技优化版 | 2023 Binance Alpha 积分计算器
+            </p>
         </footer>
     </div>
 
     <script>
+        // 初始化选项按钮
+        document.querySelectorAll('.btn-group').forEach(group => {
+            const buttons = group.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+
         function getMultiplier(type) {
-            if (type === '普通链') return 1;
-            if (type === 'BSC链') return 2;
-            if (type === '限价') return 4;
-            return 1;
+            const multipliers = {
+                '普通链': 1,
+                'BSC链': 2,
+                '限价': 4
+            };
+            return multipliers[type] || 1;
         }
 
         function getTargetUnits(score) {
             return Math.pow(2, parseInt(score));
         }
 
+        // 获取活动选择的值
+        function getActiveValue(groupSelector) {
+            const group = document.querySelector(groupSelector);
+            if (!group) return null;
+            const activeBtn = group.querySelector('.option-btn.active');
+            return activeBtn ? activeBtn.getAttribute('data-value') : null;
+        }
+
         function calcPure() {
             const bal = parseFloat(document.getElementById('bal1').value);
-            const score = document.getElementById('targetScore').value;
-            const type = document.getElementById('type').value;
+            const score = getActiveValue('#resultPure + .form-group .btn-group') || '15';
+            const type = getActiveValue('#resultPure + .form-group + .form-group .btn-group') || '限价';
+            const redundancy = parseFloat(document.getElementById('redundancyPure').value) || 200;
             const mult = getMultiplier(type);
             const target = getTargetUnits(score);
-            const reqVol = target / mult;
 
-            let result = '';
+            const resultBox = document.getElementById('resultPure');
+            const resultContent = document.getElementById('pureResultContent');
+            
             if (isNaN(bal) || bal <= 0) {
-                result = '请填写有效余额';
-            } else {
-                const pens = Math.ceil(reqVol / bal);
-                result = `账号 (余额 ${bal}): 需要 ${pens} 笔 ${type} 交易（总交易额约 ${pens * bal} u，目标 ${reqVol.toFixed(2)} u）`;
+                resultContent.innerHTML = '<span class="highlight">请填写有效的账户余额</span>';
+                resultBox.style.display = 'block';
+                return;
             }
-
-            document.getElementById('resultPure').innerHTML = result;
+            
+            const targetWithRedundancy = target + redundancy;
+            const reqVol = targetWithRedundancy / mult;
+            const fullPens = Math.floor(reqVol / bal);
+            const partial = reqVol - fullPens * bal;
+            
+            let suggestion = `<p>需要 <span class="success">${fullPens} 笔</span> 全额 ${type} 交易（每笔 ${bal} USDT）</p>`;
+            if (partial > 0) {
+                suggestion += `<p>+ <span class="success">1 笔</span> 部分 ${type} 交易（约 ${partial.toFixed(2)} USDT）</p>`;
+            }
+            
+            resultContent.innerHTML = `
+                <p>账号余额: <span class="highlight">${bal} USDT</span></p>
+                <p>目标分数: <span class="highlight">${score} 分</span> (需要 <span class="highlight">${target.toLocaleString()}</span> 单位)</p>
+                <p>交易类型: <span class="highlight">${type}</span> (1 USDT = ${mult} 单位)</p>
+                <p>余量单位: <span class="highlight">${redundancy}</span></p>
+                <p>需要交易额: <span class="highlight">${reqVol.toFixed(2)} USDT</span></p>
+                ${suggestion}
+            `;
+            
+            resultBox.style.display = 'block';
         }
 
         function calcSpecial() {
             const bal = parseFloat(document.getElementById('balSpecial').value);
             const bscPens = parseInt(document.getElementById('bscPens').value);
             const bscAmount = parseFloat(document.getElementById('bscAmount').value);
-            const score = document.getElementById('targetSpecial').value;
+            const score = getActiveValue('#resultSpecial + .form-group .btn-group') || '15';
             const redundancy = parseFloat(document.getElementById('redundancy').value) || 200;
 
-            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || isNaN(bscAmount) || bscAmount <= 0) {
-                document.getElementById('resultSpecial').innerHTML = '请输入有效值';
+            const resultBox = document.getElementById('resultSpecial');
+            const resultContent = document.getElementById('specialResultContent');
+            
+            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || 
+                isNaN(bscAmount) || bscAmount <= 0) {
+                resultContent.innerHTML = '<span class="highlight">请输入所有字段的有效值</span>';
+                resultBox.style.display = 'block';
                 return;
             }
 
             const target = getTargetUnits(score);
             const contributed = bscPens * bscAmount * 2; // BSC multiplier 2
             const remaining = target - contributed;
+            
             if (remaining <= 0) {
-                document.getElementById('resultSpecial').innerHTML = '已达到或超过目标，无需额外交易';
+                resultContent.innerHTML = `
+                    <p>当前已获得单位: <span class="success">${contributed.toLocaleString()}</span></p>
+                    <p>目标单位: <span class="highlight">${target.toLocaleString()}</span></p>
+                    <p>状态: <span class="success">已达到或超过目标</span></p>
+                    <p>无需额外交易</p>
+                `;
+                resultBox.style.display = 'block';
                 return;
             }
+            
             const targetWithRedundancy = remaining + redundancy;
             const reqLimitVol = targetWithRedundancy / 4; // 限价 multiplier 4
             const fullPens = Math.floor(reqLimitVol / bal);
             const partial = reqLimitVol - fullPens * bal;
-            let suggestion = `需要额外 ${fullPens} 笔全额限价交易（每笔 ${bal} u）`;
+            
+            let suggestion = `<p>需要额外 <span class="success">${fullPens} 笔</span> 全额限价交易（每笔 ${bal} USDT）</p>`;
             if (partial > 0) {
-                suggestion += ` + 1 笔部分限价交易（约 ${partial.toFixed(2)} u）`;
+                suggestion += `<p>+ <span class="success">1 笔</span> 部分限价交易（约 ${partial.toFixed(2)} USDT）</p>`;
             }
-            suggestion += `<br>（所需限价交易额约 ${reqLimitVol.toFixed(2)} u，包括 ${redundancy} 单位冗余）`;
-            document.getElementById('resultSpecial').innerHTML = suggestion;
+            
+            resultContent.innerHTML = `
+                <p>当前已获得单位: <span class="highlight">${contributed.toLocaleString()}</span> (${bscPens}笔BSC交易)</p>
+                <p>目标单位: <span class="highlight">${target.toLocaleString()}</span></p>
+                <p>剩余需要单位: <span class="highlight">${remaining.toLocaleString()}</span></p>
+                <p>余量单位: <span class="highlight">${redundancy}</span></p>
+                <p>所需限价交易额: <span class="success">${reqLimitVol.toFixed(2)} USDT</span></p>
+                ${suggestion}
+            `;
+            
+            resultBox.style.display = 'block';
         }
+        
+        // 初始化显示结果框
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('resultPure').style.display = 'none';
+            document.getElementById('resultSpecial').style.display = 'none';
+        });
     </script>
 </body>
 </html>
