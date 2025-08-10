@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdsPower启动器</title>
+    <style>
+        /* CSS 变量：定义统一的颜色、字体和间距，方便后续修改和保持一致性 */
+        :root {
+            --bg-color: #1a1a2e; /* 深蓝紫色背景 */
+            --container-bg: #222238; /* 容器背景 */
+            --card-bg: #2d2d46; /* 卡片背景 */
+            --text-color: #e0e0f0; /* 浅色文本 */
+            --label-color: #a0a0c0; /* 标签文本 */
+            --primary-color: #007bff; /* 主色：蓝色 */
+            --primary-light: #4499ff;
+            --success-color: #28a745; /* 成功色：绿色 */
+            --success-light: #5cb85c;
+            --danger-color: #dc3545; /* 危险色：红色 */
+            --danger-light: #ef5a6a;
+            --border-color: #3e3e5c; /* 边框色 */
+            --glow-color: rgba(0, 123, 255, 0.5); /* 按钮发光效果 */
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --border-radius: 8px;
+            --shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --shadow-bold: 0 8px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 0; /* 增加页面整体间距 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 头部和介绍 */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* 增加logo和标题间距 */
+            padding: 1.5rem 0;
+        }
+
+        .header img {
+            height: 80px; /* 减小logo尺寸，更精致 */
+            filter: drop-shadow(0 0 8px var(--primary-light)); /* logo添加发光效果 */
+        }
+
+        .header h1 {
+            font-size: 2.2rem; /* 增大标题 */
+            margin: 0;
+            color: var(--primary-light);
+            text-shadow: 0 0 5px var(--primary-light); /* 标题发光 */
+        }
+
+        .intro {
+            text-align: center;
+            margin: 0 0 2rem;
+            color: var(--label-color);
+            max-width: 800px;
+        }
+
+        .intro a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .intro a:hover {
+            color: #fff;
+        }
+
+        /* 主容器 */
+        .container {
+            width: 90%;
+            max-width: 900px; /* 适当增大最大宽度 */
+            background: var(--container-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-bold);
+            border: 1px solid var(--border-color);
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        /* 输入框和标签 */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--label-color);
+            font-size: 0.9rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            color: var(--text-color);
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--glow-color); /* 聚焦发光效果 */
+            background: #2d2d46;
+        }
+        
+        /* 批量操作部分 */
+        .batch-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .batch-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* 按钮组 */
+        .generate-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* 统一按钮样式 */
+        button {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #fff;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-subtle);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-bold);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-subtle);
+        }
+        button:disabled {
+            background: var(--border-color) !important;
+            cursor: not-allowed;
+            color: #888;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        /* 按钮颜色 */
+        #generate-cmd {
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            flex: 1;
+        }
+        #copy-groups {
+            background: linear-gradient(135deg, #17a2b8, #117a8b);
+            flex: 1;
+        }
+        #batch-start {
+            background: linear-gradient(135deg, var(--success-color), #1e7e34);
+            flex: 1;
+        }
+        #batch-close {
+            background: linear-gradient(135deg, var(--danger-color), #bd2130);
+            flex: 1;
+        }
+
+        /* 命令组列表 */
+        .cmd-container {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .cmd-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+        }
+        
+        .group-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .group-number {
+            font-weight: 600;
+            color: var(--primary-light);
+            min-width: 80px;
+            text-shadow: 0 0 2px rgba(0, 123, 255, 0.5);
+        }
+        
+        .group-ids {
+            color: var(--label-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: monospace; /* 代码风格字体 */
+        }
+        
+        /* 单独的命令按钮 */
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .exec-btn {
+            padding: 0.6rem 1rem;
+            font-weight: 500;
+            box-shadow: none;
+            font-size: 0.9rem;
+        }
+        .copybtn { background: linear-gradient(135deg, #17a2b8, #117a8b); }
+        .startbtn { background: linear-gradient(135deg, var(--success-color), #1e7e34); }
+        .closetbtn { background: linear-gradient(135deg, var(--danger-color), #bd2130); }
+
+        .group-info input[type="checkbox"] {
+            width: 20px !important;
+            height: 20px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .group-info input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .group-info input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .header img {
+                height: 60px;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+            .generate-btns, .batch-actions {
+                flex-direction: column;
+            }
+            .cmd-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .group-info {
+                width: 100%;
+            }
+            .action-btns {
+                width: 100%;
+                justify-content: space-between; /* 按钮左右分开 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://ludekuai.cc/tools/adspower_launcher/logo.png" alt="AdsPower Logo">
+        <h1>AdsPower启动器</h1>
+    </div>
+    <p class="intro">网站：<a href="https://ludekuai.cc" target="_blank">ludekuai.cc</a> | 作者推特：<a href="https://x.com/0xlin888" target="_blank">@0xlin</a> | Github：<a href="https://github.com/0xlin888/adspower_launcher" target="_blank">源码</a> | TG：<a href="https://t.me/oxlin888" target="_blank">0xlin</a></p>
+    <p class="intro">所有请求和数据在本地，不会收集和上传任何数据到网站</p>
+    <div class="container">
+        <div class="input-group">
+            <label for="api-url">API接口地址</label>
+            <input type="text" id="api-url" placeholder="输入接口地址" value="http://127.0.0.1:50325">
+        </div>
+
+        <div class="input-group">
+            <label for="id-list">环境编号</label>
+            <textarea id="id-list" placeholder="输入环境序号（支持范围格式如1-5, 或每行一个，不连续序号用逗号分隔）" rows="3"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="group-size">每组数量</label>
+            <input type="number" id="group-size" min="1" placeholder="输入每组数量">
+        </div>
+
+        <div class="generate-btns">
+            <button id="generate-cmd">随机分组</button>
+            <button id="copy-groups">复制所有分组</button>
+        </div>
+
+        <div class="batch-section">
+            <label for="batch-range">批量操作范围</label>
+            <input type="text" id="batch-range" placeholder="支持格式：单个数字（3），连续范围（1-5），不连续序号用逗号分隔">
+            <div class="batch-actions">
+                <button id="batch-start" class="startbtn">批量启动</button>
+                <button id="batch-close" class="closetbtn">批量关闭</button>
+            </div>
+        </div>
+
+        <div class="cmd-container" id="cmd-output"></div>
+    </div>
+
+    <script>
+        // 你的 JavaScript 代码保持不变，因为它负责功能逻辑，与 UI 优化无关。
+        // 为了完整性，我还是把它放在这里了。
+        // 数据持久化
+        document.addEventListener('DOMContentLoaded', () => {
+            ['api-url', 'id-list', 'group-size', 'batch-range'].forEach(id => {
+                const saved = localStorage.getItem(id);
+                if (saved) document.getElementById(id).value = saved;
+            });
+
+            document.querySelectorAll('input, textarea').forEach(el => {
+                el.addEventListener('input', () => localStorage.setItem(el.id, el.value));
+            });
+        });
+
+        // 输入解析器
+        const rangeParser = {
+            parse(input) {
+                const result = new Set();
+                input.split(/[\n,]+/).forEach(part => {
+                    const trimmed = part.trim();
+                    if (!trimmed) return;
+
+                    if (trimmed.includes('-')) {
+                        const [a, b] = trimmed.split('-').map(Number);
+                        if (!isNaN(a) && !isNaN(b)) {
+                            const start = Math.min(a, b);
+                            const end = Math.max(a, b);
+                            for (let i = start; i <= end; i++) result.add(i);
+                        }
+                    } else {
+                        const num = parseInt(trimmed);
+                        if (!isNaN(num)) result.add(num);
+                    }
+                });
+                return Array.from(result).sort((a, b) => a - b);
+            }
+        };
+
+        // API客户端
+        const apiClient = {
+            async handleAction(ids, action) {
+                const apiUrl = document.getElementById('api-url').value;
+                const requests = ids.map((id, index) => 
+                    new Promise(resolve => {
+                        setTimeout(async () => {
+                            try {
+                                const endpoint = action === 'start' ? 'start' : 'stop';
+                                await fetch(`${apiUrl}/api/v1/browser/${endpoint}?serial_number=${id}`, {
+                                    mode: 'no-cors'
+                                });
+                                console.log(`${action} success: ${id}`);
+                            } catch (error) {
+                                console.error(`${action} error: ${id}`, error);
+                            }
+                            resolve();
+                        }, index * 1000); // 1秒间隔
+                    })
+                );
+                return Promise.all(requests);
+            }
+        };
+
+        // 分组管理器
+        const groupManager = {
+            currentGroups: [],
+
+            generateGroups() {
+                const ids = rangeParser.parse(document.getElementById('id-list').value);
+                const groupSize = parseInt(document.getElementById('group-size').value) || 1;
+                
+                if (!ids.length) return alert('请输入有效环境编号');
+                if (groupSize < 1) return alert('分组数量无效');
+
+                const shuffled = [...ids].sort(() => Math.random() - 0.5);
+                const groups = [];
+                while (shuffled.length) {
+                    groups.push(shuffled.splice(0, groupSize));
+                }
+                this.currentGroups = groups;
+                this.renderGroups(groups);
+            },
+
+            renderGroups(groups) {
+                const container = document.getElementById('cmd-output');
+                container.innerHTML = groups.map((group, index) => `
+                    <div class="cmd-group">
+                        <div class="group-info">
+                            <input type="checkbox">
+                            <span class="group-number">第${index + 1}组</span>
+                            <span class="group-ids">${group.join(', ')}</span>
+                        </div>
+                        <div class="action-btns">
+                            <button class="exec-btn copybtn">复制</button>
+                            <button class="exec-btn startbtn">启动</button>
+                            <button class="exec-btn closetbtn">关闭</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                container.querySelectorAll('.cmd-group').forEach((groupEl, index) => {
+                    this.bindEvents(groupEl, groups[index]);
+                });
+            },
+
+            bindEvents(groupEl, ids) {
+                const [copyBtn, startBtn, closeBtn] = groupEl.querySelectorAll('button');
+                
+                copyBtn.onclick = () => {
+                    navigator.clipboard.writeText(ids.join(', '))
+                        .then(() => this.showAlert('已复制', copyBtn))
+                        .catch(() => this.showAlert('复制失败', copyBtn, true));
+                };
+
+                startBtn.onclick = async () => {
+                    startBtn.disabled = true;
+                    startBtn.textContent = '启动中...';
+                    try {
+                        await apiClient.handleAction(ids, 'start');
+                        this.showAlert('启动成功', startBtn);
+                        startBtn.textContent = '启动';
+                        closeBtn.textContent = '关闭';
+                    } catch {
+                        this.showAlert('启动失败', startBtn, true);
+                        startBtn.textContent = '启动';
+                    } finally {
+                        startBtn.disabled = false;
+                    }
+                };
+
+                closeBtn.onclick = async () => {
+                    closeBtn.disabled = true;
+                    closeBtn.textContent = '关闭中...';
+                    try {
+                        await apiClient.handleAction(ids, 'stop');
+                        this.showAlert('关闭成功', closeBtn);
+                        startBtn.textContent = '启动';
+                        closeBtn.textContent = '关闭';
+                    } catch {
+                        this.showAlert('关闭失败', closeBtn, true);
+                        closeBtn.textContent = '关闭';
+                    } finally {
+                        closeBtn.disabled = false;
+                    }
+                };
+            },
+
+            showAlert(message, target, isError = false) {
+                const alert = document.createElement('div');
+                alert.textContent = message;
+                alert.style = `
+                    position: absolute;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    background: ${isError ? 'var(--danger-color)' : 'var(--success-color)'};
+                    color: white;
+                    z-index: 10;
+                    font-size: 0.8rem;
+                `;
+                target.parentNode.style.position = 'relative';
+                target.parentNode.appendChild(alert);
+                setTimeout(() => alert.remove(), 1000);
+            }
+        };
+
+        // 批量操作
+        document.getElementById('batch-start').onclick = async () => {
+            const btn = document.getElementById('batch-start');
+            btn.disabled = true;
+            btn.textContent = '批量启动中...';
+            
+            try {
+                const ids = rangeParser.parse(document.getElementById('batch-range').value);
+                await apiClient.handleAction(ids, 'start');
+                groupManager.showAlert(`已启动 ${ids.length} 个环境`, btn);
+            } catch {
+                groupManager.showAlert('启动失败', btn, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '批量启动';
+            }
+        };
+
+        document.getElementById('batch-close').onclick = async () => {
+            const btn = document.getElementById('batch-close');
+            btn.disabled = true;
+            btn.textContent = '批量关闭中...';
+            
+            try {
+                const ids = rangeParser.parse(document.getElementById('batch-range').value);
+                await apiClient.handleAction(ids, 'stop');
+                groupManager.showAlert(`已关闭 ${ids.length} 个环境`, btn);
+            } catch {
+                groupManager.showAlert('关闭失败', btn, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '批量关闭';
+            }
+        };
+
+        // 初始化
+        document.getElementById('generate-cmd').onclick = () => groupManager.generateGroups();
+
+        // 新增复制所有分组功能
+        document.getElementById('copy-groups').onclick = () => {
+            if (!groupManager.currentGroups.length) {
+                return alert('请先进行随机分组');
+            }
+            
+            const text = groupManager.currentGroups
+                .map(group => `第${groupManager.currentGroups.indexOf(group) + 1}组: ${group.join(', ')}`)
+                .join('\n');
+            
+            navigator.clipboard.writeText(text)
+                .then(() => groupManager.showAlert('复制成功', document.getElementById('copy-groups')))
+                .catch(() => groupManager.showAlert('复制失败', document.getElementById('copy-groups'), true));
+        };
+    </script>
+</body>
+</html>
