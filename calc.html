@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binance Alpha 积分计算器（优化版）</title>
+    <title>Binance Alpha 积分计算器</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,6 +15,7 @@
             --light: #e0e1dd;
             --success: #06d6a0;
             --warning: #ffd166;
+            --highlight: #ff6b6b;
         }
         
         * {
@@ -221,6 +222,20 @@
             font-weight: 600;
         }
         
+        .emphasize {
+            color: var(--highlight);
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+        
+        .limit-highlight {
+            color: var(--highlight);
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
         footer {
             text-align: center;
             margin-top: 50px;
@@ -335,6 +350,40 @@
             color: var(--primary);
         }
         
+        .hyperion-link {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 15px;
+            font-size: 0.9rem;
+            color: var(--warning);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255, 209, 102, 0.1);
+            border: 1px solid rgba(255, 209, 102, 0.3);
+        }
+        
+        .hyperion-link:hover {
+            color: #ffd166;
+            background: rgba(255, 209, 102, 0.2);
+            transform: translateY(-2px);
+            text-decoration: underline;
+            box-shadow: 0 0 10px rgba(255, 209, 102, 0.2);
+        }
+        
+        .hyperion-link i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .card-title-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -357,6 +406,25 @@
                 min-width: 80px;
                 padding: 10px 12px;
                 font-size: 0.9rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .card-icon {
+                margin-bottom: 15px;
+            }
+            
+            .hyperion-link {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .card-title-container {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
         
@@ -382,7 +450,7 @@
                 <i class="fas fa-calculator"></i>
             </div>
             <h1>Binance Alpha 积分计算器</h1>
-            <p class="subtitle">优化交易策略，最大化您的积分收益。科技优化版提供更精准的计算和更好的用户体验</p>
+            <p class="subtitle">优化交易策略，精准计算与更好的刷分体验</p>
         </header>
         
         <div class="card">
@@ -425,7 +493,9 @@
                 <div class="card-icon">
                     <i class="fas fa-user"></i>
                 </div>
-                <h2>单账号纯刷计算</h2>
+                <div>
+                    <h2>单账号纯刷计算</h2>
+                </div>
             </div>
             <div class="form-group">
                 <label for="bal1"><i class="fas fa-wallet"></i> 账号余额 (USDT)</label>
@@ -469,7 +539,14 @@
                 <div class="card-icon">
                     <i class="fas fa-sync-alt"></i>
                 </div>
-                <h2>特定场景 - 双活动策略</h2>
+                <div class="card-title-container">
+                    <h2>特定场景 - Alpha与Hyperion双活动策略</h2>
+                    <a href="https://hyperion.xyz/campaign/trading" 
+                       target="_blank" 
+                       class="hyperion-link">
+                        <i class="fas fa-external-link-alt"></i> 查看Hyperion活动详情
+                    </a>
+                </div>
             </div>
             <div class="form-group">
                 <label for="balSpecial"><i class="fas fa-wallet"></i> 账户余额 (USDT)</label>
@@ -513,7 +590,7 @@
             </a>
             <p class="info-text">查看 <a href="https://x.com/0xTimor" target="_blank" style="color: var(--primary);">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
             <p class="info-text" style="margin-top: 20px; color: #5a6d8a;">
-                <i class="fas fa-code"></i> 2025 Binance Alpha 积分计算器 0.01c
+                <i class="fas fa-code"></i> Binance Alpha 积分计算器 © 2025
             </p>
         </footer>
     </div>
@@ -555,7 +632,13 @@
             const bal = parseFloat(document.getElementById('bal1').value);
             const score = getActiveValue('#resultPure + .form-group .btn-group') || '15';
             const type = getActiveValue('#resultPure + .form-group + .form-group .btn-group') || '限价';
-            const redundancy = parseFloat(document.getElementById('redundancyPure').value) || 200;
+            let redundancy = parseFloat(document.getElementById('redundancyPure').value);
+            
+            // 修复余量设置为0不生效的问题
+            if (isNaN(redundancy)) {
+                redundancy = 200;
+            }
+            
             const mult = getMultiplier(type);
             const target = getTargetUnits(score);
 
@@ -573,9 +656,10 @@
             const fullPens = Math.floor(reqVol / bal);
             const partial = reqVol - fullPens * bal;
             
+            // 突出显示限价金额
             let suggestion = `<p>需要 <span class="success">${fullPens} 笔</span> 全额 ${type} 交易（每笔 ${bal} USDT）</p>`;
             if (partial > 0) {
-                suggestion += `<p>+ <span class="success">1 笔</span> 部分 ${type} 交易（约 ${partial.toFixed(2)} USDT）</p>`;
+                suggestion += `<p>+ <span class="success">1 笔</span> 部分 ${type} 交易（约 <span class="emphasize">${partial.toFixed(2)} USDT</span>）</p>`;
             }
             
             resultContent.innerHTML = `
@@ -595,7 +679,12 @@
             const bscPens = parseInt(document.getElementById('bscPens').value);
             const bscAmount = parseFloat(document.getElementById('bscAmount').value);
             const score = getActiveValue('#resultSpecial + .form-group .btn-group') || '15';
-            const redundancy = parseFloat(document.getElementById('redundancy').value) || 200;
+            let redundancy = parseFloat(document.getElementById('redundancy').value);
+            
+            // 修复余量设置为0不生效的问题
+            if (isNaN(redundancy)) {
+                redundancy = 200;
+            }
 
             const resultBox = document.getElementById('resultSpecial');
             const resultContent = document.getElementById('specialResultContent');
@@ -627,9 +716,10 @@
             const fullPens = Math.floor(reqLimitVol / bal);
             const partial = reqLimitVol - fullPens * bal;
             
-            let suggestion = `<p>需要额外 <span class="success">${fullPens} 笔</span> 全额限价交易（每笔 ${bal} USDT）</p>`;
+            // 突出显示限价金额
+            let suggestion = `<p>需要额外 <span class="success">${fullPens} 笔</span> <span class="limit-highlight">全额限价</span>交易（每笔 ${bal} USDT）</p>`;
             if (partial > 0) {
-                suggestion += `<p>+ <span class="success">1 笔</span> 部分限价交易（约 ${partial.toFixed(2)} USDT）</p>`;
+                suggestion += `<p>+ <span class="success">1 笔</span> <span class="limit-highlight">部分限价</span>交易（约 <span class="emphasize">${partial.toFixed(2)} USDT</span>）</p>`;
             }
             
             resultContent.innerHTML = `
