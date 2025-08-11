@@ -34,6 +34,7 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             font-weight: 500;
+            white-space: nowrap; /* Prevent buttons from wrapping */
         }
         .btn-group .btn:hover {
             background-color: #3e3e60;
@@ -106,9 +107,9 @@
         .space-y-4 > *:not(:last-child) {
             margin-bottom: 1rem;
         }
-        .grid-cols-2 {
+        .grid-cols-3 {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
         }
         @media (max-width: 640px) {
@@ -119,6 +120,9 @@
             label {
                 min-width: auto;
                 margin-bottom: 8px;
+            }
+            .grid-cols-3 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
             }
         }
     </style>
@@ -154,11 +158,15 @@
                 </div>
                 <div class="flex-row-center">
                     <label>交易类型:</label>
-                    <div class="btn-group grid-cols-2 flex-grow">
+                    <div class="btn-group grid-cols-3 flex-grow">
                         <button type="button" class="btn" data-type="普通链">普通链</button>
                         <button type="button" class="btn" data-type="BSC链">BSC链</button>
                         <button type="button" class="btn active" data-type="限价">限价</button>
                     </div>
+                </div>
+                <div class="flex-row-center">
+                    <label>余量单位:</label>
+                    <input type="number" id="pureRedundancy" value="200" min="0" placeholder="输入余量单位，如：200">
                 </div>
                 <button type="button" onclick="calcPure()" class="primary-btn w-full mt-4">开始计算</button>
                 <div id="resultPure" class="text-gray-200 hidden"></div>
@@ -188,8 +196,8 @@
                     </div>
                 </div>
                 <div class="flex-row-center">
-                    <label>余量交易额:</label>
-                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量交易额，如：200">
+                    <label>余量单位:</label>
+                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位，如：200">
                 </div>
                 <button type="button" onclick="calcSpecial()" class="primary-btn w-full mt-4">计算所需限价笔数</button>
                 <div id="resultSpecial" class="text-gray-200 hidden"></div>
@@ -228,9 +236,9 @@
             const bal = parseFloat(document.getElementById('bal1').value);
             const score = document.querySelector('#accountsForm .btn-group .btn.active[data-score]').dataset.score;
             const type = document.querySelector('#accountsForm .btn-group .btn.active[data-type]').dataset.type;
+            const redundancy = parseFloat(document.getElementById('pureRedundancy').value) || 0;
             const mult = getMultiplier(type);
             const target = getTargetUnits(score);
-            const redundancy = 200; // 默认添加200单位冗余
 
             const resultEl = document.getElementById('resultPure');
             resultEl.classList.remove('hidden');
@@ -251,8 +259,11 @@
                 <hr class="my-2 border-gray-500">
                 <p><strong>交易建议:</strong></p>
                 <ul class="list-disc pl-6">
-                    <li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额 ${type} 交易 (每笔 ${bal} u)</li>
             `;
+
+            if (fullPens > 0) {
+                suggestion += `<li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额 ${type} 交易 (每笔 ${bal} u)</li>`;
+            }
 
             if (partialAmount > 0) {
                 suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分 ${type} 交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
@@ -305,14 +316,24 @@
                 <hr class="my-2 border-gray-500">
                 <p><strong>交易建议:</strong></p>
                 <ul class="list-disc pl-6">
-                    <li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>
             `;
+
+            if (fullPens > 0) {
+                suggestion += `<li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>`;
+            }
 
             if (partialAmount > 0) {
                 suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分限价交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+            } else if (fullPens === 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：${reqLimitVol.toFixed(2)} u）即可达到目标。</p>`;
+            } else {
+                suggestion += `<li>无剩余，只需 ${fullPens} 笔交易即可。</li>`;
             }
             
-            suggestion += `</ul>`;
+            if (fullPens > 0 || partialAmount > 0) {
+                suggestion += `</ul>`;
+            }
+
             resultEl.innerHTML = suggestion;
         }
     </script>
