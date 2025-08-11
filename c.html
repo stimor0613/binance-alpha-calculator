@@ -3,312 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binance Alpha 积分计算器（优化版）</title>
+    <title>Binance Alpha 积分计算器</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e5e7eb;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        .btn-group .btn {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border: 1px solid #d1d5db;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
         }
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-group .btn:hover {
+            background-color: #e5e7eb;
+            color: #1f2937;
+        }
+        .btn-group .btn.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .primary-btn {
+            background-color: #3b82f6;
             color: white;
             padding: 12px 24px;
-            border-radius: 12px;
-            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        .primary-btn:hover {
+            background-color: #2563eb;
         }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
-        }
-        .btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
-        }
-        .btn-success {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-        }
-        .btn-success:hover {
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
-        }
-        .btn-warning {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
-        }
-        .btn-warning:hover {
-            box-shadow: 0 8px 25px rgba(250, 112, 154, 0.6);
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 10px 0;
-        }
-        .btn-option {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        .btn-option:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-        .btn-option.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: transparent;
-        }
-        input, select {
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 16px;
+        input {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px 12px;
             width: 100%;
             max-width: 300px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
+            transition: border-color 0.2s;
         }
-        input:focus, select:focus {
+        input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-1px);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
         label {
-            display: inline-block;
-            width: 150px;
-            font-weight: 600;
+            min-width: 120px;
+            font-weight: 500;
             color: #374151;
-            margin-bottom: 8px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
         }
         #resultPure, #resultSpecial {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-left: 4px solid #667eea;
-            font-weight: 500;
-        }
-        .title {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-weight: 800;
-        }
-        .card-title {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 24px;
+            border: 1px dashed #d1d5db;
             color: #1f2937;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        .rules-list {
-            background: rgba(102, 126, 234, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 4px solid #667eea;
-        }
-        .rules-list li {
-            margin-bottom: 12px;
-            color: #4b5563;
             line-height: 1.6;
         }
         footer {
             text-align: center;
             margin-top: 40px;
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            color: #6b7280;
         }
-        footer a {
-            color: #fbbf24;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
+        .link {
+            color: #3b82f6;
+            font-weight: 500;
+            transition: color 0.2s;
         }
-        footer a:hover {
-            color: #f59e0b;
+        .link:hover {
+            color: #2563eb;
             text-decoration: underline;
         }
-        .highlight {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: 600;
+        .flex-row-center {
+            display: flex;
+            align-items: center;
+        }
+        .space-y-4 > *:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        @media (max-width: 640px) {
+            .flex-row-center {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            label {
+                min-width: auto;
+                margin-bottom: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Binance Alpha 积分计算器（优化版）</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Binance Alpha 积分计算器</h1>
         
         <div class="card">
-            <h2 class="card-title">活动规则</h2>
-            <ul class="rules-list list-disc pl-6">
-                <li>目标单位 for <span class="highlight">15分</span>: 32768</li>
-                <li>for <span class="highlight">16分</span>: 65536</li>
-                <li><span class="highlight">普通链</span>: 1u 交易额 = 1 单位</li>
-                <li><span class="highlight">BSC链</span>: 1u 交易额 = 2 单位</li>
-                <li><span class="highlight">限价</span>: 1u 交易额 = 4 单位</li>
-                <li>每笔交易的交易额 = 余额 u（假设每笔刷余额金额的交易）</li>
-                <li>笔数使用向上取整，但优化为全笔 + 部分笔建议</li>
-                <li>默认添加200单位余量以防万一</li>
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">活动规则</h2>
+            <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                <li>目标单位 for 15分: 32768</li>
+                <li>目标单位 for 16分: 65536</li>
+                <li>普通链: 1u 交易额 = 1 单位</li>
+                <li>BSC链: 1u 交易额 = 2 单位</li>
+                <li>限价: 1u 交易额 = 4 单位</li>
             </ul>
         </div>
 
         <div class="card">
-            <h2 class="card-title">单账号纯刷计算</h2>
+            <h2 class="text-xl font-semibold mb-6 text-gray-700">单账号纯刷计算</h2>
             <form id="accountsForm" class="space-y-4">
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>账号余额:</label>
-                    <input type="number" id="bal1" min="0" placeholder="输入余额">
+                    <input type="number" id="bal1" min="0" placeholder="输入余额，如：1000">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>目标分数:</label>
-                    <div class="btn-group">
-                        <button type="button" class="btn-option" data-value="15" onclick="selectTargetScore(15)">15分</button>
-                        <button type="button" class="btn-option" data-value="16" onclick="selectTargetScore(16)">16分</button>
+                    <div class="btn-group grid-cols-2 flex-grow">
+                        <button type="button" class="btn active" data-score="15">15 分</button>
+                        <button type="button" class="btn" data-score="16">16 分</button>
                     </div>
-                    <input type="hidden" id="targetScore" value="15">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>交易类型:</label>
-                    <div class="btn-group">
-                        <button type="button" class="btn-option" data-value="普通链" onclick="selectType('普通链')">普通链</button>
-                        <button type="button" class="btn-option" data-value="BSC链" onclick="selectType('BSC链')">BSC链</button>
-                        <button type="button" class="btn-option active" data-value="限价" onclick="selectType('限价')">限价</button>
+                    <div class="btn-group grid-cols-2 flex-grow">
+                        <button type="button" class="btn" data-type="普通链">普通链</button>
+                        <button type="button" class="btn" data-type="BSC链">BSC链</button>
+                        <button type="button" class="btn active" data-type="限价">限价</button>
                     </div>
-                    <input type="hidden" id="type" value="限价">
                 </div>
-                
-                <button type="button" onclick="calcPure()" class="btn btn-primary">计算</button>
-                <div id="resultPure" class="text-gray-800"></div>
+                <button type="button" onclick="calcPure()" class="primary-btn w-full mt-4">开始计算</button>
+                <div id="resultPure" class="text-gray-800 hidden"></div>
             </form>
         </div>
 
         <div class="card">
-            <h2 class="card-title">特定场景: 已刷BSC后补限价</h2>
+            <h2 class="text-xl font-semibold mb-6 text-gray-700">特定场景: 已刷BSC后补限价</h2>
             <form id="specialForm" class="space-y-4">
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>余额:</label>
-                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额">
+                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额，如：1190">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>已刷BSC笔数:</label>
-                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数">
+                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数，如：2">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>已刷BSC每笔金额:</label>
-                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额">
+                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额，如：1030">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>目标分数:</label>
-                    <div class="btn-group">
-                        <button type="button" class="btn-option" data-value="15" onclick="selectTargetSpecial(15)">15分</button>
-                        <button type="button" class="btn-option" data-value="16" onclick="selectTargetSpecial(16)">16分</button>
+                    <div class="btn-group grid-cols-2 flex-grow">
+                        <button type="button" class="btn active" data-score="15">15 分</button>
+                        <button type="button" class="btn" data-score="16">16 分</button>
                     </div>
-                    <input type="hidden" id="targetSpecial" value="15">
                 </div>
-                
-                <div class="form-group">
+                <div class="flex-row-center">
                     <label>余量交易额:</label>
-                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量交易额">
+                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量交易额，如：200">
                 </div>
-                
-                <button type="button" onclick="calcSpecial()" class="btn btn-success">计算所需限价笔数</button>
-                <div id="resultSpecial" class="text-gray-800"></div>
+                <button type="button" onclick="calcSpecial()" class="primary-btn w-full mt-4">计算所需限价笔数</button>
+                <div id="resultSpecial" class="text-gray-800 hidden"></div>
             </form>
         </div>
 
         <footer>
-            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank">@0xTimor</a>！</p>
-            <p>查看 <a href="https://x.com/0xTimor" target="_blank">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
+            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank" class="link">@0xTimor</a>！</p>
+            <p>查看 <a href="https://x.com/0xTimor" target="_blank" class="link">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
         </footer>
     </div>
 
     <script>
-        // 初始化页面时设置默认选中状态
-        document.addEventListener('DOMContentLoaded', function() {
-            selectTargetScore(15);
-            selectType('限价');
-            selectTargetSpecial(15);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.btn-group .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const group = this.closest('.btn-group');
+                    group.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
         });
 
-        function selectTargetScore(value) {
-            document.getElementById('targetScore').value = value;
-            document.querySelectorAll('[data-value]').forEach(btn => {
-                if (btn.getAttribute('data-value') == value && btn.closest('.form-group').querySelector('label').textContent.includes('目标分数')) {
-                    btn.classList.add('active');
-                } else if (btn.closest('.form-group').querySelector('label').textContent.includes('目标分数')) {
-                    btn.classList.remove('active');
-                }
-            });
+        function getMultiplier(type) {
+            if (type === '普通链') return 1;
+            if (type === 'BSC链') return 2;
+            if (type === '限价') return 4;
+            return 1;
         }
 
-        function selectType(value) {
-            document.getElementById('type').value = value;
-            document.querySelectorAll('[data-value]').forEach(btn => {
-                if (btn.getAttribute('data-value') == value && btn.closest('.form-group').querySelector('label').textContent.includes('交易类型')) {
-                    btn.classList.add('active');
-                } else if (btn.closest('.form-group').querySelector('label').te
+        function getTargetUnits(score) {
+            return Math.pow(2, parseInt(score));
+        }
+
+        function calcPure() {
+            const bal = parseFloat(document.getElementById('bal1').value);
+            const score = document.querySelector('#accountsForm .btn-group .btn.active[data-score]').dataset.score;
+            const type = document.querySelector('#accountsForm .btn-group .btn.active[data-type]').dataset.type;
+            const mult = getMultiplier(type);
+            const target = getTargetUnits(score);
+
+            const resultEl = document.getElementById('resultPure');
+            resultEl.classList.remove('hidden');
+
+            if (isNaN(bal) || bal <= 0) {
+                resultEl.innerHTML = '<span class="text-red-500">请填写有效的账号余额。</span>';
+                return;
+            }
+
+            const reqVol = target / mult;
+            const pens = Math.ceil(reqVol / bal);
+            const totalVol = pens * bal;
+
+            resultEl.innerHTML = `
+                <p><strong>账号余额:</strong> ${bal} u</p>
+                <p><strong>目标分数:</strong> ${score} 分</p>
+                <p><strong>交易类型:</strong> ${type}</p>
+                <hr class="my-2 border-gray-300">
+                <p><strong>所需交易笔数:</strong> <span class="font-semibold text-green-600">${pens}</span> 笔</p>
+                <p><strong>总交易额预估:</strong> <span class="font-semibold">${totalVol.toFixed(2)}</span> u</p>
+                <p><strong>目标所需交易额:</strong> <span class="font-semibold">${reqVol.toFixed(2)}</span> u</p>
+            `;
+        }
+
+        function calcSpecial() {
+            const bal = parseFloat(document.getElementById('balSpecial').value);
+            const bscPens = parseInt(document.getElementById('bscPens').value);
+            const bscAmount = parseFloat(document.getElementById('bscAmount').value);
+            const score = document.querySelector('#specialForm .btn-group .btn.active[data-score]').dataset.score;
+            const redundancy = parseFloat(document.getElementById('redundancy').value) || 0;
+
+            const resultEl = document.getElementById('resultSpecial');
+            resultEl.classList.remove('hidden');
+
+            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || isNaN(bscAmount) || bscAmount <= 0) {
+                resultEl.innerHTML = '<span class="text-red-500">请输入有效的数值。</span>';
+                return;
+            }
+
+            const target = getTargetUnits(score);
+            const contributed = bscPens * bscAmount * 2; // BSC multiplier is 2
+            const remaining = target - contributed;
+
+            if (remaining <= 0) {
+                resultEl.innerHTML = '<span class="text-green-600">已达到或超过目标，无需额外交易。</span>';
+                return;
+            }
+            
+            const targetWithRedundancy = remaining + redundancy;
+            const reqLimitVol = targetWithRedundancy / 4; // 限价 multiplier is 4
+            const fullPens = Math.floor(reqLimitVol / bal);
+            const partialAmount = reqLimitVol % bal;
+            
+            let suggestion = `
+                <p><strong>已贡献单位:</strong> ${contributed.toFixed(2)}</p>
+                <p><strong>还需单位:</strong> ${remaining.toFixed(2)}</p>
+                <p><strong>所需限价交易额:</strong> <span class="font-semibold">${reqLimitVol.toFixed(2)}</span> u (含 ${redundancy} 单位余量)</p>
+                <hr class="my-2 border-gray-300">
+                <p><strong>交易建议:</strong></p>
+                <ul class="list-disc pl-6">
+                    <li><span class="font-semibold text-green-600">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>
+            `;
+
+            if (partialAmount > 0) {
+                suggestion += `<li><span class="font-semibold text-green-600">1</span> 笔部分限价交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+            }
+            
+            suggestion += `</ul>`;
+            resultEl.innerHTML = suggestion;
+        }
+    </script>
+</body>
+</html>
