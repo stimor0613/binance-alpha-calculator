@@ -6,45 +6,79 @@
     <title>Binance Alpha 积分计算器</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        /* 背景图和整体样式 */
         body {
             background-color: #1a1a2e;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%25" height="100%25" viewBox="0 0 1600 800"%3E%3Cg stroke="%233e3e60" stroke-width="2.1" stroke-opacity="0.19" %3E%3Cpath fill="%231a1a2e" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.25" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.1" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="%231a1a2e" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.17" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.05" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="%231a1a2e" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.07" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.01" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3C/g%3E%3C/svg%3E');
+            background-attachment: fixed;
+            background-size: cover;
             color: #e0e0e0;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
             min-height: 100vh;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 24px;
         }
+
         .card {
-            background: #252540;
+            background: rgba(37, 37, 64, 0.9); /* 半透明背景，能看到后面的背景图 */
+            backdrop-filter: blur(5px); /* 磨砂玻璃效果 */
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             padding: 24px;
             margin-bottom: 24px;
-            border: 1px solid #3e3e60;
+            border: 1px solid rgba(62, 62, 96, 0.6);
         }
+        
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-row label {
+            flex-basis: 120px; /* 固定标签宽度 */
+            flex-shrink: 0;
+            font-weight: 500;
+            color: #c0c0c0;
+        }
+        
+        .form-row .input-container {
+            flex-grow: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
         .btn-group .btn {
+            flex-grow: 1;
+            text-align: center;
             background-color: #2e2e4e;
             color: #a0a0c0;
             border: 1px solid #3e3e60;
-            padding: 10px 20px;
+            padding: 10px 0;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             font-weight: 500;
-            white-space: nowrap; /* Prevent buttons from wrapping */
         }
+        
         .btn-group .btn:hover {
             background-color: #3e3e60;
             color: #ffffff;
         }
+        
         .btn-group .btn.active {
             background-color: #4c6ef5;
             color: white;
             border-color: #4c6ef5;
         }
+        
         .primary-btn {
             background-color: #4c6ef5;
             color: white;
@@ -53,10 +87,13 @@
             transition: background-color 0.3s;
             font-weight: 600;
             border: none;
+            width: 100%;
         }
+
         .primary-btn:hover {
             background-color: #3b5bdb;
         }
+
         input {
             background-color: #2e2e4e;
             color: #ffffff;
@@ -64,19 +101,15 @@
             border-radius: 8px;
             padding: 10px 12px;
             width: 100%;
-            max-width: 300px;
             transition: border-color 0.2s;
         }
+
         input:focus {
             outline: none;
             border-color: #4c6ef5;
             box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.2);
         }
-        label {
-            min-width: 120px;
-            font-weight: 500;
-            color: #c0c0c0;
-        }
+
         #resultPure, #resultSpecial {
             background: #2e2e4e;
             padding: 16px;
@@ -86,43 +119,31 @@
             color: #d0d0d0;
             line-height: 1.6;
         }
+        
         footer {
             text-align: center;
             margin-top: 40px;
             color: #8888aa;
         }
+        
         .link {
             color: #4c6ef5;
             font-weight: 500;
             transition: color 0.2s;
         }
+        
         .link:hover {
             color: #3b5bdb;
             text-decoration: underline;
         }
-        .flex-row-center {
-            display: flex;
-            align-items: center;
-        }
-        .space-y-4 > *:not(:last-child) {
-            margin-bottom: 1rem;
-        }
-        .grid-cols-3 {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
+        
         @media (max-width: 640px) {
-            .flex-row-center {
+            .form-row {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            label {
-                min-width: auto;
+            .form-row label {
                 margin-bottom: 8px;
-            }
-            .grid-cols-3 {
-                grid-template-columns: repeat(1, minmax(0, 1fr));
             }
         }
     </style>
@@ -145,30 +166,38 @@
         <div class="card">
             <h2 class="text-xl font-semibold mb-6 text-white">单账号纯刷计算</h2>
             <form id="accountsForm" class="space-y-4">
-                <div class="flex-row-center">
-                    <label>账号余额:</label>
-                    <input type="number" id="bal1" min="0" placeholder="输入余额，如：1000">
+                <div class="form-row">
+                    <label for="bal1">账号余额:</label>
+                    <div class="input-container">
+                        <input type="number" id="bal1" min="0" placeholder="输入余额，如：1000">
+                    </div>
                 </div>
-                <div class="flex-row-center">
+                <div class="form-row">
                     <label>目标分数:</label>
-                    <div class="btn-group grid-cols-2 flex-grow">
-                        <button type="button" class="btn active" data-score="15">15 分</button>
-                        <button type="button" class="btn" data-score="16">16 分</button>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn active" data-score="15">15 分</button>
+                            <button type="button" class="btn" data-score="16">16 分</button>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-row-center">
+                <div class="form-row">
                     <label>交易类型:</label>
-                    <div class="btn-group grid-cols-3 flex-grow">
-                        <button type="button" class="btn" data-type="普通链">普通链</button>
-                        <button type="button" class="btn" data-type="BSC链">BSC链</button>
-                        <button type="button" class="btn active" data-type="限价">限价</button>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn" data-type="普通链">普通链</button>
+                            <button type="button" class="btn" data-type="BSC链">BSC链</button>
+                            <button type="button" class="btn active" data-type="限价">限价</button>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-row-center">
-                    <label>余量单位:</label>
-                    <input type="number" id="pureRedundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                <div class="form-row">
+                    <label for="pureRedundancy">余量单位:</label>
+                    <div class="input-container">
+                        <input type="number" id="pureRedundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                    </div>
                 </div>
-                <button type="button" onclick="calcPure()" class="primary-btn w-full mt-4">开始计算</button>
+                <button type="button" onclick="calcPure()" class="primary-btn mt-4">开始计算</button>
                 <div id="resultPure" class="text-gray-200 hidden"></div>
             </form>
         </div>
@@ -176,30 +205,40 @@
         <div class="card">
             <h2 class="text-xl font-semibold mb-6 text-white">特定场景: 已刷BSC后补限价</h2>
             <form id="specialForm" class="space-y-4">
-                <div class="flex-row-center">
-                    <label>余额:</label>
-                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额，如：1190">
-                </div>
-                <div class="flex-row-center">
-                    <label>已刷BSC笔数:</label>
-                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数，如：2">
-                </div>
-                <div class="flex-row-center">
-                    <label>已刷BSC每笔金额:</label>
-                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额，如：1030">
-                </div>
-                <div class="flex-row-center">
-                    <label>目标分数:</label>
-                    <div class="btn-group grid-cols-2 flex-grow">
-                        <button type="button" class="btn active" data-score="15">15 分</button>
-                        <button type="button" class="btn" data-score="16">16 分</button>
+                <div class="form-row">
+                    <label for="balSpecial">余额:</label>
+                    <div class="input-container">
+                        <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额，如：1190">
                     </div>
                 </div>
-                <div class="flex-row-center">
-                    <label>余量单位:</label>
-                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                <div class="form-row">
+                    <label for="bscPens">已刷BSC笔数:</label>
+                    <div class="input-container">
+                        <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数，如：2">
+                    </div>
                 </div>
-                <button type="button" onclick="calcSpecial()" class="primary-btn w-full mt-4">计算所需限价笔数</button>
+                <div class="form-row">
+                    <label for="bscAmount">已刷BSC每笔金额:</label>
+                    <div class="input-container">
+                        <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额，如：1030">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>目标分数:</label>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn active" data-score="15">15 分</button>
+                            <button type="button" class="btn" data-score="16">16 分</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="redundancy">余量单位:</label>
+                    <div class="input-container">
+                        <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                    </div>
+                </div>
+                <button type="button" onclick="calcSpecial()" class="primary-btn mt-4">计算所需限价笔数</button>
                 <div id="resultSpecial" class="text-gray-200 hidden"></div>
             </form>
         </div>
