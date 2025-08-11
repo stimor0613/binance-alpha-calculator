@@ -7,8 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f3f4f6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
             min-height: 100vh;
         }
         .container {
@@ -17,17 +18,17 @@
             padding: 24px;
         }
         .card {
-            background: white;
+            background: #252540;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             padding: 24px;
             margin-bottom: 24px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #3e3e60;
         }
         .btn-group .btn {
-            background-color: #f3f4f6;
-            color: #4b5563;
-            border: 1px solid #d1d5db;
+            background-color: #2e2e4e;
+            color: #a0a0c0;
+            border: 1px solid #3e3e60;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -35,27 +36,30 @@
             font-weight: 500;
         }
         .btn-group .btn:hover {
-            background-color: #e5e7eb;
-            color: #1f2937;
+            background-color: #3e3e60;
+            color: #ffffff;
         }
         .btn-group .btn.active {
-            background-color: #3b82f6;
+            background-color: #4c6ef5;
             color: white;
-            border-color: #3b82f6;
+            border-color: #4c6ef5;
         }
         .primary-btn {
-            background-color: #3b82f6;
+            background-color: #4c6ef5;
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
             transition: background-color 0.3s;
             font-weight: 600;
+            border: none;
         }
         .primary-btn:hover {
-            background-color: #2563eb;
+            background-color: #3b5bdb;
         }
         input {
-            border: 1px solid #d1d5db;
+            background-color: #2e2e4e;
+            color: #ffffff;
+            border: 1px solid #3e3e60;
             border-radius: 8px;
             padding: 10px 12px;
             width: 100%;
@@ -64,35 +68,35 @@
         }
         input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            border-color: #4c6ef5;
+            box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.2);
         }
         label {
             min-width: 120px;
             font-weight: 500;
-            color: #374151;
+            color: #c0c0c0;
         }
         #resultPure, #resultSpecial {
-            background: #f9fafb;
+            background: #2e2e4e;
             padding: 16px;
             border-radius: 8px;
             margin-top: 24px;
-            border: 1px dashed #d1d5db;
-            color: #1f2937;
+            border: 1px dashed #4a4a6e;
+            color: #d0d0d0;
             line-height: 1.6;
         }
         footer {
             text-align: center;
             margin-top: 40px;
-            color: #6b7280;
+            color: #8888aa;
         }
         .link {
-            color: #3b82f6;
+            color: #4c6ef5;
             font-weight: 500;
             transition: color 0.2s;
         }
         .link:hover {
-            color: #2563eb;
+            color: #3b5bdb;
             text-decoration: underline;
         }
         .flex-row-center {
@@ -121,11 +125,11 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Binance Alpha 积分计算器</h1>
+        <h1 class="text-3xl font-bold text-center mb-8 text-white">Binance Alpha 积分计算器</h1>
         
         <div class="card">
-            <h2 class="text-xl font-semibold mb-4 text-gray-700">活动规则</h2>
-            <ul class="list-disc pl-6 text-gray-600 space-y-1">
+            <h2 class="text-xl font-semibold mb-4 text-white">活动规则</h2>
+            <ul class="list-disc pl-6 text-gray-400 space-y-1">
                 <li>目标单位 for 15分: 32768</li>
                 <li>目标单位 for 16分: 65536</li>
                 <li>普通链: 1u 交易额 = 1 单位</li>
@@ -135,7 +139,7 @@
         </div>
 
         <div class="card">
-            <h2 class="text-xl font-semibold mb-6 text-gray-700">单账号纯刷计算</h2>
+            <h2 class="text-xl font-semibold mb-6 text-white">单账号纯刷计算</h2>
             <form id="accountsForm" class="space-y-4">
                 <div class="flex-row-center">
                     <label>账号余额:</label>
@@ -157,12 +161,12 @@
                     </div>
                 </div>
                 <button type="button" onclick="calcPure()" class="primary-btn w-full mt-4">开始计算</button>
-                <div id="resultPure" class="text-gray-800 hidden"></div>
+                <div id="resultPure" class="text-gray-200 hidden"></div>
             </form>
         </div>
 
         <div class="card">
-            <h2 class="text-xl font-semibold mb-6 text-gray-700">特定场景: 已刷BSC后补限价</h2>
+            <h2 class="text-xl font-semibold mb-6 text-white">特定场景: 已刷BSC后补限价</h2>
             <form id="specialForm" class="space-y-4">
                 <div class="flex-row-center">
                     <label>余额:</label>
@@ -188,7 +192,7 @@
                     <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量交易额，如：200">
                 </div>
                 <button type="button" onclick="calcSpecial()" class="primary-btn w-full mt-4">计算所需限价笔数</button>
-                <div id="resultSpecial" class="text-gray-800 hidden"></div>
+                <div id="resultSpecial" class="text-gray-200 hidden"></div>
             </form>
         </div>
 
@@ -226,28 +230,43 @@
             const type = document.querySelector('#accountsForm .btn-group .btn.active[data-type]').dataset.type;
             const mult = getMultiplier(type);
             const target = getTargetUnits(score);
+            const redundancy = 200; // 默认添加200单位冗余
 
             const resultEl = document.getElementById('resultPure');
             resultEl.classList.remove('hidden');
 
             if (isNaN(bal) || bal <= 0) {
-                resultEl.innerHTML = '<span class="text-red-500">请填写有效的账号余额。</span>';
+                resultEl.innerHTML = '<span class="text-red-400">请填写有效的账号余额。</span>';
                 return;
             }
 
-            const reqVol = target / mult;
-            const pens = Math.ceil(reqVol / bal);
-            const totalVol = pens * bal;
-
-            resultEl.innerHTML = `
-                <p><strong>账号余额:</strong> ${bal} u</p>
-                <p><strong>目标分数:</strong> ${score} 分</p>
-                <p><strong>交易类型:</strong> ${type}</p>
-                <hr class="my-2 border-gray-300">
-                <p><strong>所需交易笔数:</strong> <span class="font-semibold text-green-600">${pens}</span> 笔</p>
-                <p><strong>总交易额预估:</strong> <span class="font-semibold">${totalVol.toFixed(2)}</span> u</p>
-                <p><strong>目标所需交易额:</strong> <span class="font-semibold">${reqVol.toFixed(2)}</span> u</p>
+            const reqUnits = target + redundancy;
+            const reqVol = reqUnits / mult;
+            const fullPens = Math.floor(reqVol / bal);
+            const partialAmount = reqVol % bal;
+            
+            let suggestion = `
+                <p><strong>所需单位:</strong> ${reqUnits.toFixed(2)} (含 ${redundancy} 单位余量)</p>
+                <p><strong>所需交易额:</strong> ${reqVol.toFixed(2)} u</p>
+                <hr class="my-2 border-gray-500">
+                <p><strong>交易建议:</strong></p>
+                <ul class="list-disc pl-6">
+                    <li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额 ${type} 交易 (每笔 ${bal} u)</li>
             `;
+
+            if (partialAmount > 0) {
+                suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分 ${type} 交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+            } else if (fullPens === 0) {
+                suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：${reqVol.toFixed(2)} u）即可达到目标。</p>`;
+            } else {
+                suggestion += `<li>无剩余，只需 ${fullPens} 笔交易即可。</li>`;
+            }
+            
+            if (fullPens > 0 || partialAmount > 0) {
+                suggestion += `</ul>`;
+            }
+            
+            resultEl.innerHTML = suggestion;
         }
 
         function calcSpecial() {
@@ -261,7 +280,7 @@
             resultEl.classList.remove('hidden');
 
             if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || isNaN(bscAmount) || bscAmount <= 0) {
-                resultEl.innerHTML = '<span class="text-red-500">请输入有效的数值。</span>';
+                resultEl.innerHTML = '<span class="text-red-400">请输入有效的数值。</span>';
                 return;
             }
 
@@ -270,7 +289,7 @@
             const remaining = target - contributed;
 
             if (remaining <= 0) {
-                resultEl.innerHTML = '<span class="text-green-600">已达到或超过目标，无需额外交易。</span>';
+                resultEl.innerHTML = '<span class="text-green-400">已达到或超过目标，无需额外交易。</span>';
                 return;
             }
             
@@ -283,14 +302,14 @@
                 <p><strong>已贡献单位:</strong> ${contributed.toFixed(2)}</p>
                 <p><strong>还需单位:</strong> ${remaining.toFixed(2)}</p>
                 <p><strong>所需限价交易额:</strong> <span class="font-semibold">${reqLimitVol.toFixed(2)}</span> u (含 ${redundancy} 单位余量)</p>
-                <hr class="my-2 border-gray-300">
+                <hr class="my-2 border-gray-500">
                 <p><strong>交易建议:</strong></p>
                 <ul class="list-disc pl-6">
-                    <li><span class="font-semibold text-green-600">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>
+                    <li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>
             `;
 
             if (partialAmount > 0) {
-                suggestion += `<li><span class="font-semibold text-green-600">1</span> 笔部分限价交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+                suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分限价交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
             }
             
             suggestion += `</ul>`;
