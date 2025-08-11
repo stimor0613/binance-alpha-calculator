@@ -66,6 +66,7 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             font-weight: 500;
+            white-space: nowrap; /* Prevent buttons from wrapping */
         }
         
         .btn-group .btn:hover {
@@ -293,27 +294,29 @@
             const partialAmount = reqVol % bal;
             
             let suggestion = `
-                <p><strong>所需单位:</strong> ${reqUnits.toFixed(2)} (含 ${redundancy} 单位余量)</p>
-                <p><strong>所需交易额:</strong> ${reqVol.toFixed(2)} u</p>
+                <p><strong>所需单位:</strong> <span class="font-semibold">${reqUnits.toFixed(2)}</span> (含 <span class="font-semibold">${redundancy}</span> 单位余量)</p>
+                <p><strong>所需交易额:</strong> <span class="font-semibold">${reqVol.toFixed(2)}</span> u</p>
                 <hr class="my-2 border-gray-500">
                 <p><strong>交易建议:</strong></p>
                 <ul class="list-disc pl-6">
             `;
 
             if (fullPens > 0) {
-                suggestion += `<li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额 ${type} 交易 (每笔 ${bal} u)</li>`;
+                suggestion += `<li>需要 <span class="font-semibold text-blue-400">${fullPens}</span> 笔<span class="font-semibold text-blue-400">全额</span><span class="font-semibold">${type}</span>交易 (每笔 <span class="font-semibold">${bal}</span> u)</li>`;
             }
 
             if (partialAmount > 0) {
-                suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分 ${type} 交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+                suggestion += `<li>再加 <span class="font-semibold text-blue-400">1</span> 笔<span class="font-semibold text-blue-400">部分</span><span class="font-semibold">${type}</span>交易 (约 <span class="font-semibold">${partialAmount.toFixed(2)}</span> u)</li>`;
             } else if (fullPens === 0) {
-                suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：${reqVol.toFixed(2)} u）即可达到目标。</p>`;
+                suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqVol.toFixed(2)}</span> u）即可达到目标。</p>`;
             } else {
-                suggestion += `<li>无剩余，只需 ${fullPens} 笔交易即可。</li>`;
+                suggestion += `<li><span class="text-green-400">无剩余，只需 ${fullPens} 笔交易即可。</span></li>`;
             }
             
             if (fullPens > 0 || partialAmount > 0) {
                 suggestion += `</ul>`;
+            } else if (fullPens === 0 && partialAmount > 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqVol.toFixed(2)}</span> u）即可达到目标。</p>`;
             }
             
             resultEl.innerHTML = suggestion;
@@ -349,28 +352,30 @@
             const partialAmount = reqLimitVol % bal;
             
             let suggestion = `
-                <p><strong>已贡献单位:</strong> ${contributed.toFixed(2)}</p>
-                <p><strong>还需单位:</strong> ${remaining.toFixed(2)}</p>
-                <p><strong>所需限价交易额:</strong> <span class="font-semibold">${reqLimitVol.toFixed(2)}</span> u (含 ${redundancy} 单位余量)</p>
+                <p><strong>已贡献单位:</strong> <span class="font-semibold">${contributed.toFixed(2)}</span></p>
+                <p><strong>还需单位:</strong> <span class="font-semibold">${remaining.toFixed(2)}</span></p>
+                <p><strong>所需限价交易额:</strong> <span class="font-semibold">${reqLimitVol.toFixed(2)}</span> u (含 <span class="font-semibold">${redundancy}</span> 单位余量)</p>
                 <hr class="my-2 border-gray-500">
                 <p><strong>交易建议:</strong></p>
                 <ul class="list-disc pl-6">
             `;
 
             if (fullPens > 0) {
-                suggestion += `<li><span class="font-semibold text-blue-400">${fullPens}</span> 笔全额限价交易 (每笔 ${bal} u)</li>`;
+                suggestion += `<li>需要 <span class="font-semibold text-blue-400">${fullPens}</span> 笔<span class="font-semibold text-blue-400">全额限价</span>交易 (每笔 <span class="font-semibold">${bal}</span> u)</li>`;
             }
 
             if (partialAmount > 0) {
-                suggestion += `<li><span class="font-semibold text-blue-400">1</span> 笔部分限价交易 (约 ${partialAmount.toFixed(2)} u)</li>`;
+                suggestion += `<li>再加 <span class="font-semibold text-blue-400">1</span> 笔<span class="font-semibold text-blue-400">部分限价</span>交易 (约 <span class="font-semibold">${partialAmount.toFixed(2)}</span> u)</li>`;
             } else if (fullPens === 0) {
-                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：${reqLimitVol.toFixed(2)} u）即可达到目标。</p>`;
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqLimitVol.toFixed(2)}</span> u）即可达到目标。</p>`;
             } else {
-                suggestion += `<li>无剩余，只需 ${fullPens} 笔交易即可。</li>`;
+                suggestion += `<li><span class="text-green-400">无剩余，只需 ${fullPens} 笔交易即可。</span></li>`;
             }
             
             if (fullPens > 0 || partialAmount > 0) {
                 suggestion += `</ul>`;
+            } else if (fullPens === 0 && partialAmount > 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqLimitVol.toFixed(2)}</span> u）即可达到目标。</p>`;
             }
 
             resultEl.innerHTML = suggestion;
