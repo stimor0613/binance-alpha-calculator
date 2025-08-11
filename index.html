@@ -5,740 +5,381 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binance Alpha 积分计算器</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #3a86ff;
-            --secondary: #8338ec;
-            --dark: #0d1b2a;
-            --darker: #070f18;
-            --light: #e0e1dd;
-            --success: #06d6a0;
-            --warning: #ffd166;
-            --highlight: #ff6b6b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
+        /* 背景图和整体样式 */
         body {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
+            background-color: #1a1a2e;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%25" height="100%25" viewBox="0 0 1600 800"%3E%3Cg stroke="%233e3e60" stroke-width="2.1" stroke-opacity="0.19" %3E%3Cpath fill="%231a1a2e" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.25" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.1" d="M-400 400C-400 620.914 -220.914 800 0 800S400 620.914 400 400S220.914 0 0 0S-400 179.086 -400 400Z"/%3E%3Cpath fill="%231a1a2e" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.17" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.05" d="M-200 400C-200 510.457 -110.457 600 0 600S200 510.457 200 400S110.457 200 0 200S-200 289.543 -200 400Z"/%3E%3Cpath fill="%231a1a2e" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.07" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3Cpath fill="none" stroke-opacity="0.01" d="M0 400C0 455.228 -44.772 500 -100 500S-200 455.228 -200 400S-155.228 300 -100 300S0 344.772 0 400Z"/%3E%3C/g%3E%3C/svg%3E');
+            background-attachment: fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
             min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
         }
-        
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(58, 134, 255, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(131, 56, 236, 0.15) 0%, transparent 20%);
-            z-index: -1;
-        }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            padding-top: 20px;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            text-shadow: 0 0 15px rgba(58, 134, 255, 0.5);
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-        }
-        
-        .subtitle {
-            color: #a3b3cc;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
+
         .card {
-            background: rgba(16, 31, 50, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(58, 134, 255, 0.2);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            background: rgba(37, 37, 64, 0.9); /* 半透明背景，能看到后面的背景图 */
+            backdrop-filter: blur(5px); /* 磨砂玻璃效果 */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(62, 62, 96, 0.6);
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 134, 255, 0.2);
-            border-color: rgba(58, 134, 255, 0.4);
-        }
-        
-        .card-header {
+        .form-row {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(58, 134, 255, 0.2);
+            margin-bottom: 1rem;
         }
-        
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--light);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #a3b3cc;
+
+        .form-row label {
+            flex-basis: 120px; /* 固定标签宽度 */
+            flex-shrink: 0;
             font-weight: 500;
+            color: #c0c0c0;
         }
         
-        .input-group {
-            position: relative;
+        .form-row .input-container {
+            flex-grow: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-group .btn {
+            flex-grow: 1;
+            text-align: center;
+            background-color: #2e2e4e;
+            color: #a0a0c0;
+            border: 1px solid #3e3e60;
+            padding: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+            white-space: nowrap; /* Prevent buttons from wrapping */
         }
         
-        input {
+        .btn-group .btn:hover {
+            background-color: #3e3e60;
+            color: #ffffff;
+        }
+        
+        .btn-group .btn.active {
+            background-color: #4c6ef5;
+            color: white;
+            border-color: #4c6ef5;
+        }
+        
+        .primary-btn {
+            background-color: #4c6ef5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            border: none;
             width: 100%;
-            padding: 14px 15px;
-            background: rgba(10, 20, 35, 0.7);
-            border: 1px solid rgba(58, 134, 255, 0.3);
-            border-radius: 10px;
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
         }
-        
+
+        .primary-btn:hover {
+            background-color: #3b5bdb;
+        }
+
+        input {
+            background-color: #2e2e4e;
+            color: #ffffff;
+            border: 1px solid #3e3e60;
+            border-radius: 8px;
+            padding: 10px 12px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+
         input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.3);
+            border-color: #4c6ef5;
+            box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.2);
         }
-        
-        input::placeholder {
-            color: #5a6d8a;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(1px);
-        }
-        
-        .result-box {
-            background: rgba(10, 20, 35, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
-            border-left: 4px solid var(--primary);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .result-content {
-            font-size: 1.05rem;
+
+        #resultPure, #resultSpecial {
+            background: #2e2e4e;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 24px;
+            border: 1px dashed #4a4a6e;
+            color: #d0d0d0;
             line-height: 1.6;
-        }
-        
-        .highlight {
-            color: var(--warning);
-            font-weight: 600;
-        }
-        
-        .success {
-            color: var(--success);
-            font-weight: 600;
-        }
-        
-        .emphasize {
-            color: var(--highlight);
-            font-weight: 700;
-            text-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
-        }
-        
-        .limit-highlight {
-            color: var(--highlight);
-            font-weight: 700;
-            padding: 2px 5px;
-            border-radius: 4px;
-            background: rgba(255, 107, 107, 0.1);
         }
         
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(58, 134, 255, 0.2);
+            margin-top: 40px;
+            color: #8888aa;
         }
         
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin: 15px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link i {
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-        
-        .social-link:hover {
-            color: var(--secondary);
-            transform: translateX(5px);
-        }
-        
-        .info-text {
-            color: #a3b3cc;
-            font-size: 0.95rem;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .rule-item {
-            background: rgba(10, 20, 35, 0.5);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .rule-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--success);
-            margin: 5px 0;
-        }
-        
-        /* 按钮组样式 */
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        
-        .option-btn {
-            flex: 1;
-            min-width: 100px;
-            background: rgba(10, 20, 35, 0.7);
-            border: 1px solid rgba(58, 134, 255, 0.3);
-            border-radius: 10px;
-            padding: 12px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #a3b3cc;
+        .link {
+            color: #4c6ef5;
             font-weight: 500;
+            transition: color 0.2s;
         }
         
-        .option-btn.active {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            border-color: rgba(58, 134, 255, 0.6);
-            box-shadow: 0 0 10px rgba(58, 134, 255, 0.4);
-        }
-        
-        .option-btn:hover:not(.active) {
-            background: rgba(58, 134, 255, 0.2);
-            border-color: rgba(58, 134, 255, 0.6);
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 5px;
-        }
-        
-        .badge-success {
-            background: rgba(6, 214, 160, 0.2);
-            color: var(--success);
-        }
-        
-        .badge-warning {
-            background: rgba(255, 209, 102, 0.2);
-            color: var(--warning);
-        }
-        
-        .badge-primary {
-            background: rgba(58, 134, 255, 0.2);
-            color: var(--primary);
-        }
-        
-        .hyperion-link {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 15px;
-            font-size: 0.9rem;
-            color: var(--warning);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 5px 12px;
-            border-radius: 20px;
-            background: rgba(255, 209, 102, 0.1);
-            border: 1px solid rgba(255, 209, 102, 0.3);
-        }
-        
-        .hyperion-link:hover {
-            color: #ffd166;
-            background: rgba(255, 209, 102, 0.2);
-            transform: translateY(-2px);
+        .link:hover {
+            color: #3b5bdb;
             text-decoration: underline;
-            box-shadow: 0 0 10px rgba(255, 209, 102, 0.2);
         }
         
-        .hyperion-link i {
-            margin-right: 6px;
-            font-size: 0.9rem;
-        }
-        
-        .card-title-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .rules-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .option-btn {
-                min-width: 80px;
-                padding: 10px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .card-header {
+        @media (max-width: 640px) {
+            .form-row {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
-            .card-icon {
-                margin-bottom: 15px;
-            }
-            
-            .hyperion-link {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-            
-            .card-title-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
+            .form-row label {
+                margin-bottom: 8px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-calculator"></i>
-            </div>
-            <h1>Binance Alpha 积分计算器</h1>
-            <p class="subtitle">优化交易策略，精准计算与更好的刷分体验</p>
-        </header>
+        <h1 class="text-3xl font-bold text-center mb-8 text-white">Binance Alpha 积分计算器</h1>
         
         <div class="card">
-            <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-list-check"></i>
-                </div>
-                <h2>活动规则</h2>
-            </div>
-            <div class="rules-grid">
-                <div class="rule-item">
-                    <div>目标单位 (15分)</div>
-                    <div class="rule-value">32768</div>
-                </div>
-                <div class="rule-item">
-                    <div>目标单位 (16分)</div>
-                    <div class="rule-value">65536</div>
-                </div>
-                <div class="rule-item">
-                    <div>普通链单位</div>
-                    <div class="rule-value">1u = 1单位</div>
-                </div>
-                <div class="rule-item">
-                    <div>BSC链单位</div>
-                    <div class="rule-value">1u = 2单位</div>
-                </div>
-                <div class="rule-item">
-                    <div>限价单位</div>
-                    <div class="rule-value">1u = 4单位</div>
-                </div>
-                <div class="rule-item">
-                    <div>余量单位</div>
-                    <div class="rule-value">+200 单位</div>
-                </div>
-            </div>
+            <h2 class="text-xl font-semibold mb-4 text-white">活动规则</h2>
+            <ul class="list-disc pl-6 text-gray-400 space-y-1">
+                <li>目标单位 for 15分: 32768</li>
+                <li>目标单位 for 16分: 65536</li>
+                <li>普通链: 1u 交易额 = 1 单位</li>
+                <li>BSC链: 1u 交易额 = 2 单位</li>
+                <li>限价: 1u 交易额 = 4 单位</li>
+            </ul>
         </div>
 
         <div class="card">
-            <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-user"></i>
+            <h2 class="text-xl font-semibold mb-6 text-white">单账号纯刷计算</h2>
+            <form id="accountsForm" class="space-y-4">
+                <div class="form-row">
+                    <label for="bal1">账号余额:</label>
+                    <div class="input-container">
+                        <input type="number" id="bal1" min="0" placeholder="输入余额，如：1000">
+                    </div>
                 </div>
-                <div>
-                    <h2>单账号纯刷计算</h2>
+                <div class="form-row">
+                    <label>目标分数:</label>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn active" data-score="15">15 分</button>
+                            <button type="button" class="btn" data-score="16">16 分</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="bal1"><i class="fas fa-wallet"></i> 账号余额 (USDT)</label>
-                <input type="number" id="bal1" min="0" placeholder="输入账号余额" value="1000">
-            </div>
-            
-            <div class="form-group">
-                <label><i class="fas fa-bullseye"></i> 目标分数</label>
-                <div class="btn-group">
-                    <div class="option-btn active" data-value="15">15分 <span class="badge badge-primary">32768单位</span></div>
-                    <div class="option-btn" data-value="16">16分 <span class="badge badge-primary">65536单位</span></div>
+                <div class="form-row">
+                    <label>交易类型:</label>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn" data-type="普通链">普通链</button>
+                            <button type="button" class="btn" data-type="BSC链">BSC链</button>
+                            <button type="button" class="btn active" data-type="限价">限价</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label><i class="fas fa-exchange-alt"></i> 交易类型</label>
-                <div class="btn-group">
-                    <div class="option-btn" data-value="普通链">普通链 <span class="badge badge-success">1u=1单位</span></div>
-                    <div class="option-btn" data-value="BSC链">BSC链 <span class="badge badge-success">1u=2单位</span></div>
-                    <div class="option-btn active" data-value="限价">限价 <span class="badge badge-success">1u=4单位</span></div>
+                <div class="form-row">
+                    <label for="pureRedundancy">余量单位:</label>
+                    <div class="input-container">
+                        <input type="number" id="pureRedundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="redundancyPure"><i class="fas fa-shield-alt"></i> 余量单位</label>
-                <input type="number" id="redundancyPure" value="200" min="0" placeholder="输入余量单位">
-            </div>
-            
-            <button class="btn" onclick="calcPure()">
-                <i class="fas fa-calculator"></i> 计算交易需求
-            </button>
-            
-            <div id="resultPure" class="result-box" style="display: none;">
-                <div class="result-title">计算结果</div>
-                <div class="result-content" id="pureResultContent"></div>
-            </div>
+                <button type="button" onclick="calcPure()" class="primary-btn mt-4">开始计算</button>
+                <div id="resultPure" class="text-gray-200 hidden"></div>
+            </form>
         </div>
 
         <div class="card">
-            <div class="card-header">
-                <div class="card-icon">
-                    <i class="fas fa-sync-alt"></i>
+            <h2 class="text-xl font-semibold mb-6 text-white">特定场景: 已刷BSC后补限价</h2>
+            <form id="specialForm" class="space-y-4">
+                <div class="form-row">
+                    <label for="balSpecial">余额:</label>
+                    <div class="input-container">
+                        <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额，如：1190">
+                    </div>
                 </div>
-                <div class="card-title-container">
-                    <h2>特定场景 - Alpha与Hyperion双活动策略</h2>
-                    <a href="https://hyperion.xyz/campaign/trading" 
-                       target="_blank" 
-                       class="hyperion-link">
-                        <i class="fas fa-external-link-alt"></i> 查看Hyperion活动详情
-                    </a>
+                <div class="form-row">
+                    <label for="bscPens">已刷BSC笔数:</label>
+                    <div class="input-container">
+                        <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数，如：2">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="balSpecial"><i class="fas fa-wallet"></i> 账户余额 (USDT)</label>
-                <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入账户余额">
-            </div>
-            <div class="form-group">
-                <label for="bscPens"><i class="fas fa-list-ol"></i> 已刷BSC笔数</label>
-                <input type="number" id="bscPens" value="2" min="0" placeholder="输入BSC交易笔数">
-            </div>
-            <div class="form-group">
-                <label for="bscAmount"><i class="fas fa-money-bill-wave"></i> 已刷BSC每笔金额</label>
-                <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入每笔交易金额">
-            </div>
-            
-            <div class="form-group">
-                <label><i class="fas fa-bullseye"></i> 目标分数</label>
-                <div class="btn-group">
-                    <div class="option-btn active" data-value="15">15分 <span class="badge badge-primary">32768单位</span></div>
-                    <div class="option-btn" data-value="16">16分 <span class="badge badge-primary">65536单位</span></div>
+                <div class="form-row">
+                    <label for="bscAmount">已刷BSC每笔金额:</label>
+                    <div class="input-container">
+                        <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额，如：1030">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="redundancy"><i class="fas fa-shield-alt"></i> 余量单位</label>
-                <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位">
-            </div>
-            
-            <button class="btn" onclick="calcSpecial()">
-                <i class="fas fa-calculator"></i> 计算所需限价笔数
-            </button>
-            
-            <div id="resultSpecial" class="result-box" style="display: none;">
-                <div class="result-title">计算结果</div>
-                <div class="result-content" id="specialResultContent"></div>
-            </div>
+                <div class="form-row">
+                    <label>目标分数:</label>
+                    <div class="input-container">
+                        <div class="btn-group">
+                            <button type="button" class="btn active" data-score="15">15 分</button>
+                            <button type="button" class="btn" data-score="16">16 分</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="redundancy">余量单位:</label>
+                    <div class="input-container">
+                        <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量单位，如：200">
+                    </div>
+                </div>
+                <button type="button" onclick="calcSpecial()" class="primary-btn mt-4">计算所需限价笔数</button>
+                <div id="resultSpecial" class="text-gray-200 hidden"></div>
+            </form>
         </div>
 
         <footer>
-            <a href="https://x.com/0xTimor" target="_blank" class="social-link">
-                <i class="fab fa-twitter"></i> 关注 @0xTimor 获取更多撸毛技巧
-            </a>
-            <p class="info-text">查看 <a href="https://x.com/0xTimor" target="_blank" style="color: var(--primary);">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
-            <p class="info-text" style="margin-top: 20px; color: #5a6d8a;">
-                <i class="fas fa-code"></i> Binance Alpha 积分计算器 © 2025
-            </p>
+            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank" class="link">@0xTimor</a>！</p>
+            <p>查看 <a href="https://x.com/0xTimor" target="_blank" class="link">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
         </footer>
     </div>
 
     <script>
-        // 初始化选项按钮
-        document.querySelectorAll('.btn-group').forEach(group => {
-            const buttons = group.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    buttons.forEach(b => b.classList.remove('active'));
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.btn-group .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const group = this.closest('.btn-group');
+                    group.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
         });
 
         function getMultiplier(type) {
-            const multipliers = {
-                '普通链': 1,
-                'BSC链': 2,
-                '限价': 4
-            };
-            return multipliers[type] || 1;
+            if (type === '普通链') return 1;
+            if (type === 'BSC链') return 2;
+            if (type === '限价') return 4;
+            return 1;
         }
 
         function getTargetUnits(score) {
             return Math.pow(2, parseInt(score));
         }
 
-        // 获取活动选择的值
-        function getActiveValue(groupSelector) {
-            const group = document.querySelector(groupSelector);
-            if (!group) return null;
-            const activeBtn = group.querySelector('.option-btn.active');
-            return activeBtn ? activeBtn.getAttribute('data-value') : null;
-        }
-
         function calcPure() {
             const bal = parseFloat(document.getElementById('bal1').value);
-            const score = getActiveValue('#resultPure + .form-group .btn-group') || '15';
-            const type = getActiveValue('#resultPure + .form-group + .form-group .btn-group') || '限价';
-            let redundancy = parseFloat(document.getElementById('redundancyPure').value);
-            
-            // 修复余量设置为0不生效的问题
-            if (isNaN(redundancy)) {
-                redundancy = 200;
-            }
-            
+            const score = document.querySelector('#accountsForm .btn-group .btn.active[data-score]').dataset.score;
+            const type = document.querySelector('#accountsForm .btn-group .btn.active[data-type]').dataset.type;
+            const redundancy = parseFloat(document.getElementById('pureRedundancy').value) || 0;
             const mult = getMultiplier(type);
             const target = getTargetUnits(score);
 
-            const resultBox = document.getElementById('resultPure');
-            const resultContent = document.getElementById('pureResultContent');
-            
+            const resultEl = document.getElementById('resultPure');
+            resultEl.classList.remove('hidden');
+
             if (isNaN(bal) || bal <= 0) {
-                resultContent.innerHTML = '<span class="highlight">请填写有效的账户余额</span>';
-                resultBox.style.display = 'block';
+                resultEl.innerHTML = '<span class="text-red-400">请填写有效的账号余额。</span>';
                 return;
             }
-            
-            const targetWithRedundancy = target + redundancy;
-            const reqVol = targetWithRedundancy / mult;
+
+            const reqUnits = target + redundancy;
+            const reqVol = reqUnits / mult;
             const fullPens = Math.floor(reqVol / bal);
-            const partial = reqVol - fullPens * bal;
+            const partialAmount = reqVol % bal;
             
-            // 突出显示限价金额
-            let suggestion = `<p>需要 <span class="success">${fullPens} 笔</span> 全额 ${type} 交易（每笔 ${bal} USDT）</p>`;
-            if (partial > 0) {
-                suggestion += `<p>+ <span class="success">1 笔</span> 部分 ${type} 交易（约 <span class="emphasize">${partial.toFixed(2)} USDT</span>）</p>`;
+            let suggestion = `
+                <p><strong>所需单位:</strong> <span class="font-semibold">${reqUnits.toFixed(2)}</span> (含 <span class="font-semibold">${redundancy}</span> 单位余量)</p>
+                <p><strong>所需交易额:</strong> <span class="font-semibold">${reqVol.toFixed(2)}</span> u</p>
+                <hr class="my-2 border-gray-500">
+                <p><strong>交易建议:</strong></p>
+                <ul class="list-disc pl-6">
+            `;
+
+            if (fullPens > 0) {
+                suggestion += `<li>需要 <span class="font-semibold text-blue-400">${fullPens}</span> 笔<span class="font-semibold text-blue-400">全额</span><span class="font-semibold">${type}</span>交易 (每笔 <span class="font-semibold">${bal}</span> u)</li>`;
+            }
+
+            if (partialAmount > 0) {
+                suggestion += `<li>再加 <span class="font-semibold text-blue-400">1</span> 笔<span class="font-semibold text-blue-400">部分</span><span class="font-semibold">${type}</span>交易 (约 <span class="font-semibold">${partialAmount.toFixed(2)}</span> u)</li>`;
+            } else if (fullPens === 0) {
+                suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqVol.toFixed(2)}</span> u）即可达到目标。</p>`;
+            } else {
+                suggestion += `<li><span class="text-green-400">无剩余，只需 ${fullPens} 笔交易即可。</span></li>`;
             }
             
-            resultContent.innerHTML = `
-                <p>账号余额: <span class="highlight">${bal} USDT</span></p>
-                <p>目标分数: <span class="highlight">${score} 分</span> (需要 <span class="highlight">${target.toLocaleString()}</span> 单位)</p>
-                <p>交易类型: <span class="highlight">${type}</span> (1 USDT = ${mult} 单位)</p>
-                <p>余量单位: <span class="highlight">${redundancy}</span></p>
-                <p>需要交易额: <span class="highlight">${reqVol.toFixed(2)} USDT</span></p>
-                ${suggestion}
-            `;
+            if (fullPens > 0 || partialAmount > 0) {
+                suggestion += `</ul>`;
+            } else if (fullPens === 0 && partialAmount > 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqVol.toFixed(2)}</span> u）即可达到目标。</p>`;
+            }
             
-            resultBox.style.display = 'block';
+            resultEl.innerHTML = suggestion;
         }
 
         function calcSpecial() {
             const bal = parseFloat(document.getElementById('balSpecial').value);
             const bscPens = parseInt(document.getElementById('bscPens').value);
             const bscAmount = parseFloat(document.getElementById('bscAmount').value);
-            const score = getActiveValue('#resultSpecial + .form-group .btn-group') || '15';
-            let redundancy = parseFloat(document.getElementById('redundancy').value);
-            
-            // 修复余量设置为0不生效的问题
-            if (isNaN(redundancy)) {
-                redundancy = 200;
-            }
+            const score = document.querySelector('#specialForm .btn-group .btn.active[data-score]').dataset.score;
+            const redundancy = parseFloat(document.getElementById('redundancy').value) || 0;
 
-            const resultBox = document.getElementById('resultSpecial');
-            const resultContent = document.getElementById('specialResultContent');
-            
-            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || 
-                isNaN(bscAmount) || bscAmount <= 0) {
-                resultContent.innerHTML = '<span class="highlight">请输入所有字段的有效值</span>';
-                resultBox.style.display = 'block';
+            const resultEl = document.getElementById('resultSpecial');
+            resultEl.classList.remove('hidden');
+
+            if (isNaN(bal) || bal <= 0 || isNaN(bscPens) || bscPens < 0 || isNaN(bscAmount) || bscAmount <= 0) {
+                resultEl.innerHTML = '<span class="text-red-400">请输入有效的数值。</span>';
                 return;
             }
 
             const target = getTargetUnits(score);
-            const contributed = bscPens * bscAmount * 2; // BSC multiplier 2
+            const contributed = bscPens * bscAmount * 2; // BSC multiplier is 2
             const remaining = target - contributed;
-            
+
             if (remaining <= 0) {
-                resultContent.innerHTML = `
-                    <p>当前已获得单位: <span class="success">${contributed.toLocaleString()}</span></p>
-                    <p>目标单位: <span class="highlight">${target.toLocaleString()}</span></p>
-                    <p>状态: <span class="success">已达到或超过目标</span></p>
-                    <p>无需额外交易</p>
-                `;
-                resultBox.style.display = 'block';
+                resultEl.innerHTML = '<span class="text-green-400">已达到或超过目标，无需额外交易。</span>';
                 return;
             }
             
             const targetWithRedundancy = remaining + redundancy;
-            const reqLimitVol = targetWithRedundancy / 4; // 限价 multiplier 4
+            const reqLimitVol = targetWithRedundancy / 4; // 限价 multiplier is 4
             const fullPens = Math.floor(reqLimitVol / bal);
-            const partial = reqLimitVol - fullPens * bal;
+            const partialAmount = reqLimitVol % bal;
             
-            // 突出显示限价金额
-            let suggestion = `<p>需要额外 <span class="success">${fullPens} 笔</span> <span class="limit-highlight">全额限价</span>交易（每笔 ${bal} USDT）</p>`;
-            if (partial > 0) {
-                suggestion += `<p>+ <span class="success">1 笔</span> <span class="limit-highlight">部分限价</span>交易（约 <span class="emphasize">${partial.toFixed(2)} USDT</span>）</p>`;
+            let suggestion = `
+                <p><strong>已贡献单位:</strong> <span class="font-semibold">${contributed.toFixed(2)}</span></p>
+                <p><strong>还需单位:</strong> <span class="font-semibold">${remaining.toFixed(2)}</span></p>
+                <p><strong>所需限价交易额:</strong> <span class="font-semibold">${reqLimitVol.toFixed(2)}</span> u (含 <span class="font-semibold">${redundancy}</span> 单位余量)</p>
+                <hr class="my-2 border-gray-500">
+                <p><strong>交易建议:</strong></p>
+                <ul class="list-disc pl-6">
+            `;
+
+            if (fullPens > 0) {
+                suggestion += `<li>需要 <span class="font-semibold text-blue-400">${fullPens}</span> 笔<span class="font-semibold text-blue-400">全额限价</span>交易 (每笔 <span class="font-semibold">${bal}</span> u)</li>`;
+            }
+
+            if (partialAmount > 0) {
+                suggestion += `<li>再加 <span class="font-semibold text-blue-400">1</span> 笔<span class="font-semibold text-blue-400">部分限价</span>交易 (约 <span class="font-semibold">${partialAmount.toFixed(2)}</span> u)</li>`;
+            } else if (fullPens === 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqLimitVol.toFixed(2)}</span> u）即可达到目标。</p>`;
+            } else {
+                suggestion += `<li><span class="text-green-400">无剩余，只需 ${fullPens} 笔交易即可。</span></li>`;
             }
             
-            resultContent.innerHTML = `
-                <p>当前已获得单位: <span class="highlight">${contributed.toLocaleString()}</span> (${bscPens}笔BSC交易)</p>
-                <p>目标单位: <span class="highlight">${target.toLocaleString()}</span></p>
-                <p>剩余需要单位: <span class="highlight">${remaining.toLocaleString()}</span></p>
-                <p>余量单位: <span class="highlight">${redundancy}</span></p>
-                <p>所需限价交易额: <span class="success">${reqLimitVol.toFixed(2)} USDT</span></p>
-                ${suggestion}
-            `;
-            
-            resultBox.style.display = 'block';
+            if (fullPens > 0 || partialAmount > 0) {
+                suggestion += `</ul>`;
+            } else if (fullPens === 0 && partialAmount > 0) {
+                 suggestion = `<p class="text-green-400">所需交易额小于您的余额，只需一笔交易（金额：<span class="font-semibold text-green-400">${reqLimitVol.toFixed(2)}</span> u）即可达到目标。</p>`;
+            }
+
+            resultEl.innerHTML = suggestion;
         }
-        
-        // 初始化显示结果框
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('resultPure').style.display = 'none';
-            document.getElementById('resultSpecial').style.display = 'none';
-        });
     </script>
 </body>
 </html>
