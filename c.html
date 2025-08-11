@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Alpha 积分计算器（优化版）</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+        .btn-success:hover {
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+        }
+        .btn-warning:hover {
+            box-shadow: 0 8px 25px rgba(250, 112, 154, 0.6);
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .btn-option {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .btn-option:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        .btn-option.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        input, select {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: 100%;
+            max-width: 300px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        #resultPure, #resultSpecial {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+            font-weight: 500;
+        }
+        .title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        .card-title {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .rules-list {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .rules-list li {
+            margin-bottom: 12px;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        footer a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #f59e0b;
+            text-decoration: underline;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Binance Alpha 积分计算器（优化版）</h1>
+        
+        <div class="card">
+            <h2 class="card-title">活动规则</h2>
+            <ul class="rules-list list-disc pl-6">
+                <li>目标单位 for <span class="highlight">15分</span>: 32768</li>
+                <li>for <span class="highlight">16分</span>: 65536</li>
+                <li><span class="highlight">普通链</span>: 1u 交易额 = 1 单位</li>
+                <li><span class="highlight">BSC链</span>: 1u 交易额 = 2 单位</li>
+                <li><span class="highlight">限价</span>: 1u 交易额 = 4 单位</li>
+                <li>每笔交易的交易额 = 余额 u（假设每笔刷余额金额的交易）</li>
+                <li>笔数使用向上取整，但优化为全笔 + 部分笔建议</li>
+                <li>默认添加200单位余量以防万一</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">单账号纯刷计算</h2>
+            <form id="accountsForm" class="space-y-4">
+                <div class="form-group">
+                    <label>账号余额:</label>
+                    <input type="number" id="bal1" min="0" placeholder="输入余额">
+                </div>
+                
+                <div class="form-group">
+                    <label>目标分数:</label>
+                    <div class="btn-group">
+                        <button type="button" class="btn-option" data-value="15" onclick="selectTargetScore(15)">15分</button>
+                        <button type="button" class="btn-option" data-value="16" onclick="selectTargetScore(16)">16分</button>
+                    </div>
+                    <input type="hidden" id="targetScore" value="15">
+                </div>
+                
+                <div class="form-group">
+                    <label>交易类型:</label>
+                    <div class="btn-group">
+                        <button type="button" class="btn-option" data-value="普通链" onclick="selectType('普通链')">普通链</button>
+                        <button type="button" class="btn-option" data-value="BSC链" onclick="selectType('BSC链')">BSC链</button>
+                        <button type="button" class="btn-option active" data-value="限价" onclick="selectType('限价')">限价</button>
+                    </div>
+                    <input type="hidden" id="type" value="限价">
+                </div>
+                
+                <button type="button" onclick="calcPure()" class="btn btn-primary">计算</button>
+                <div id="resultPure" class="text-gray-800"></div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">特定场景: 已刷BSC后补限价</h2>
+            <form id="specialForm" class="space-y-4">
+                <div class="form-group">
+                    <label>余额:</label>
+                    <input type="number" id="balSpecial" value="1190" min="0" placeholder="输入余额">
+                </div>
+                
+                <div class="form-group">
+                    <label>已刷BSC笔数:</label>
+                    <input type="number" id="bscPens" value="2" min="0" placeholder="输入笔数">
+                </div>
+                
+                <div class="form-group">
+                    <label>已刷BSC每笔金额:</label>
+                    <input type="number" id="bscAmount" value="1030" min="0" placeholder="输入金额">
+                </div>
+                
+                <div class="form-group">
+                    <label>目标分数:</label>
+                    <div class="btn-group">
+                        <button type="button" class="btn-option" data-value="15" onclick="selectTargetSpecial(15)">15分</button>
+                        <button type="button" class="btn-option" data-value="16" onclick="selectTargetSpecial(16)">16分</button>
+                    </div>
+                    <input type="hidden" id="targetSpecial" value="15">
+                </div>
+                
+                <div class="form-group">
+                    <label>余量交易额:</label>
+                    <input type="number" id="redundancy" value="200" min="0" placeholder="输入余量交易额">
+                </div>
+                
+                <button type="button" onclick="calcSpecial()" class="btn btn-success">计算所需限价笔数</button>
+                <div id="resultSpecial" class="text-gray-800"></div>
+            </form>
+        </div>
+
+        <footer>
+            <p class="text-lg">想掌握更多撸毛技巧？快来关注我的 <a href="https://x.com/0xTimor" target="_blank">@0xTimor</a>！</p>
+            <p>查看 <a href="https://x.com/0xTimor" target="_blank">撸毛实操手册</a>，助你轻松玩转Alpha活动，积分拿到手软！</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化页面时设置默认选中状态
+        document.addEventListener('DOMContentLoaded', function() {
+            selectTargetScore(15);
+            selectType('限价');
+            selectTargetSpecial(15);
+        });
+
+        function selectTargetScore(value) {
+            document.getElementById('targetScore').value = value;
+            document.querySelectorAll('[data-value]').forEach(btn => {
+                if (btn.getAttribute('data-value') == value && btn.closest('.form-group').querySelector('label').textContent.includes('目标分数')) {
+                    btn.classList.add('active');
+                } else if (btn.closest('.form-group').querySelector('label').textContent.includes('目标分数')) {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function selectType(value) {
+            document.getElementById('type').value = value;
+            document.querySelectorAll('[data-value]').forEach(btn => {
+                if (btn.getAttribute('data-value') == value && btn.closest('.form-group').querySelector('label').textContent.includes('交易类型')) {
+                    btn.classList.add('active');
+                } else if (btn.closest('.form-group').querySelector('label').te
