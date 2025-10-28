@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>币安实时交易损耗监控</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+            font-size: 16px;
+        }
+        #container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #f0b90b; /* Binance Yellow */
+            border-bottom: 2px solid #f0b90b;
+            padding-bottom: 10px;
+        }
+        .control-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .control-panel label {
+            font-weight: bold;
+        }
+        .control-panel input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #btnStart {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        #btnStart.connected {
+            background-color: #f44336; /* Red */
+        }
+        #status {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        #status.connecting { background-color: #555; }
+        #status.connected { background-color: #2a4; }
+        #status.error { background-color: #a22; }
+        #result {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        #log {
+            margin-top: 20px;
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: scroll;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .log-item {
+            padding-bottom: 5px;
+            border-bottom: 1px solid #444;
+        }
+        .log-alert { color: #80f080; } /* Light Green */
+        .log-warning { color: #f08080; font-weight: bold; } /* Light Red */
+        .log-info { color: #80c0f0; } /* Light Blue */
+        .log-error { color: #f0b90b; } /* Yellow */
+        .price {
+            display: inline-block;
+            width: 120px; /* Align prices */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>实时交易损耗监控</h1>
+        <p style="color: #f0b90b; border: 1px solid #f0b90b; padding: 10px; border-radius: 4px;">
+            <strong>重要警告：</strong> 此代码<strong>默认连接 BTCUSDT</strong>（比特币）作为演示。您要的 "Openverse Network (BTG)" 不在币安主站现货API上。您必须在下方输入框中输入您交易所的正确 WebSocket API 端点才能使其工作。
+        </p>
+
+        <div class="control-panel">
+            <button id="btnStart">开始监控</button>
+            <label for="tradeAmount">交易金额 (USDT):</label>
+            <input type="number" id="tradeAmount" value="1000">
+        </div>
+
+        <div class="control-panel">
+            <label for="wsEndpoint">WebSocket 端点:</label>
+            <input type="text" id="wsEndpoint" value="wss://stream.binance.com:9443/ws/btcusdt@depth20@100ms" style="width: 400px;">
+        </div>
+        
+        <div id="status">等待开始...</div>
+
+        <div id="result">
+            <strong>计算结果将显示在这里...</strong>
+        </div>
+
+        <h3>事件日志:</h3>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        // --- 全局变量 ---
+        const btnStart = document.getElementById('btnStart');
+        const statusDiv = document.getElementById('status');
+        const resultDiv = document.getElementById('result');
+        const logDiv = document.getElementById('log');
+        const tradeAmountInput = document.getElementById('tradeAmount');
+        const wsEndpointInput = document.getElementById('wsEndpoint');
+
+        let socket = null;
+        let audioContext = null;
+
+        // --- 阈值 (可修改) ---
+        const FEE_RATE = 0.001; // 0.1% Taker费率
+        const ALERT_THRESHOLD_LOW = 0.2; // 0.2 USDT 损耗 (低)
+        const ALERT_THRESHOLD_HIGH = 0.5; // 0.5 USDT 损耗 (高)
+
+        // --- 音频播放 ---
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            if (!audioContext) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'alert') {
+                // "提醒" (低损耗)
+                oscillator.type = 'sine'; // 正弦波
+                oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A5
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } else if (type === 'warning') {
+                // "报警" (高损耗)
+                oscillator.type = 'sawtooth'; // 锯齿波
+                oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4
+                gainNode.gain.setValueAtTime(0.7, audioContext.currentTime);
+                
+                // 警报声 (重复)
+                oscillator.frequency.linearRampToValueAtTime(660, audioContext.currentTime + 0.1);
+                oscillator.frequency.linearRampToValueAtTime(440, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            }
+        }
+
+        // --- 日志记录 ---
+        function logMessage(message, type) {
+            const time = new Date().toLocaleTimeString();
+            const item = document.createElement('div');
+            item.className = `log-item log-${type}`;
+            item.innerHTML = `[${time}] ${message}`;
+            logDiv.appendChild(item);
+            logDiv.scrollTop = logDiv.scrollHeight; // 自动滚动
+        }
+
+        // --- 核心计算逻辑 ---
+        function calculateRoundTripLoss(bids, asks, amountUSDT, feeRate) {
+            try {
+                // bids: [[price, qty], ...] (买单, 价格从高到低)
+                // asks: [[price, qty], ...] (卖单, 价格从低到高)
+                // amountUSDT: 1000
+
+                if (!asks || asks.length === 0 || !bids || bids.length === 0) {
+                    return { error: "盘口数据为空" };
+                }
+
+                const bestAsk = parseFloat(asks[0][0]);
+                const bestBid = parseFloat(bids[0][0]);
+                const spread = (bestAsk - bestBid);
+                const spreadPercent = (spread / bestAsk) * 100;
+
+                // --- 步骤 1: 模拟买入 (Taker - 吃卖单) ---
+                let usdtToSpend = amountUSDT;
+                let baseAssetBought = 0;
+                let usdtSpent = 0;
+
+                for (const [priceStr, qtyStr] of asks) {
+                    const price = parseFloat(priceStr);
+                    const qty = parseFloat(qtyStr);
+                    const costOfLevel = price * qty;
+
+                    if (usdtSpent + costOfLevel >= usdtToSpend) {
+                        // 这一层足够买完
+                        const usdtNeeded = usdtToSpend - usdtSpent;
+                        const baseFromLevel = usdtNeeded / price;
+                        baseAssetBought += baseFromLevel;
+                        usdtSpent += usdtNeeded;
+                        break; // 买够了
+                    } else {
+                        // 吃掉这一层
+                        baseAssetBought += qty;
+                        usdtSpent += costOfLevel;
+                    }
+                }
+
+                if (usdtSpent < usdtToSpend * 0.99) {
+                    return { error: `盘口深度不足, 仅能买入 ${usdtSpent.toFixed(2)} USDT` };
+                }
+
+                // 扣除买入手续费 (手续费以你获得的币种支付)
+                const buyFee = baseAssetBought * feeRate;
+                const netBaseAssetBought = baseAssetBought - buyFee;
+                const avgBuyPrice = amountUSDT / baseAssetBought;
+
+                // --- 步骤 2: 模拟卖出 (Taker - 吃买单) ---
+                let baseAssetToSell = netBaseAssetBought;
+                let usdtReceived = 0;
+
+                for (const [priceStr, qtyStr] of bids) {
+                    const price = parseFloat(priceStr);
+                    const qty = parseFloat(qtyStr);
+
+                    if (qty >= baseAssetToSell) {
+                        // 这一层足够卖完
+                        usdtReceived += baseAssetToSell * price;
+                        baseAssetToSell = 0;
+                        break; // 卖完了
+                    } else {
+                        // 卖掉这一层
+                        usdtReceived += qty * price;
+                        baseAssetToSell -= qty;
+                    }
+                }
+
+                if (baseAssetToSell > 0) {
+                    return { error: `盘口深度不足, 无法卖出所有资产 (剩余 ${baseAssetToSell.toFixed(6)})` };
+                }
+
+                // 扣除卖出手续费 (手续费以你获得的 USDT 支付)
+                const sellFee = usdtReceived * feeRate;
+                const netUSDTReceived = usdtReceived - sellFee;
+                const avgSellPrice = usdtReceived / netBaseAssetBought;
+
+                // --- 步骤 3: 计算总损耗 ---
+                const totalLoss = amountUSDT - netUSDTReceived;
+
+                return {
+                    totalLoss: totalLoss,
+                    bestAsk: bestAsk,
+                    avgBuyPrice: avgBuyPrice,
+                    bestBid: bestBid,
+                    avgSellPrice: avgSellPrice,
+                    spread: spread,
+                    spreadPercent: spreadPercent,
+                    buyFee: buyFee, // (in Base Asset)
+                    sellFee: sellFee // (in USDT)
+                };
+
+            } catch (e) {
+                return { error: e.message };
+            }
+        }
+        
+        // --- WebSocket 连接 ---
+        function startMonitoring() {
+            initAudio(); // 确保音频已初始化
+
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                // 已经在连接，现在是停止
+                socket.close();
+                return;
+            }
+
+            const wsEndpoint = wsEndpointInput.value;
+            if (!wsEndpoint) {
+                alert("请输入 WebSocket 端点");
+                return;
+            }
+
+            logMessage(`正在连接到 ${wsEndpoint}...`, 'info');
+            statusDiv.textContent = '正在连接...';
+            statusDiv.className = 'connecting';
+            btnStart.textContent = '停止监控';
+            btnStart.className = 'connected';
+
+            socket = new WebSocket(wsEndpoint);
+
+            socket.onopen = () => {
+                logMessage('连接成功! 正在等待盘口数据...', 'info');
+                statusDiv.textContent = '已连接 - 等待数据...';
+                statusDiv.className = 'connected';
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                // 我们需要的是 depth20 的数据结构，它有 "bids" 和 "asks"
+                if (!data.bids || !data.asks) {
+                    // 可能收到了 ping 或其他消息
+                    return;
+                }
+                
+                statusDiv.textContent = '已连接 - 正在实时计算...';
+                const tradeAmount = parseFloat(tradeAmountInput.value) || 1000;
+                
+                const result = calculateRoundTripLoss(data.bids, data.asks, tradeAmount, FEE_RATE);
+
+                if (result.error) {
+                    resultDiv.innerHTML = `<span style="color: #f08080;">计算错误: ${result.error}</span>`;
+                    logMessage(`计算错误: ${result.error}`, 'error');
+                } else {
+                    // 更新UI显示
+                    resultDiv.innerHTML = `
+                        <strong>买一价 (Best Bid):</strong> <span class="price">${result.bestBid.toFixed(6)}</span>
+                        <strong>卖一价 (Best Ask):</strong> <span class="price">${result.bestAsk.toFixed(6)}</span><br>
+                        <strong>价差 (Spread):</strong> <span class="price">${result.spread.toFixed(6)} (${result.spreadPercent.toFixed(4)}%)</span><br>
+                        <strong>平均买价 (Avg Buy):</strong> <span class="price" style="color: #f08080;">${result.avgBuyPrice.toFixed(6)}</span>
+                        <strong>平均卖价 (Avg Sell):</strong> <span class="price" style="color: #80f080;">${result.avgSellPrice.toFixed(6)}</span><br>
+                        <hr style="border-color: #444;">
+                        <strong>总损耗 (1000U 来回):</strong> <span style="font-size: 1.5em; color: #f0b90b; font-weight: bold;">${result.totalLoss.toFixed(4)} USDT</span>
+                    `;
+
+                    // 检查阈值并播放声音
+                    if (result.totalLoss > ALERT_THRESHOLD_HIGH) {
+                        playSound('warning');
+                        logMessage(`高损耗报警! 损耗: ${result.totalLoss.toFixed(4)} USDT > ${ALERT_THRESHOLD_HIGH} USDT`, 'warning');
+                    } else if (result.totalLoss < ALERT_THRESHOLD_LOW) {
+                        playSound('alert');
+                        logMessage(`低损耗提醒. 损耗: ${result.totalLoss.toFixed(4)} USDT < ${ALERT_THRESHOLD_LOW} USDT`, 'alert');
+                    }
+                }
+            };
+
+            socket.onclose = () => {
+                logMessage('连接已断开。', 'error');
+                statusDiv.textContent = '已断开';
+                statusDiv.className = 'error';
+                btnStart.textContent = '开始监控';
+                btnStart.className = '';
+                socket = null;
+            };
+
+            socket.onerror = (error) => {
+                logMessage(`WebSocket 错误: ${error.message}`, 'error');
+                statusDiv.textContent = '连接错误!';
+                statusDiv.className = 'error';
+                console.error("WebSocket Error: ", error);
+            };
+        }
+
+        btnStart.addEventListener('click', startMonitoring);
+        
+        // 确保在浏览器标签页关闭时断开连接
+        window.addEventListener('beforeunload', () => {
+            if (socket) {
+                socket.close();
+            }
+        });
+    </script>
+</body>
+</html>
