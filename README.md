@@ -1,9 +1,20 @@
-# Binance Alpha 积分计算器
-一个用于计算 Binance Alpha 活动积分的网页工具，帮助快速计算所需交易笔数。
+# Optimism 地址交易次数查询（网页版）
 
-## 使用方法
-1. 在浏览器中打开 `index.html`。
-2. 输入余额、目标分数等信息，点击计算按钮查看结果。
+一个独立的静态网页工具，使用 Blockscout TokenTx 统计转入次数。
 
-## 作者
-关注我的 Twitter: [@0xTimor](https://x.com/0xTimor) 获取更多撸毛技巧！
+## 使用
+
+1. 部署 Cloudflare Worker（解决跨域）：
+   - 新建 Worker，并把 `worker.js` 内容粘贴进去
+   - 发布后得到 Worker 访问地址
+2. 启动本地静态服务器：
+   - `python3 -m http.server 8080`
+   - 浏览器访问：`http://localhost:8080`
+3. 在页面中勾选「仅统计转入（to=地址）」
+4. 填写 Worker 地址
+5. 粘贴地址列表（每行一个）并点击「开始查询」
+6. 可复制或下载 CSV 结果
+
+## 说明
+
+- Blockscout TokenTx：`https://optimism.blockscout.com/api/v2/addresses/{address}/token-transfers`
