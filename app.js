@@ -7,6 +7,7 @@ const statusHint = document.getElementById("statusHint");
 const resultTable = document.getElementById("resultTable");
 const onlyIncoming = document.getElementById("onlyIncoming");
 const workerUrlInput = document.getElementById("workerUrl");
+const defaultWorkerUrl = "https://workerjs.wanggousky.workers.dev";
 
 const addressRegex = /^0x[a-fA-F0-9]{40}$/;
 const concurrencyLimit = 5;
@@ -62,7 +63,7 @@ function renderRows(rows) {
 async function fetchTxCount(address) {
   const target = address.toLowerCase();
   const filterParam = onlyIncoming.checked ? "to" : "";
-  const workerBase = (workerUrlInput.value || "").trim().replace(/\/$/, "");
+  const workerBase = ((workerUrlInput?.value || defaultWorkerUrl) || "").trim().replace(/\/$/, "");
   if (!workerBase) {
     throw new Error("缺少 Worker 地址");
   }
@@ -180,7 +181,7 @@ btnQuery.addEventListener("click", async () => {
     return;
   }
 
-  if (!(workerUrlInput.value || "").trim()) {
+  if (!((workerUrlInput?.value || defaultWorkerUrl) || "").trim()) {
     updateStatus("缺少 Worker 地址", "请填写 Cloudflare Worker 地址");
     return;
   }
