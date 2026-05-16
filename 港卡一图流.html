@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇭🇰 赴港开户实操手册 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1e;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --gold-dim: #8a6b28;
+    --red: #e83a3a;
+    --green: #2dcc7a;
+    --blue: #4a9eff;
+    --surface: #0f1830;
+    --surface2: #162040;
+    --surface3: #1e2e50;
+    --border: rgba(201, 168, 76, 0.25);
+    --text: #dce4f5;
+    --text-dim: #8899bb;
+    --width: 860px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060b18;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .card {
+    width: var(--width);
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: linear-gradient(160deg, #0a1525 0%, #0c1e3a 40%, #091630 100%);
+    padding: 52px 56px 44px;
+    position: relative;
+    border-bottom: 2px solid var(--gold);
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '香港';
+    position: absolute;
+    right: -10px;
+    top: -20px;
+    font-size: 260px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    letter-spacing: -10px;
+  }
+
+  .header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .header-flag { font-size: 14px; }
+
+  .header h1 {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .warning-banner {
+    margin-top: 28px;
+    background: rgba(232,58,58,0.10);
+    border-left: 3px solid var(--red);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .warning-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .warning-text {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #ffb3b3;
+  }
+
+  .warning-text strong {
+    color: #ff6666;
+    font-weight: 700;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 36px 56px;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── QUICK ANSWER GRID ─── */
+  .qa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .qa-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+
+  .qa-q {
+    font-size: 11.5px;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .qa-a {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .qa-a .hi { color: var(--gold-light); }
+  .qa-a .ok { color: var(--green); }
+  .qa-a .warn { color: #ffaa44; }
+
+  .qa-item.full { grid-column: 1 / -1; }
+
+  /* ─── BROKER STATUS ─── */
+  .broker-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .broker-card {
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid;
+  }
+
+  .broker-card.open {
+    background: rgba(45,204,122,0.07);
+    border-color: rgba(45,204,122,0.3);
+  }
+
+  .broker-card.closed {
+    background: rgba(232,58,58,0.06);
+    border-color: rgba(232,58,58,0.2);
+  }
+
+  .broker-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .broker-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .broker-status {
+    font-size: 11.5px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .open .broker-status { color: var(--green); }
+  .closed .broker-status { color: var(--red); }
+
+  /* ─── BANK RECOMMEND ─── */
+  .bank-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .bank-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .bank-head {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bank-emoji { font-size: 22px; }
+
+  .bank-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .bank-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+  }
+
+  .bank-body {
+    padding: 14px 18px;
+  }
+
+  .bank-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 12.5px;
+  }
+
+  .bank-row-item:last-child { border-bottom: none; }
+
+  .bank-row-label { color: var(--text-dim); }
+  .bank-row-val { color: var(--text); font-weight: 600; text-align: right; }
+  .bank-row-val.green { color: var(--green); }
+
+  /* ─── STRATEGY ─── */
+  .strategy-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .strategy-title {
+    font-size: 13px;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .strategy-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .strategy-text strong { color: var(--gold-light); }
+
+  /* ─── COST BREAKDOWN ─── */
+  .cost-box {
+    background: var(--surface2);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 13.5px;
+  }
+
+  .cost-row:last-child { border-bottom: none; }
+  .cost-label { color: var(--text-dim); }
+  .cost-val { font-weight: 700; color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+  .cost-val.zero { color: var(--green); }
+  .cost-row.total {
+    background: rgba(201,168,76,0.08);
+    border-top: 1px solid rgba(201,168,76,0.3);
+  }
+  .cost-row.total .cost-label { color: #fff; font-weight: 700; font-size: 15px; }
+  .cost-row.total .cost-val { color: var(--gold-light); font-size: 18px; }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+  }
+
+  .tl-day {
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .tl-day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .tl-day-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--gold-dim);
+    padding: 4px 16px;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  .tl-day-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .tl-steps {
+    margin-left: 16px;
+    border-left: 2px solid rgba(201,168,76,0.2);
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tl-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tl-time {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    min-width: 52px;
+    padding-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .tl-content {
+    background: var(--surface);
+    border-radius: 5px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .tl-content strong { color: var(--gold-light); }
+  .tl-content .tag {
+    display: inline-block;
+    background: rgba(45,204,122,0.12);
+    color: var(--green);
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ─── FUND THRESHOLD ─── */
+  .fund-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fund-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .fund-bar-label {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    min-width: 180px;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  .fund-bar-track {
+    flex: 1;
+    height: 28px;
+    background: var(--surface3);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .fund-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: width 0.3s;
+  }
+
+  .fund-bar-fill.no { background: rgba(232,58,58,0.4); color: #ff8888; width: 22%; }
+  .fund-bar-fill.maybe { background: rgba(255,170,68,0.35); color: #ffcc88; width: 40%; }
+  .fund-bar-fill.ok { background: rgba(201,168,76,0.35); color: var(--gold-light); width: 60%; }
+  .fund-bar-fill.good { background: rgba(45,204,122,0.35); color: #88ffcc; width: 80%; }
+  .fund-bar-fill.great { background: rgba(45,204,122,0.55); color: #aaffd8; width: 100%; }
+
+  .fund-verdict {
+    font-size: 11.5px;
+    min-width: 60px;
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  /* ─── PITFALLS ─── */
+  .pitfall-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .pitfall-card {
+    background: var(--surface2);
+    border: 1px solid rgba(232,58,58,0.2);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+
+  .pitfall-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: rgba(232,58,58,0.5);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .pitfall-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ff8888;
+    margin-bottom: 8px;
+  }
+
+  .pitfall-body {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+
+  .pitfall-body strong { color: var(--text); }
+
+  /* ─── TAX ─── */
+  .tax-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .tax-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tax-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .tax-rate {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+
+  .tax-rate.zero { color: var(--green); }
+  .tax-rate.low { color: var(--gold-light); }
+  .tax-rate.mid { color: #ffaa44; }
+
+  .tax-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ─── RISK CONTROL ─── */
+  .risk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .risk-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface);
+    border-radius: 5px;
+    padding: 12px 16px;
+  }
+
+  .risk-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .risk-content {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .risk-content strong { color: var(--gold-light); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 4px 0;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: linear-gradient(180deg, #0b1428 0%, #060c1c 100%);
+    padding: 36px 56px 44px;
+    border-top: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .footer-author {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer-handle {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-handle span { color: var(--gold); }
+
+  .footer-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .footer-x {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 28px;
+    text-align: center;
+  }
+
+  .footer-x-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .footer-x-handle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .footer-disclaimer {
+    margin-top: 20px;
+    font-size: 10.5px;
+    color: rgba(136,153,187,0.5);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.7;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 16px;
+    text-align: center;
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight {
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.04));
+    border: 1.5px solid rgba(201,168,76,0.4);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .highlight strong { color: var(--gold-light); font-weight: 700; }
+
+  /* ─── CHIP ROW ─── */
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 5px 13px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+  }
+
+  .chip.green { background: rgba(45,204,122,0.12); color: var(--green); border: 1px solid rgba(45,204,122,0.25); }
+  .chip.gold { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+  .chip.blue { background: rgba(74,158,255,0.12); color: var(--blue); border: 1px solid rgba(74,158,255,0.25); }
+  .chip.red { background: rgba(232,58,58,0.12); color: #ff8888; border: 1px solid rgba(232,58,58,0.25); }
+
+  /* ─── STAR RATING ─── */
+  .star { color: var(--gold); font-size: 12px; }
+  .star-dim { color: var(--surface3); font-size: 12px; }
+
+  /* ─── SECTION BG VARIANTS ─── */
+  .section.dark { background: #0b1220; }
+  .section.mid { background: #0d1528; }
+
+  .money-highlight {
+    text-align: center;
+    padding: 24px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  .money-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--green);
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .money-unit {
+    font-size: 20px;
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 8px;
+  }
+
+  .money-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-tag">
+      <span class="header-flag">🇭🇰</span>
+      2026 深度调研报告
+    </div>
+    <h1>大陆小资金新手<br>赴港开户 + 美港股投资<br><span>极致性价比攻略</span></h1>
+    <div class="header-sub">调研时间：2026年5月 ｜ 适用：大陆居民（身份证+港澳通行证）｜ 核心：低门槛·零管理费</div>
+    <div class="warning-banner">
+      <div class="warning-icon">🚨</div>
+      <div class="warning-text">
+        <strong>2026年政策剧变预警</strong>：富途、老虎、长桥已<strong>全面停止</strong>接受仅持大陆身份证新用户开户。
+        目前<strong>仅盈立证券（uSMART）和复星证券（星财富）</strong>仍接受大陆身份证线上开户。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 1: 30秒速读 ═══ -->
+  <div class="section dark">
+    <div class="section-label">
+      <div class="section-num">⚡ 30秒速读</div>
+      <div class="section-title">核心问题一眼看懂</div>
+    </div>
+    <div class="qa-grid">
+      <div class="qa-item">
+        <div class="qa-q">🏦 去港开什么银行？</div>
+        <div class="qa-a">
+          <span class="ok">① ZA Bank</span> — 虚拟银行，App秒开，<span class="hi">零门槛零管理费</span><br>
+          <span class="ok">② 汇丰 HSBC One</span> — 存1万HKD定期免管理费
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">📈 用什么券商？</div>
+        <div class="qa-a">
+          <span class="hi">盈立证券 uSMART</span><br>
+          大陆身份证可开 · 美股免佣<br>
+          港股平台费仅 <span class="ok">12 HKD/笔</span>
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">💰 要带多少钱？</div>
+        <div class="qa-a">最低 <span class="hi">≥ 1.5万港币</span><br>汇丰定存1万 + 零花5千</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">📄 要准备什么材料？</div>
+        <div class="qa-a">
+          身份证 + 港澳通行证<br>
+          <span class="warn">信用卡PDF账单（带红章，彩色打印2~3份）</span>
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">💵 年维护成本多少？</div>
+        <div class="qa-a">
+          <span class="ok">≈ 6港币 / 年</span><br>
+          <span style="color:var(--text-dim);font-size:12px;">仅Club SIM手机卡保号费</span>
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">🗓️ 多少钱值得去？</div>
+        <div class="qa-a">
+          最低 <span class="hi">3万HKD</span>（≈2.8万RMB）<br>
+          舒适起步 <span class="ok">5万HKD</span>（≈4.6万RMB）
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: 券商现状 ═══ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">01</div>
+      <div class="section-title">2026年大陆居民券商开户现状</div>
+    </div>
+    <div class="broker-grid">
+      <div class="broker-card open">
+        <div class="broker-icon">✅</div>
+        <div>
+          <div class="broker-name">盈立证券 uSMART</div>
+          <div class="broker-status">大陆身份证 · 可线上开户 · 推荐首选</div>
+        </div>
+      </div>
+      <div class="broker-card open">
+        <div class="broker-icon">✅</div>
+        <div>
+          <div class="broker-name">复星证券（星财富）</div>
+          <div class="broker-status">大陆身份证 · 需专属链接 · 备用推荐</div>
+        </div>
+      </div>
+      <div class="broker-card closed">
+        <div class="broker-icon">❌</div>
+        <div>
+          <div class="broker-name">富途证券</div>
+          <div class="broker-status">已关闭大陆身份证开户</div>
+        </div>
+      </div>
+      <div class="broker-card closed">
+        <div class="broker-icon">❌</div>
+        <div>
+          <div class="broker-name">老虎证券</div>
+          <div class="broker-status">已关闭（2025.9起）</div>
+        </div>
+      </div>
+      <div class="broker-card closed">
+        <div class="broker-icon">❌</div>
+        <div>
+          <div class="broker-name">长桥证券</div>
+          <div class="broker-status">已关闭（2025下半年起）</div>
+        </div>
+      </div>
+      <div class="broker-card closed">
+        <div class="broker-icon">⚠️</div>
+        <div>
+          <div class="broker-name">盈透证券 IBKR</div>
+          <div class="broker-status">极难 · 需境外居住证明</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: 银行推荐 ═══ -->
+  <div class="section mid">
+    <div class="section-label">
+      <div class="section-num">02</div>
+      <div class="section-title">小资金最优银行组合</div>
+    </div>
+    <div class="bank-row">
+      <div class="bank-card">
+        <div class="bank-head">
+          <div class="bank-emoji">📱</div>
+          <div>
+            <div class="bank-title">ZA Bank 众安</div>
+            <div style="font-size:11px;color:var(--text-dim);">虚拟银行 · 首选</div>
+          </div>
+          <div class="bank-badge">零门槛</div>
+        </div>
+        <div class="bank-body">
+          <div class="bank-row-item">
+            <span class="bank-row-label">管理费</span>
+            <span class="bank-row-val green">永久免费 ✓</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">开户方式</span>
+            <span class="bank-row-val">App全线上（须在港）</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">地址证明</span>
+            <span class="bank-row-val green">不需要 ✓</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">入金到账</span>
+            <span class="bank-row-val green">FPS 5分钟到账</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">券商兼容</span>
+            <span class="bank-row-val">盈立/富途/长桥均支持</span>
+          </div>
+        </div>
+      </div>
+      <div class="bank-card">
+        <div class="bank-head">
+          <div class="bank-emoji">🏦</div>
+          <div>
+            <div class="bank-title">汇丰 HSBC One</div>
+            <div style="font-size:11px;color:var(--text-dim);">传统大行 · 品牌首选</div>
+          </div>
+          <div class="bank-badge">存1万免费</div>
+        </div>
+        <div class="bank-body">
+          <div class="bank-row-item">
+            <span class="bank-row-label">管理费豁免</span>
+            <span class="bank-row-val">TRB ≥ 1万HKD 免100/月</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">最优策略</span>
+            <span class="bank-row-val green">港币定存1万HKD ★</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">定存年收益</span>
+            <span class="bank-row-val green">~200 HKD 利息</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">年持有成本</span>
+            <span class="bank-row-val green">0 HKD ✓</span>
+          </div>
+          <div class="bank-row-item">
+            <span class="bank-row-label">全球认可度</span>
+            <span class="bank-row-val"><span class="star">★★★★★</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="strategy-box">
+      <div class="strategy-title">💡 小资金最优方案</div>
+      <div class="strategy-text">
+        <strong>ZA Bank（日常入金/中转）+ 汇丰 HSBC One（主力大行）</strong><br>
+        汇丰只负责「存1万定存达标 + 日常银行功能」，投资交易放在盈立证券。<br>
+        总维护成本：<strong>1万HKD定存沉淀（还能赚利息）+ 0管理费</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: 年度成本 ═══ -->
+  <div class="section dark">
+    <div class="section-label">
+      <div class="section-num">03</div>
+      <div class="section-title">年度持有成本拆解（5万HKD资产）</div>
+    </div>
+    <div class="cost-box">
+      <div class="cost-row">
+        <span class="cost-label">🏦 汇丰 HSBC One 账户维护</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📱 ZA Bank 账户维护</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📡 Club SIM 保号费</span>
+        <span class="cost-val" style="color:var(--gold)">6 HKD / 年</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📊 盈立证券账户管理费</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">💰 汇丰定存年利息收入</span>
+        <span class="cost-val zero">+ ~200 HKD ↑</span>
+      </div>
+      <div class="cost-row total">
+        <span class="cost-label">🎯 年度总固定成本</span>
+        <span class="cost-val">≈ 6 HKD / 年</span>
+      </div>
+    </div>
+    <div class="money-highlight">
+      <div class="money-unit">年维护成本不到</div>
+      <div class="money-big">6</div>
+      <div class="money-unit">港 币</div>
+      <div class="money-desc">≈ 5.5 元人民币 · 一杯奶茶都不到</div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 5: 两日行程 ═══ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">04</div>
+      <div class="section-title">两日赴港极速开户行程</div>
+    </div>
+    <div class="timeline">
+      <!-- 出发前 -->
+      <div class="tl-day">
+        <div class="tl-day-header">
+          <div class="tl-day-badge">D-7</div>
+          <div class="tl-day-title">出发前准备</div>
+        </div>
+        <div class="tl-steps">
+          <div class="tl-step">
+            <div class="tl-time">证件</div>
+            <div class="tl-content">身份证 + 港澳通行证（有效签注）+ 护照（备用）</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">地址证</div>
+            <div class="tl-content"><strong>招行/工行App</strong>下载近3个月信用卡PDF账单（带电子红章），<strong>彩色打印3份</strong>。注意账单地址须与身份证一致！</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">资金</div>
+            <div class="tl-content">内地银联借记卡存够 <strong>≥1.5万HKD等值人民币</strong>。到港后ATM取港币，银联汇率极佳，手续费~15元/笔</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">预约</div>
+            <div class="tl-content">微信公众号「汇丰香港」→ 微服务 → <strong>预约开户</strong>（App预填资料≠预约席位！必须单独预约）</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">App</div>
+            <div class="tl-content">提前安装：ZA Bank、汇丰HK、Club SIM、<strong>uSMART盈立证券</strong>（可在内地预填开户资料至「等待核证」状态）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 1 -->
+      <div class="tl-day">
+        <div class="tl-day-header">
+          <div class="tl-day-badge">DAY 1</div>
+          <div class="tl-day-title">虚拟银行 + 手机卡</div>
+        </div>
+        <div class="tl-steps">
+          <div class="tl-step">
+            <div class="tl-time">过关时</div>
+            <div class="tl-content">⚠️ <strong>白色入境小纸条千万收好！</strong>这是虚拟银行核验「肉身在港」的唯一法定凭证，丢了当天开户计划报废</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">10:00</div>
+            <div class="tl-content">开 <strong>ZA Bank</strong>：关闭所有代理VPN → 用Club SIM流量 → 拍身份证/通行证/入境小纸条 → 人脸识别<span class="tag">即日审核</span></div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">10:30</div>
+            <div class="tl-content">开 <strong>天星银行 Airstar</strong>（同样流程，多一条备用通道）</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">下午</div>
+            <div class="tl-content">可选：前往盈立证券<strong>上环总部（德辅道中308号24楼）</strong>线下面签，当天激活券商账户<span class="tag">可选</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="tl-day">
+        <div class="tl-day-header">
+          <div class="tl-day-badge">DAY 2</div>
+          <div class="tl-day-title">传统银行面签 + 资金破冰</div>
+        </div>
+        <div class="tl-steps">
+          <div class="tl-step">
+            <div class="tl-time">9:30</div>
+            <div class="tl-content">按预约前往 <strong>汇丰分行</strong>：出示身份证 + 通行证 + 信用卡账单 + 入境小票。说明用途：「<strong>个人理财储蓄，偶尔投资</strong>」（勿说炒股）</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">11:30</div>
+            <div class="tl-content">现场存入 <strong>1.5万HKD</strong>（1万开定存免管理费 + 5千活期），领取银行卡</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">中午</div>
+            <div class="tl-content">汇丰App内将 <strong>1万HKD转为定期存款</strong>，锁定TRB，永久免除100/月管理费</div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-time">下午</div>
+            <div class="tl-content"><strong>资金破冰</strong>：汇丰 → FPS转入ZA Bank → ZA Bank同名转账 ≥1万HKD至盈立证券，上传凭证，1个工作日审核通过<span class="tag">完成</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 6: 资金门槛 ═══ -->
+  <div class="section mid">
+    <div class="section-label">
+      <div class="section-num">05</div>
+      <div class="section-title">资金门槛 — 到底值不值得去？</div>
+    </div>
+    <div class="fund-bars">
+      <div class="fund-bar">
+        <div class="fund-bar-label">&lt; 1万HKD（&lt;0.9万RMB）</div>
+        <div class="fund-bar-track">
+          <div class="fund-bar-fill no">不建议</div>
+        </div>
+        <div class="fund-verdict" style="color:var(--red)">❌ 放弃</div>
+      </div>
+      <div class="fund-bar">
+        <div class="fund-bar-label">1~3万HKD（0.9~2.8万RMB）</div>
+        <div class="fund-bar-track">
+          <div class="fund-bar-fill maybe">珠三角可考虑</div>
+        </div>
+        <div class="fund-verdict" style="color:#ffaa44">⚠️ 勉强</div>
+      </div>
+      <div class="fund-bar">
+        <div class="fund-bar-label">3~5万HKD（2.8~4.6万RMB）</div>
+        <div class="fund-bar-track">
+          <div class="fund-bar-fill ok">达到入门门槛</div>
+        </div>
+        <div class="fund-verdict" style="color:var(--gold)">✅ 可以</div>
+      </div>
+      <div class="fund-bar">
+        <div class="fund-bar-label">5~10万HKD（4.6~9.2万RMB）</div>
+        <div class="fund-bar-track">
+          <div class="fund-bar-fill good">性价比最优区间</div>
+        </div>
+        <div class="fund-verdict" style="color:var(--green)">✅✅ 推荐</div>
+      </div>
+      <div class="fund-bar">
+        <div class="fund-bar-label">&gt; 10万HKD（&gt;9.2万RMB）</div>
+        <div class="fund-bar-track">
+          <div class="fund-bar-fill great">跨境配置战略意义重大</div>
+        </div>
+        <div class="fund-verdict" style="color:var(--green)">✅✅✅ 强烈</div>
+      </div>
+    </div>
+    <div class="highlight">
+      <strong>一句话结论</strong>：最低门槛 <strong>3万HKD（≈2.8万RMB）</strong>，舒适起步 <strong>5万HKD（≈4.6万RMB）</strong>。<br>
+      低于3万的用户建议先买国内QDII基金（天弘纳斯达克100、华夏恒生ETF），等资金到位再赴港开户。
+    </div>
+    <div class="chip-row">
+      <span class="chip green">🌏 跨境资产隔离</span>
+      <span class="chip blue">💳 Visa全球消费</span>
+      <span class="chip gold">🏦 未来保险/债券通道</span>
+      <span class="chip green">📈 一次开户 终身受用</span>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 7: 四大避坑 ═══ -->
+  <div class="section dark">
+    <div class="section-label">
+      <div class="section-num">06</div>
+      <div class="section-title">四大终极避坑 — 不打会翻车</div>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <div class="pitfall-num">01</div>
+        <div class="pitfall-title">地址证明一致性</div>
+        <div class="pitfall-body">信用卡账单上的住宅地址<strong>必须与身份证地址完全一致</strong>。汇丰开户经理极挑剔，地址不符=当场拒绝。出发前在银行App改账单地址为身份证地址，更新后再导出。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">02</div>
+        <div class="pitfall-title">手机环境清洗</div>
+        <div class="pitfall-body">ZA Bank/天星的反欺诈SDK对代理极度敏感。开户前：<strong>卸载所有VPN/代理</strong>，断开Wi-Fi用Club SIM流量，安卓关闭「开发者选项」中的「模拟位置」，否则App直接闪退。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">03</div>
+        <div class="pitfall-title">eDDA拼音空格</div>
+        <div class="pitfall-body">汇丰可能登记为<strong>ZHANG XIAO MING</strong>，ZA Bank可能是<strong>ZHANG XIAOMING</strong>，拼音不一致导致eDDA绑定报错。解决：直接用<strong>FPS转数快</strong>入金，5分钟到账零损耗。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">04</div>
+        <div class="pitfall-title">ATM取现替代携汇</div>
+        <div class="pitfall-body">不需要提前兑换港币过关。带一张内地<strong>银联借记卡</strong>（招行/建行），到港后汇丰/中银ATM直接取港币。银联汇率极佳，手续费约<strong>15元/笔</strong>，存入时告知柜员无需担心AML问题。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 8: 税务速查 ═══ -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">07</div>
+      <div class="section-title">税务速查卡</div>
+    </div>
+    <div class="tax-row-grid">
+      <div class="tax-item">
+        <div class="tax-label">港股资本利得税（香港端）</div>
+        <div class="tax-rate zero">0%</div>
+        <div class="tax-note">香港不征 · 直接免</div>
+      </div>
+      <div class="tax-item">
+        <div class="tax-label">美股资本利得税（美国端）</div>
+        <div class="tax-rate zero">0%</div>
+        <div class="tax-note">非美居民免征 · 无需担心</div>
+      </div>
+      <div class="tax-item">
+        <div class="tax-label">美股股息预扣税（已填W-8BEN）</div>
+        <div class="tax-rate low">10%</div>
+        <div class="tax-note">中美协定优惠 · 未填则30%！</div>
+      </div>
+      <div class="tax-item">
+        <div class="tax-label">港股股息税</div>
+        <div class="tax-rate zero">0%</div>
+        <div class="tax-note">香港不征股息税</div>
+      </div>
+      <div class="tax-item">
+        <div class="tax-label">美股资本利得税（中国端理论）</div>
+        <div class="tax-rate mid">20%</div>
+        <div class="tax-note">理论税率 · 目前暂未严格执行</div>
+      </div>
+      <div class="tax-item">
+        <div class="tax-label">美国遗产税（非美居民持美资产）</div>
+        <div class="tax-rate mid">40%</div>
+        <div class="tax-note">超6万美元部分 · 离世时触发</div>
+      </div>
+    </div>
+    <div class="strategy-box" style="margin-top:16px;">
+      <div class="strategy-title">⚠️ CRS 2.0 提醒（2026年起落地）</div>
+      <div class="strategy-text">
+        范围扩展至<strong>加密货币</strong>，双重税籍全面申报，金税四期大数据比对升级。<br>
+        正确做法：<strong>如实填写W-8BEN锁定10%股息税 · 保存完整交易流水 · 必要时主动申报可抵免境外已缴税款</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 9: 防风控 ═══ -->
+  <div class="section mid">
+    <div class="section-label">
+      <div class="section-num">08</div>
+      <div class="section-title">防风控 — 银行账户保活要点</div>
+    </div>
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="risk-dot"></div>
+        <div class="risk-content"><strong>避免快进快出</strong>：资金到账后留存 ≥5个工作日再转出</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot"></div>
+        <div class="risk-content"><strong>保持账户活跃</strong>：每月1~3笔真实交易/转账，别让账户沉睡</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot"></div>
+        <div class="risk-content"><strong>余额沉淀</strong>：大行账户保持 ≥1万HKD日均余额（也正好是汇丰免管理费门槛）</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot"></div>
+        <div class="risk-content"><strong>及时响应KYC</strong>：银行调查信/邮件必须第一时间回复，拖延可能直接冻结</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-dot"></div>
+        <div class="risk-content"><strong>Club SIM续期</strong>：设置日历提醒，每年到期前购买6HKD短信包续期，保住香港手机号</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    <div style="flex:1;">
+      <div class="footer-author">
+        <div class="footer-handle">撸毛实操手册</div>
+        <div class="footer-desc">持续分享一手Web3 + 港美股实操干货</div>
+      </div>
+      <div class="chip-row" style="margin-top:14px;">
+        <span class="chip gold">港卡开户</span>
+        <span class="chip blue">美股投资</span>
+        <span class="chip green">Web3撸毛</span>
+        <span class="chip gold">跨境理财</span>
+      </div>
+    </div>
+    <div class="footer-x">
+      <div class="footer-x-label">关注作者</div>
+      <div class="footer-x-handle">@0xTimor</div>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:6px;font-family:'IBM Plex Mono',monospace;">x.com/0xTimor</div>
+    </div>
+  </div>
+  <div style="padding: 0 56px 24px; background:#060c1c;">
+    <div class="footer-disclaimer">
+      免责声明：本内容基于2026年5月公开信息整理，不构成任何投资、法律或税务建议。金融机构政策随时可能调整，请操作前通过官方渠道核实最新条款。跨境投资涉及汇率风险、政策风险和税务合规风险，请审慎决策。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

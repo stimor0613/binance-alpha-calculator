@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇭🇰 赴港开户 + 美港股投资深度指南 2026 | @0xTimor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════ */
+:root {
+  --ink:       #060c1a;
+  --surface:   #0c1628;
+  --surface2:  #101e38;
+  --surface3:  #172645;
+  --surface4:  #1e2f52;
+  --gold:      #c9a84c;
+  --gold-lt:   #f0d47a;
+  --gold-dim:  #7a6030;
+  --gold-bg:   rgba(201,168,76,0.08);
+  --red:       #e84040;
+  --red-bg:    rgba(232,64,64,0.08);
+  --green:     #2dcc7a;
+  --green-bg:  rgba(45,204,122,0.08);
+  --blue:      #4a9eff;
+  --blue-bg:   rgba(74,158,255,0.08);
+  --orange:    #f59d3d;
+  --orange-bg: rgba(245,157,61,0.08);
+  --border:    rgba(201,168,76,0.18);
+  --border2:   rgba(255,255,255,0.06);
+  --text:      #d8e4f8;
+  --text-dim:  #7a93bb;
+  --text-muted:#4a5f80;
+  --nav-w:     260px;
+  --radius:    7px;
+}
+
+/* ═══════════════════════════════
+   RESET & BASE
+═══════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  display: flex;
+  min-height: 100vh;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-lt); text-decoration: underline; }
+
+strong { font-weight: 700; color: #e8efff; }
+
+/* ═══════════════════════════════
+   SIDEBAR NAVIGATION
+═══════════════════════════════ */
+.nav-sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--nav-w);
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.nav-logo {
+  padding: 24px 20px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.nav-logo-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  line-height: 1.2;
+}
+
+.nav-logo-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0 24px;
+}
+
+.nav-scroll::-webkit-scrollbar { width: 3px; }
+.nav-scroll::-webkit-scrollbar-track { background: transparent; }
+.nav-scroll::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+.nav-group { margin-bottom: 4px; }
+
+.nav-group-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 10px 20px 4px;
+}
+
+.nav-item {
+  display: block;
+  padding: 7px 20px 7px 24px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+  border-left-color: var(--gold-dim);
+  text-decoration: none;
+}
+
+.nav-item.active {
+  color: var(--gold-lt);
+  background: rgba(201,168,76,0.06);
+  border-left-color: var(--gold);
+  font-weight: 600;
+}
+
+.nav-item.sub {
+  padding-left: 36px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.nav-item.sub:hover { color: var(--text-dim); }
+.nav-item.sub.active { color: var(--gold); }
+
+.nav-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.nav-author {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.nav-author .handle {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════ */
+.main {
+  margin-left: var(--nav-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ═══════════════════════════════
+   PAGE HEADER
+═══════════════════════════════ */
+.page-header {
+  background: linear-gradient(160deg, #080f20 0%, #0c1e3c 50%, #08142a 100%);
+  padding: 64px 72px 52px;
+  border-bottom: 2px solid var(--gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: 'HK';
+  position: absolute;
+  right: -20px; top: -30px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 340px;
+  color: rgba(201,168,76,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.header-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  margin-bottom: 22px;
+}
+
+.page-title {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.page-title .accent { color: var(--gold); }
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  padding: 5px 12px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════
+   CONTENT SECTIONS
+═══════════════════════════════ */
+.content-body {
+  max-width: 900px;
+  padding: 0 72px 100px;
+}
+
+.section-block {
+  padding-top: 56px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.section-emoji { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+.sub-section { margin-top: 36px; }
+
+.sub-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #e0eaff;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 3px solid var(--gold-dim);
+  line-height: 1.4;
+}
+
+.sub-sub-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold);
+  margin: 20px 0 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+.prose {
+  color: var(--text);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.prose + .prose { margin-top: -4px; }
+
+/* ═══════════════════════════════
+   TABLES
+═══════════════════════════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 18px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.table-wrap::-webkit-scrollbar { height: 4px; }
+.table-wrap::-webkit-scrollbar-track { background: var(--surface2); }
+.table-wrap::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+thead tr {
+  background: var(--surface3);
+}
+
+thead th {
+  padding: 12px 14px;
+  text-align: left;
+  color: var(--gold);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border2);
+  transition: background 0.1s;
+}
+
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+tbody tr:last-child { border-bottom: none; }
+
+tbody td {
+  padding: 11px 14px;
+  color: var(--text);
+  vertical-align: top;
+}
+
+tbody td:first-child {
+  color: var(--text-dim);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+tbody tr:nth-child(even):hover { background: rgba(255,255,255,0.025); }
+
+.t-green { color: var(--green) !important; font-weight: 600; }
+.t-red { color: var(--red) !important; }
+.t-gold { color: var(--gold-lt) !important; font-weight: 600; }
+.t-orange { color: var(--orange) !important; }
+.t-dim { color: var(--text-dim) !important; }
+.t-white { color: #fff !important; font-weight: 700; }
+.t-center { text-align: center !important; }
+.t-mono { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+/* ═══════════════════════════════
+   CALLOUT BOXES
+═══════════════════════════════ */
+.callout {
+  display: flex;
+  gap: 14px;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 18px 0;
+  border: 1px solid;
+  line-height: 1.75;
+  font-size: 13.5px;
+}
+
+.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+.callout-body { flex: 1; }
+
+.callout-body p { margin-bottom: 8px; }
+.callout-body p:last-child { margin-bottom: 0; }
+
+.callout-body ul { padding-left: 20px; }
+.callout-body li { margin-bottom: 4px; }
+
+.callout.caution {
+  background: var(--red-bg);
+  border-color: rgba(232,64,64,0.3);
+  color: #ffc4c4;
+}
+.callout.caution strong { color: #ff8888; }
+.callout.caution .callout-icon { color: var(--red); }
+
+.callout.warning {
+  background: var(--orange-bg);
+  border-color: rgba(245,157,61,0.3);
+  color: #ffd9a8;
+}
+.callout.warning strong { color: var(--orange); }
+
+.callout.tip {
+  background: var(--blue-bg);
+  border-color: rgba(74,158,255,0.25);
+  color: #b8d8ff;
+}
+.callout.tip strong { color: var(--blue); }
+
+.callout.important {
+  background: var(--gold-bg);
+  border-color: rgba(201,168,76,0.3);
+  color: #ffe9a0;
+}
+.callout.important strong { color: var(--gold-lt); }
+
+.callout.note {
+  background: rgba(255,255,255,0.03);
+  border-color: var(--border2);
+  color: var(--text-dim);
+}
+.callout.note strong { color: var(--text); }
+
+/* ═══════════════════════════════
+   QUICK ANSWER GRID
+═══════════════════════════════ */
+.qa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.qa-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.qa-q {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qa-a {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════
+   STRATEGY CARDS
+═══════════════════════════════ */
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.strategy-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.strategy-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.strategy-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.strategy-body {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════
+   BROKER CARDS
+═══════════════════════════════ */
+.broker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.broker-card {
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid;
+}
+
+.broker-card.open { background: var(--green-bg); border-color: rgba(45,204,122,0.25); }
+.broker-card.closed { background: var(--red-bg); border-color: rgba(232,64,64,0.2); }
+.broker-card.warn { background: var(--orange-bg); border-color: rgba(245,157,61,0.2); }
+
+.broker-status { font-size: 11px; font-family: 'IBM Plex Mono', monospace; margin-top: 3px; }
+.broker-card.open .broker-status { color: var(--green); }
+.broker-card.closed .broker-status { color: var(--red); }
+.broker-card.warn .broker-status { color: var(--orange); }
+.broker-name { font-size: 14px; font-weight: 700; color: #fff; }
+
+/* ═══════════════════════════════
+   COST SUMMARY
+═══════════════════════════════ */
+.cost-summary {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border2);
+  font-size: 13.5px;
+}
+
+.cost-row:last-child { border-bottom: none; }
+.cost-label { color: var(--text-dim); }
+.cost-val { font-family: 'IBM Plex Mono', monospace; font-weight: 700; }
+.cost-val.zero { color: var(--green); }
+.cost-val.gold { color: var(--gold-lt); }
+
+.cost-row.total {
+  background: rgba(201,168,76,0.07);
+  border-top: 1px solid rgba(201,168,76,0.25);
+}
+
+.cost-row.total .cost-label { color: #fff; font-weight: 700; font-size: 15px; }
+.cost-row.total .cost-val { color: var(--gold-lt); font-size: 20px; }
+
+/* ═══════════════════════════════
+   FUND THRESHOLD BARS
+═══════════════════════════════ */
+.fund-bars { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+
+.fund-bar { display: flex; align-items: center; gap: 14px; }
+
+.fund-bar-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  min-width: 210px;
+  flex-shrink: 0;
+}
+
+.fund-bar-track {
+  flex: 1;
+  height: 30px;
+  background: var(--surface3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fund-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.fund-bar-fill.no { background: rgba(232,64,64,0.35); color: #ff9999; width: 20%; }
+.fund-bar-fill.maybe { background: rgba(245,157,61,0.35); color: #ffc47a; width: 38%; }
+.fund-bar-fill.ok { background: rgba(201,168,76,0.35); color: var(--gold-lt); width: 56%; }
+.fund-bar-fill.good { background: rgba(45,204,122,0.35); color: #88ffcc; width: 78%; }
+.fund-bar-fill.great { background: rgba(45,204,122,0.5); color: #aaffd8; width: 100%; }
+
+.fund-verdict {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  min-width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════
+   TIMELINE
+═══════════════════════════════ */
+.timeline { margin: 16px 0; }
+
+.tl-phase { margin-bottom: 32px; }
+
+.tl-phase-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.tl-badge {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--gold-dim);
+  padding: 5px 18px;
+  min-width: 100px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tl-phase-title { font-size: 16px; font-weight: 700; color: #fff; }
+
+.tl-steps {
+  margin-left: 18px;
+  border-left: 2px solid rgba(201,168,76,0.2);
+  padding-left: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tl-step { display: flex; align-items: flex-start; gap: 12px; }
+
+.tl-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gold);
+  min-width: 56px;
+  padding-top: 11px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.tl-content {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.65;
+  flex: 1;
+  color: var(--text);
+}
+
+.tl-content strong { color: var(--gold-lt); }
+
+.tag-inline {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(45,204,122,0.12);
+  color: var(--green);
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  vertical-align: middle;
+}
+
+.tag-warn {
+  background: rgba(245,157,61,0.12);
+  color: var(--orange);
+}
+
+/* ═══════════════════════════════
+   TAX CARDS
+═══════════════════════════════ */
+.tax-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.tax-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.tax-card-label { font-size: 12px; color: var(--text-dim); line-height: 1.45; margin-bottom: 8px; }
+
+.tax-rate {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.tax-rate.zero { color: var(--green); }
+.tax-rate.low { color: var(--gold-lt); }
+.tax-rate.mid { color: var(--orange); }
+.tax-rate.high { color: var(--red); }
+
+.tax-note { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--text-muted); }
+
+/* ═══════════════════════════════
+   HIGHLIGHT / KEY BOXES
+═══════════════════════════════ */
+.key-box {
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+  border: 1.5px solid rgba(201,168,76,0.3);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 18px 0;
+}
+
+.key-box-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.key-box-body {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.key-box-body strong { color: var(--gold-lt); }
+
+/* ═══════════════════════════════
+   BIG STAT
+═══════════════════════════════ */
+.big-stat {
+  text-align: center;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  margin: 18px 0;
+}
+
+.big-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.big-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: var(--green); line-height: 1; letter-spacing: 4px; }
+.big-stat-unit { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--green); margin-bottom: 10px; }
+.big-stat-desc { font-size: 13px; color: var(--text-dim); }
+
+/* ═══════════════════════════════
+   LIST STYLES
+═══════════════════════════════ */
+.styled-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.styled-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: 5px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.styled-list li::before {
+  content: '▸';
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════
+   DIVIDER
+═══════════════════════════════ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 40px 0 0;
+}
+
+/* ═══════════════════════════════
+   SITE OFFICE TABLE (location)
+═══════════════════════════════ */
+.office-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 10px 0;
+}
+
+.office-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.office-row { display: flex; gap: 10px; font-size: 13px; margin-bottom: 5px; color: var(--text); }
+.office-key { color: var(--text-dim); min-width: 56px; flex-shrink: 0; }
+.office-phone { font-family: 'IBM Plex Mono', monospace; color: var(--blue); }
+
+/* ═══════════════════════════════
+   CHIPS
+═══════════════════════════════ */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+
+.chip {
+  font-size: 11.5px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.chip.green { background: var(--green-bg); color: var(--green); border-color: rgba(45,204,122,0.25); }
+.chip.gold { background: var(--gold-bg); color: var(--gold); border-color: rgba(201,168,76,0.25); }
+.chip.blue { background: var(--blue-bg); color: var(--blue); border-color: rgba(74,158,255,0.25); }
+.chip.red { background: var(--red-bg); color: #ff8888; border-color: rgba(232,64,64,0.25); }
+.chip.orange { background: var(--orange-bg); color: var(--orange); border-color: rgba(245,157,61,0.25); }
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+.page-footer {
+  background: var(--surface);
+  border-top: 2px solid var(--gold);
+  padding: 48px 72px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-left {}
+.footer-author-name {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.footer-author-name span { color: var(--gold); }
+
+.footer-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.footer-x-box {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 32px;
+  text-align: center;
+}
+
+.footer-x-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.footer-x-handle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+.footer-x-url {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  margin-top: 4px;
+}
+
+.footer-disclaimer {
+  padding: 16px 72px 28px;
+  background: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  border-top: 1px solid var(--border2);
+  text-align: center;
+}
+
+/* ═══════════════════════════════
+   SCROLL PROGRESS
+═══════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  top: 0; left: var(--nav-w);
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--green));
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 200;
+  transition: transform 0.1s;
+}
+
+/* ═══════════════════════════════
+   MOBILE TOGGLE
+═══════════════════════════════ */
+.nav-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px; right: 20px;
+  width: 48px; height: 48px;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 900px) {
+  :root { --nav-w: 0px; }
+  .nav-sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    --nav-w: 260px;
+  }
+  .nav-sidebar.open { transform: translateX(0); }
+  .nav-toggle { display: flex; }
+  .main { margin-left: 0; }
+  .progress-bar { left: 0; }
+  .page-header { padding: 40px 28px 36px; }
+  .content-body { padding: 0 28px 80px; }
+  .page-footer { padding: 36px 28px; flex-direction: column; }
+  .page-title { font-size: 28px; }
+  .qa-grid { grid-template-columns: 1fr; }
+  .strategy-grid { grid-template-columns: 1fr; }
+  .tax-grid { grid-template-columns: 1fr 1fr; }
+  .broker-grid { grid-template-columns: 1fr; }
+  .footer-disclaimer { padding: 16px 28px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ PROGRESS BAR ══════ -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ══════ SIDEBAR NAV ══════ -->
+<nav class="nav-sidebar" id="navSidebar">
+  <div class="nav-logo">
+    <div class="nav-logo-title">🇭🇰 赴港开户指南</div>
+    <div class="nav-logo-sub">2026 深度调研 · 完整版</div>
+  </div>
+
+  <div class="nav-scroll">
+    <div class="nav-group">
+      <div class="nav-group-label">概览</div>
+      <a class="nav-item active" href="#summary">⚡ 30秒速读摘要</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块一</div>
+      <a class="nav-item" href="#mod1">银行账户筛选</a>
+      <a class="nav-item sub" href="#mod1-1">1.1 横向对比</a>
+      <a class="nav-item sub" href="#mod1-2">1.2 管理费门槛</a>
+      <a class="nav-item sub" href="#mod1-3">1.3 券商入金兼容</a>
+      <a class="nav-item sub" href="#mod1-4">1.4 汇丰免费策略</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块二</div>
+      <a class="nav-item" href="#mod2">多开 vs 单开策略</a>
+      <a class="nav-item sub" href="#mod2-1">2.1 策略对比</a>
+      <a class="nav-item sub" href="#mod2-2">2.2 防风控要点</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块三</div>
+      <a class="nav-item" href="#mod3">券商费率对比</a>
+      <a class="nav-item sub" href="#mod3-1">3.1 开户现状</a>
+      <a class="nav-item sub" href="#mod3-2">3.2 费率对比</a>
+      <a class="nav-item sub" href="#mod3-3">3.3 隐藏成本</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块四</div>
+      <a class="nav-item" href="#mod4">税务与合规</a>
+      <a class="nav-item sub" href="#mod4-1">4.1 HK vs US 实体</a>
+      <a class="nav-item sub" href="#mod4-2">4.2 税务速算表</a>
+      <a class="nav-item sub" href="#mod4-3">4.3 实战计算</a>
+      <a class="nav-item sub" href="#mod4-4">4.4 W-8BEN 要点</a>
+      <a class="nav-item sub" href="#mod4-5">4.5 CRS 2.0 预警</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块五</div>
+      <a class="nav-item" href="#mod5">手机卡 & 地址证明</a>
+      <a class="nav-item sub" href="#mod5-1">5.1 保号神卡对比</a>
+      <a class="nav-item sub" href="#mod5-2">5.2 地址证明方案</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">模块六</div>
+      <a class="nav-item" href="#mod6">值不值得去？</a>
+      <a class="nav-item sub" href="#mod6-1">6.1 固定成本拆解</a>
+      <a class="nav-item sub" href="#mod6-2">6.2 三大场景分析</a>
+      <a class="nav-item sub" href="#mod6-3">6.3 资金门槛建议</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">行动清单</div>
+      <a class="nav-item" href="#action">两日开户行程</a>
+      <a class="nav-item sub" href="#action-pre">出发前 D-7</a>
+      <a class="nav-item sub" href="#action-usmart">盈立证券开户</a>
+      <a class="nav-item sub" href="#action-day1">Day 1</a>
+      <a class="nav-item sub" href="#action-day2">Day 2</a>
+      <a class="nav-item sub" href="#action-back">回国后</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">附录</div>
+      <a class="nav-item" href="#appendix">费用速查卡</a>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <div class="nav-author">
+      <div class="handle">撸毛实操手册</div>
+      <div>作者 <a href="https://x.com/0xTimor" target="_blank">@0xTimor</a></div>
+      <div style="margin-top:2px;color:var(--text-muted);">2026年5月调研整理</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ MOBILE TOGGLE ══════ -->
+<button class="nav-toggle" id="navToggle" onclick="toggleNav()" title="打开导航">☰</button>
+
+<!-- ══════ MAIN CONTENT ══════ -->
+<main class="main">
+
+  <!-- ═══ PAGE HEADER ═══ -->
+  <header class="page-header">
+    <div class="header-eyebrow">🇭🇰 2026 深度调研报告</div>
+    <h1 class="page-title">大陆小资金新手<br>「赴港开户 + 美港股投资」<br><span class="accent">极致性价比完整指南</span></h1>
+    <div class="page-meta">
+      <div class="meta-chip">📅 调研时间：2026年5月16日</div>
+      <div class="meta-chip">👤 适用：大陆居民（身份证+港澳通行证）</div>
+      <div class="meta-chip">🎯 核心：低门槛·零管理费</div>
+      <div class="meta-chip">✍️ 作者：<a href="https://x.com/0xTimor" target="_blank" style="color:var(--gold);margin-left:4px;">@0xTimor</a></div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <div class="callout caution">
+        <span class="callout-icon">🚨</span>
+        <div class="callout-body">
+          <p><strong>2026 年政策剧变预警</strong>：富途、老虎、长桥三大头部互联网券商已于 2025 下半年起<strong>全面停止</strong>接受仅持大陆身份证的新用户开户。但<strong>盈立证券（uSMART）和复星证券（星财富）仍接受大陆身份证线上开户</strong>，是目前小资金新手的可行路径。</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-body">
+
+  <!-- ════════════════════════════
+       SECTION: 30秒速读
+  ════════════════════════════ -->
+  <section class="section-block" id="summary">
+    <div class="section-header">
+      <span class="section-emoji">⚡</span>
+      <div>
+        <div class="section-num">速读摘要</div>
+        <h2 class="section-title">30 秒速读（给不想看全文的同行人）</h2>
+      </div>
+    </div>
+
+    <div class="qa-grid">
+      <div class="qa-card">
+        <div class="qa-q">🏦 去香港开什么银行？</div>
+        <div class="qa-a">① <strong>ZA Bank</strong>（虚拟银行，手机 App 秒开，零门槛零管理费）<br>② <strong>汇丰 HSBC One</strong>（全球超级大行，存 1 万港币定期即可免费）</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">📈 用什么券商炒股？</div>
+        <div class="qa-a"><strong>盈立证券 uSMART</strong> — 大陆身份证线上预填资料，赴港后用港卡转账激活（或线下面签），美股免佣，港股平台费 12 HKD/笔</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">💰 要带多少钱？</div>
+        <div class="qa-a">≥ <strong>1.5 万港币</strong>（汇丰定存 1 万 + 零花）</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">📄 要准备什么材料？</div>
+        <div class="qa-a">身份证 + 港澳通行证 + 信用卡 PDF 账单（<strong>带红章、彩色打印 2~3 份</strong>）</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">💵 年维护成本多少？</div>
+        <div class="qa-a">≈ <strong style="color:var(--green)">6 港币</strong>（仅 Club SIM 手机卡保号费）</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">💸 赚了钱要交税吗？</div>
+        <div class="qa-a">美股股息税 10%（自动扣）；资本利得理论上中国端 20%，但目前未严格执行（详见模块四）</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">🗓️ 行程安排？</div>
+        <div class="qa-a">Day 1 开 ZA Bank（手机操作）→ Day 2 去汇丰/建银亚洲面签 → 绑定盈立入金 → 完成</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q">💎 多少钱才值得去？</div>
+        <div class="qa-a">最低 <strong>3 万 HKD（≈2.8 万 RMB）</strong>，舒适起步 <strong>5 万 HKD（≈4.6 万 RMB）</strong>。低于 3 万建议先买国内 QDII 基金</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 1: 银行筛选
+  ════════════════════════════ -->
+  <section class="section-block" id="mod1">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块一</div>
+        <h2 class="section-title">零门槛 / 零管理费香港银行账户筛选</h2>
+      </div>
+    </div>
+
+    <!-- 1.1 -->
+    <div class="sub-section" id="mod1-1">
+      <h3 class="sub-title">1.1 传统银行 vs 虚拟银行横向对比（含汇丰）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>🏦 汇丰 HSBC One</th>
+              <th>🏦 中银香港（自在理财）</th>
+              <th>🏦 工银亚洲</th>
+              <th>🏦 建银亚洲</th>
+              <th>🏦 恒生银行（优进理财）</th>
+              <th>📱 ZA Bank 众安</th>
+              <th>📱 天星银行 Airstar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>管理费</td>
+              <td class="t-orange">⚠️ 100 HKD/月（2026.1后新开户非港居民，TRB &lt; 1万HKD时）</td>
+              <td>目前暂豁免；银行保留收费权（门槛1万HKD）</td>
+              <td>有服务费，持定存/基金等产品可豁免</td>
+              <td>有服务费，视账户层级</td>
+              <td class="t-green">✅ 已免除（优进理财/综合户口无低额结存费）</td>
+              <td class="t-green">✅ 完全免除</td>
+              <td class="t-green">✅ 完全免除</td>
+            </tr>
+            <tr>
+              <td>免费门槛</td>
+              <td>3个月平均 TRB ≥ <strong>1万HKD</strong></td>
+              <td>TRB ≥ 1万HKD（建议保持）</td>
+              <td>持有定存/基金/综合账户等即可豁免</td>
+              <td>视层级（智选理财10万HKD起）</td>
+              <td class="t-green"><strong>无门槛</strong>（优进理财免费）</td>
+              <td class="t-green"><strong>无门槛</strong></td>
+              <td class="t-green"><strong>无门槛</strong></td>
+            </tr>
+            <tr>
+              <td>最低结存</td>
+              <td>无强制，但低于门槛每月扣100HKD</td>
+              <td>无强制，但低于门槛存在收费风险</td>
+              <td>无强制（网点可能口头要求少量资金）</td>
+              <td>分行激活建议存约1,000HKD</td>
+              <td>无强制</td>
+              <td class="t-green"><strong>无要求</strong></td>
+              <td class="t-green"><strong>无要求</strong></td>
+            </tr>
+            <tr>
+              <td>开户方式</td>
+              <td><strong>App远程预申请</strong>或赴港面签</td>
+              <td>线下面签（强烈建议预约）</td>
+              <td>线上预约 → 线下激活</td>
+              <td>线上预约 → 线下激活</td>
+              <td>线下面签</td>
+              <td class="t-green"><strong>App全线上</strong>（须在港）</td>
+              <td class="t-green"><strong>App全线上</strong>（须在港）</td>
+            </tr>
+            <tr>
+              <td>大陆居民可开</td>
+              <td class="t-green">✅</td>
+              <td class="t-green">✅</td>
+              <td class="t-green">✅</td>
+              <td class="t-green">✅</td>
+              <td class="t-green">✅</td>
+              <td class="t-green">✅ 访港旅客可开</td>
+              <td class="t-green">✅ 访港旅客可开</td>
+            </tr>
+            <tr>
+              <td>地址证明</td>
+              <td>需要</td>
+              <td>需要（信用卡账单可替代）</td>
+              <td>需要</td>
+              <td>需要</td>
+              <td>需要</td>
+              <td class="t-green"><strong>不需要</strong></td>
+              <td class="t-green"><strong>不需要</strong></td>
+            </tr>
+            <tr>
+              <td>小资金成功率</td>
+              <td>中等</td>
+              <td>中等</td>
+              <td>中等</td>
+              <td>较高</td>
+              <td>较低</td>
+              <td class="t-green"><strong>极高</strong></td>
+              <td class="t-green"><strong>极高</strong></td>
+            </tr>
+            <tr>
+              <td>实体卡</td>
+              <td>✅ Visa（Apple Pay）</td>
+              <td>✅ 银联/Visa</td>
+              <td>✅ 银联</td>
+              <td>✅ 银联</td>
+              <td>✅ 银联</td>
+              <td>✅ Visa</td>
+              <td>✅ Visa</td>
+            </tr>
+            <tr>
+              <td>全球认可度</td>
+              <td class="t-gold">⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>核心优势</td>
+              <td>全球最强品牌力、App体验最佳</td>
+              <td>中资大行背景、覆盖广</td>
+              <td>跨境人民币便利</td>
+              <td>内地建行联动</td>
+              <td>本地老牌港资行</td>
+              <td class="t-green">零门槛、秒开户</td>
+              <td>富途控股联动</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 1.2 -->
+    <div class="sub-section" id="mod1-2">
+      <h3 class="sub-title">1.2 管理费门槛速查表（⚠️ 核心参考）</h3>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <p>所有传统银行的管理费豁免均为<strong>「持续达标豁免」</strong>机制，<strong>不是</strong>"达标一次就终身免费"。每个计费周期都会重新检查你的资产总值，低于门槛即扣费。只有虚拟银行是真正的零门槛零管理费。</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>银行</th>
+              <th>免管理费门槛</th>
+              <th>未达标扣费</th>
+              <th>计费周期</th>
+              <th>机制说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>汇丰 HSBC One</td>
+              <td>TRB ≥ <strong>1万HKD</strong>（3个月平均）</td>
+              <td class="t-red"><strong>100 HKD/月 💀</strong></td>
+              <td>每月检查（看过去3个月平均）</td>
+              <td><strong>持续达标豁免</strong>，非终身免除。资金临时调走即触发扣费</td>
+            </tr>
+            <tr>
+              <td>中银香港（自在理财）</td>
+              <td>TRB ≥ 1万HKD</td>
+              <td class="t-dim">目前暂豁免（保留约60HKD/季收费权）</td>
+              <td>—</td>
+              <td>2019年曾全面取消；目前"暂豁免"状态，随时可能恢复</td>
+            </tr>
+            <tr>
+              <td>工银亚洲</td>
+              <td>持有定存/基金/综合账户等产品</td>
+              <td class="t-orange">15 HKD/月</td>
+              <td>每月</td>
+              <td>只要账户内有定存或任意理财产品即可免除</td>
+            </tr>
+            <tr>
+              <td>建银亚洲</td>
+              <td>视账户层级（智选理财 ≥10万HKD）</td>
+              <td class="t-red">视层级，100~300 HKD/月</td>
+              <td>每月（连续3个月不达标）</td>
+              <td>普通账户无明确公开免费门槛，建议开户时当面确认</td>
+            </tr>
+            <tr>
+              <td>恒生银行（优进理财/综合户口）</td>
+              <td class="t-green"><strong>无门槛</strong></td>
+              <td class="t-green"><strong>0</strong></td>
+              <td>—</td>
+              <td>优进理财和综合户口已<strong>永久取消</strong>低额结存费 ✅</td>
+            </tr>
+            <tr>
+              <td>ZA Bank</td>
+              <td class="t-green"><strong>无门槛</strong></td>
+              <td class="t-green"><strong>0</strong></td>
+              <td>—</td>
+              <td>虚拟银行，永久免管理费 ✅</td>
+            </tr>
+            <tr>
+              <td>天星银行</td>
+              <td class="t-green"><strong>无门槛</strong></td>
+              <td class="t-green"><strong>0</strong></td>
+              <td>—</td>
+              <td>虚拟银行，永久免管理费 ✅</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <p><strong>TRB（全面理财总值）= 活期 + 定期 + 基金 + 股票市值 + 债券 + 保险现金价值</strong>。不仅仅是现金存款，如果你在该银行买了基金或做了定存，都算在内。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 -->
+    <div class="sub-section" id="mod1-3">
+      <h3 class="sub-title">1.3 券商入金兼容性</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>银行</th><th>eDDA 快捷入金</th><th>FPS 转数快</th><th>电汇</th><th>备注</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>汇丰</td><td class="t-green">✅ 兼容性<strong>最广</strong>，几乎所有券商优先支持</td><td class="t-green">✅</td><td class="t-green">✅</td><td>全球第一梯队，App体验最好</td></tr>
+            <tr><td>中银香港</td><td class="t-green">✅ 支持主流券商</td><td class="t-green">✅</td><td class="t-green">✅</td><td>中资大行首选</td></tr>
+            <tr><td>工银亚洲</td><td class="t-green">✅</td><td class="t-green">✅</td><td class="t-green">✅</td><td>跨境人民币便利</td></tr>
+            <tr><td>建银亚洲</td><td class="t-green">✅</td><td class="t-green">✅</td><td class="t-green">✅</td><td>内地建行联动优势</td></tr>
+            <tr><td>恒生银行</td><td class="t-green">✅</td><td class="t-green">✅</td><td class="t-green">✅</td><td>银联实体卡好用</td></tr>
+            <tr><td>ZA Bank</td><td class="t-green">✅ 盈立/复星/富途/长桥均支持</td><td class="t-green">✅</td><td class="t-green">✅</td><td class="t-green"><strong>5分钟到账</strong>，零手续费</td></tr>
+            <tr><td>天星银行</td><td class="t-green">✅</td><td class="t-green">✅</td><td class="t-green">✅</td><td>富途控股背景，联动佳</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <p><strong>小资金最优方案（修订版）</strong>：</p>
+          <ul>
+            <li><strong>极致省钱</strong>：ZA Bank（零门槛）+ 恒生优进理财（零管理费大行）— 年费用 0</li>
+            <li><strong>品牌力优先</strong>：ZA Bank + 汇丰 HSBC One（保持1万HKD）— 最强券商兼容性</li>
+            <li><strong>稳妥中庸</strong>：ZA Bank + 建银亚洲/中银香港 — 中资行联动便利</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.4 -->
+    <div class="sub-section" id="mod1-4">
+      <h3 class="sub-title">1.4 汇丰 HSBC One 免管理费最佳策略</h3>
+      <p class="prose">如果选择汇丰作为主力大行，需要保持 TRB ≥ 1 万 HKD 以免除 100 HKD/月的管理费。以下对比三种「用最小成本达标」的策略：</p>
+
+      <div class="sub-sub-title">策略 A：港币定期存款（最简单）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>数据</th></tr></thead>
+          <tbody>
+            <tr><td>操作</td><td>在汇丰 App 内开 1 万 HKD 港币定存</td></tr>
+            <tr><td>最低金额</td><td>10,000 HKD</td></tr>
+            <tr><td>当前利率</td><td>约 <strong>2.0%~2.2% p.a.</strong>（3~6 个月期）</td></tr>
+            <tr><td>年收益</td><td class="t-green">约 200~220 HKD</td></tr>
+            <tr><td>持有成本</td><td class="t-green"><strong>0</strong> — 无托管费、无管理费、无额外费用</td></tr>
+            <tr><td>是否计入 TRB</td><td class="t-green">✅ 定存本金全额计入</td></tr>
+            <tr><td>流动性</td><td class="t-orange">⚠️ 锁定期内无法支取（提前解约损失利息）</td></tr>
+            <tr><td>综合评价</td><td class="t-gold">⭐⭐⭐⭐⭐ <strong>最推荐！</strong> 零成本、零风险、直接达标，还能赚利息</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">策略 B：买入港交所上市的指数 ETF</div>
+      <p class="prose">在汇丰平台直接买入在港交所挂牌的 ETF，如：<strong>盈富基金（2800.HK）</strong>— 恒指；<strong>安硕纳斯达克100（3086.HK）</strong>；<strong>SPDR 标普500（3140.HK）</strong></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>数据</th></tr></thead>
+          <tbody>
+            <tr><td>买入佣金</td><td class="t-red">0.25%（最低 <strong>100 HKD/笔</strong>）💀</td></tr>
+            <tr><td>Trade25 优惠</td><td class="t-green">若符合条件（18~35岁）→ <strong>$0佣金</strong>，月费仅25HKD</td></tr>
+            <tr><td>印花税</td><td>买入0.1% + 卖出0.1% = <strong>0.2%</strong>（双向）</td></tr>
+            <tr><td>托管费</td><td class="t-red"><strong>25 HKD/月</strong>（港股），部分优惠计划可豁免</td></tr>
+            <tr><td>代收股息费</td><td>股息的 <strong>0.5%</strong>（最低30HKD，最高2,500HKD）</td></tr>
+            <tr><td>是否计入 TRB</td><td class="t-green">✅ 持仓市值全额计入</td></tr>
+            <tr><td>年度持有成本（1万HKD）</td><td class="t-red">托管费 25×12 = <strong>300HKD</strong> + 股息费约15~30HKD = <strong>约315~330HKD/年</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">策略 C：买入美股 ETF（如 QQQ/SPY/VOO）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>数据</th></tr></thead>
+          <tbody>
+            <tr><td>买入佣金</td><td class="t-red">0.25%（最低 <strong>100HKD</strong>）💀；Trade25用户$0</td></tr>
+            <tr><td>换汇损耗</td><td>HKD → USD 汇率点差约 0.05%~0.15%</td></tr>
+            <tr><td>托管费（美股）</td><td class="t-orange"><strong>5 USD/月</strong>（约39HKD），<strong>目前暂时豁免</strong></td></tr>
+            <tr><td>代收股息费</td><td>股息的 <strong>0.5%</strong>（最低30HKD）</td></tr>
+            <tr><td>美股股息预扣税</td><td><strong>10%</strong>（需填 W-8BEN）</td></tr>
+            <tr><td>是否计入 TRB</td><td class="t-green">✅ 持仓市值折算港币后计入</td></tr>
+            <tr><td>年度持有成本（1万HKD，托管费豁免期）</td><td class="t-green">约 <strong>21~36 HKD/年</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">📊 三种策略成本对比汇总</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>🟢 A. 港币定存</th><th>🟡 B. 港交所 ETF</th><th>🔴 C. 美股 ETF</th></tr></thead>
+          <tbody>
+            <tr><td>年度持有成本</td><td class="t-green"><strong>0 HKD</strong></td><td class="t-red"><strong>~330 HKD 💀</strong></td><td class="t-orange"><strong>~30 HKD</strong>（托管费豁免期）</td></tr>
+            <tr><td>买入成本（一次性）</td><td class="t-green">0</td><td class="t-red">最低 <strong>100HKD</strong> 佣金 + 0.1% 印花税</td><td class="t-orange">最低 <strong>100HKD</strong> 佣金 + 换汇点差</td></tr>
+            <tr><td>年收益</td><td class="t-green"><strong>+200~220 HKD</strong></td><td>视涨跌（有市场风险）</td><td>视涨跌（有市场+汇率风险）</td></tr>
+            <tr><td>风险</td><td class="t-green">零风险</td><td>市场波动</td><td>市场波动 + 汇率波动</td></tr>
+            <tr><td>TRB 达标效果</td><td class="t-green">✅ 确定达标</td><td class="t-orange">✅ 但市值波动可能跌破门槛</td><td class="t-orange">✅ 同上，且有汇率叠加</td></tr>
+            <tr><td>综合推荐</td><td class="t-gold">⭐⭐⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐⭐（托管费豁免时）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout important">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body">
+          <p><strong>最佳策略结论</strong>：<strong>存1万HKD港币定期</strong>是小资金用户免除汇丰管理费的最优解。</p>
+          <ul>
+            <li>零持有成本、零风险、操作最简单</li>
+            <li>每年还能赚 ~200 HKD 利息</li>
+            <li>TRB 确定性达标（不受市场波动影响）</li>
+          </ul>
+          <p>在汇丰平台买 ETF 作为「达标工具」<strong>极不划算</strong>：100HKD 最低佣金 + 25HKD/月托管费 = 第一年成本 400+ HKD。投资交易应放在盈立证券等免佣平台，汇丰只负责「存钱达标 + 日常银行功能」。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 2: 多开 vs 单开
+  ════════════════════════════ -->
+  <section class="section-block" id="mod2">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块二</div>
+        <h2 class="section-title">多开 vs 单开的费率与风控博弈</h2>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod2-1">
+      <h3 class="sub-title">2.1 策略对比</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>🔴 单开一家</th><th>🟢 多开（1大行 + 1~2虚拟银行）</th></tr></thead>
+          <tbody>
+            <tr><td>隐形成本</td><td>最低，只需维护一个账户的结存</td><td>虚拟银行零成本，大行需维持约1万HKD</td></tr>
+            <tr><td>风控韧性</td><td class="t-red">⚠️ 单点故障 — 一旦冻结/限制，资金链断裂</td><td class="t-green">✅ 资金路径备份，一家出问题不影响全局</td></tr>
+            <tr><td>打新效率</td><td>入金路径单一，紧急时可能延误</td><td class="t-green">多通道并行，eDDA + FPS 双保险</td></tr>
+            <tr><td>冻结风险</td><td class="t-red">所有鸡蛋在一个篮子</td><td class="t-green">分散风险，虚拟银行因监管较宽松更抗冻</td></tr>
+            <tr><td>养户成本</td><td>低</td><td>低（虚拟银行无额外成本）</td></tr>
+            <tr><td>适合场景</td><td>极低频交易，资金极少</td><td class="t-green"><strong>频繁打新、日常交易（推荐）</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod2-2">
+      <h3 class="sub-title">2.2 防风控核心要点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>规则</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>避免快进快出</td><td>资金到账后留存 <strong>≥5个工作日</strong>再转出</td></tr>
+            <tr><td>保持活跃度</td><td>每月 <strong>1~3笔</strong>真实交易/转账</td></tr>
+            <tr><td>余额沉淀</td><td>大行账户保持 <strong>≥1万HKD</strong>日均余额</td></tr>
+            <tr><td>及时响应 KYC</td><td>银行调查信/邮件必须第一时间回复</td></tr>
+            <tr><td>公私分明</td><td>不要用个人账户做企业级交易</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout important">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body">
+          <p><strong>推荐方案</strong>：「<strong>ZA Bank（日常入金/中转）+ 汇丰 HSBC One 或建银亚洲（主力大行）</strong>」。总维护成本：约1万HKD定存沉淀资金（还能赚利息）+ 0管理费（虚拟银行端）。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 3: 券商费率
+  ════════════════════════════ -->
+  <section class="section-block" id="mod3">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块三</div>
+        <h2 class="section-title">券商费率与「新手损耗」极限对比</h2>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod3-1">
+      <h3 class="sub-title">3.1 重大前提：2026年大陆居民开户现状</h3>
+
+      <div class="broker-grid">
+        <div class="broker-card open">
+          <span style="font-size:22px;">✅</span>
+          <div>
+            <div class="broker-name">盈立证券 uSMART</div>
+            <div class="broker-status">大陆身份证 + 内地银行卡，全线上，无需境外证明 · 推荐首选</div>
+          </div>
+        </div>
+        <div class="broker-card open">
+          <span style="font-size:22px;">✅</span>
+          <div>
+            <div class="broker-name">复星证券（星财富）</div>
+            <div class="broker-status">大陆身份证 + 内地银行卡，CA见证开户，需专属链接</div>
+          </div>
+        </div>
+        <div class="broker-card closed">
+          <span style="font-size:22px;">❌</span>
+          <div>
+            <div class="broker-name">富途证券</div>
+            <div class="broker-status">已关闭 · 持港澳身份证/海外永居可开</div>
+          </div>
+        </div>
+        <div class="broker-card closed">
+          <span style="font-size:22px;">❌</span>
+          <div>
+            <div class="broker-name">老虎证券</div>
+            <div class="broker-status">已关闭（2025.9起）</div>
+          </div>
+        </div>
+        <div class="broker-card closed">
+          <span style="font-size:22px;">❌</span>
+          <div>
+            <div class="broker-name">长桥证券</div>
+            <div class="broker-status">已关闭（2025下半年起）</div>
+          </div>
+        </div>
+        <div class="broker-card closed">
+          <span style="font-size:22px;">❌</span>
+          <div>
+            <div class="broker-name">微牛证券 Webull</div>
+            <div class="broker-status">已清退大陆存量客户</div>
+          </div>
+        </div>
+        <div class="broker-card warn" style="grid-column:1/-1;">
+          <span style="font-size:22px;">⚠️</span>
+          <div>
+            <div class="broker-name">盈透证券 IBKR</div>
+            <div class="broker-status">极难 — 需提供境外居住/工作证明，理论可行但审核极严，不推荐新手</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout important">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body">
+          <p><strong>2026年可行路径</strong>：盈立证券（uSMART）和复星证券（星财富）是目前仅持大陆身份证仍可线上开户的<strong>持牌合规券商</strong>（香港SFC持牌）。其中<strong>盈立证券门槛最低</strong>，无需任何境外证明，推荐作为新手首选。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod3-2">
+      <h3 class="sub-title">3.2 费率对比（重点标注大陆可开户券商）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>费用项</th>
+              <th>🟢 盈立证券 uSMART</th>
+              <th>🟢 复星证券（星财富）</th>
+              <th>富途证券</th>
+              <th>长桥证券</th>
+              <th>盈透证券 IBKR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>大陆身份证开户</td>
+              <td class="t-green"><strong>✅ 可开</strong></td>
+              <td class="t-green"><strong>✅ 可开</strong></td>
+              <td class="t-red">❌</td>
+              <td class="t-red">❌</td>
+              <td class="t-orange">⚠️ 极难</td>
+            </tr>
+            <tr>
+              <td>港股佣金</td>
+              <td class="t-green">0.03% 或 <strong>0%</strong>（视计划）</td>
+              <td class="t-green"><strong>0%（终身免佣）</strong></td>
+              <td>0.03%（最低3HKD）</td>
+              <td class="t-green"><strong>0%（终身免佣）</strong></td>
+              <td>0.08% 起</td>
+            </tr>
+            <tr>
+              <td>港股平台费</td>
+              <td class="t-gold"><strong>12 HKD/笔</strong></td>
+              <td>15 HKD/笔</td>
+              <td>15 HKD/笔</td>
+              <td>15 HKD/笔</td>
+              <td class="t-green">无平台费</td>
+            </tr>
+            <tr>
+              <td>美股佣金</td>
+              <td class="t-green"><strong>$0（一世免佣）</strong></td>
+              <td class="t-green"><strong>$0（终身免佣）</strong></td>
+              <td>$0.0049/股（最低$0.99）</td>
+              <td class="t-green"><strong>$0（终身免佣）</strong></td>
+              <td>固定 $0.005/股</td>
+            </tr>
+            <tr>
+              <td>美股平台费</td>
+              <td>$0.009/股（最低$1.88）或$0.99/笔（高价股）</td>
+              <td>$0.005/股（最低$1）</td>
+              <td>$0.005/股（最低$1）</td>
+              <td>$0.005/股（最低$1）</td>
+              <td class="t-green">无</td>
+            </tr>
+            <tr>
+              <td>港股IPO现金认购</td>
+              <td class="t-green"><strong>免手续费</strong></td>
+              <td class="t-green"><strong>免手续费</strong></td>
+              <td class="t-green"><strong>免手续费</strong></td>
+              <td>免/低手续费</td>
+              <td>不适合散户</td>
+            </tr>
+            <tr>
+              <td>港股融资打新利率</td>
+              <td class="t-green">有优惠，部分免息</td>
+              <td>融资打新约100HKD/笔手续费</td>
+              <td>~6.8% 年化</td>
+              <td>~6.5% 年化</td>
+              <td>不适用</td>
+            </tr>
+            <tr>
+              <td>融资打新倍数</td>
+              <td>最高 10 倍</td>
+              <td>视个股而定</td>
+              <td>最高 10~20 倍</td>
+              <td>最高 10 倍</td>
+              <td>不适用</td>
+            </tr>
+            <tr>
+              <td>美股股息预扣税</td>
+              <td>10%（填 W-8BEN）</td>
+              <td>10%（填 W-8BEN）</td>
+              <td>10%（填 W-8BEN）</td>
+              <td>10%（填 W-8BEN）</td>
+              <td>10%（填 W-8BEN）</td>
+            </tr>
+            <tr>
+              <td>账户管理费/闲置费</td>
+              <td class="t-green">无</td>
+              <td class="t-green">无</td>
+              <td class="t-green">无</td>
+              <td class="t-green">无</td>
+              <td class="t-green">无（已取消）</td>
+            </tr>
+            <tr>
+              <td>实时行情</td>
+              <td>部分免费</td>
+              <td>部分免费</td>
+              <td>LV2 免费</td>
+              <td>部分免费</td>
+              <td>需付费订阅</td>
+            </tr>
+            <tr>
+              <td>迎新福利</td>
+              <td class="t-green">入金奖励 + 美股免佣</td>
+              <td class="t-green">入金1万HKD激活终身免佣 + 现金券</td>
+              <td>约1,800HKD（需港/海外身份）</td>
+              <td>现金卡+终身免佣（需港/海外身份）</td>
+              <td>无</td>
+            </tr>
+            <tr>
+              <td>免佣获取门槛</td>
+              <td class="t-green"><strong>开户即享美股免佣</strong></td>
+              <td>首次入金 ≥1万HKD</td>
+              <td class="t-red">N/A（已关闭大陆开户）</td>
+              <td class="t-red">N/A</td>
+              <td class="t-red">N/A</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod3-3">
+      <h3 class="sub-title">3.3 隐藏成本盘点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>隐藏成本</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>汇率点差</td><td>港币换美元时，各券商换汇点差约 0.03%~0.15%。IBKR 点差最低（接近银行间利率），互联网券商略高</td></tr>
+            <tr><td>印花税（港股）</td><td>0.1%（政府征收，所有券商一致）</td></tr>
+            <tr><td>SEC 规费（美股卖出）</td><td>约 $27.8/百万美元（极小，可忽略）</td></tr>
+            <tr><td>股票转出费</td><td>通常 500 HKD/次（各券商类似）</td></tr>
+            <tr><td>融资利息</td><td>日常融资年利率 6%~8%，打新融资更低</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 4: 税务
+  ════════════════════════════ -->
+  <section class="section-block" id="mod4">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块四</div>
+        <h2 class="section-title">国际税务与合规避税指南</h2>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod4-1">
+      <h3 class="sub-title">4.1 HK 实体 vs US 实体核心对比</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>🇭🇰 香港实体（富途HK、老虎HK等）</th><th>🇺🇸 美国实体（IBKR US/IB LLC）</th></tr></thead>
+          <tbody>
+            <tr><td>CRS 信息交换</td><td class="t-red">✅ <strong>会通报</strong> — 账户余额、股息、利息、卖出总额自动交换给中国税务机关</td><td class="t-green">❌ 美国未加入CRS，<strong>不主动交换</strong></td></tr>
+            <tr><td>但实际逃不掉</td><td>—</td><td class="t-orange">⚠️ 出入金经过的香港银行仍属CRS体系，银行端信息仍会被交换</td></tr>
+            <tr><td>美股资本利得税</td><td>美国端：<strong>0%</strong>（非美居民免征）；中国端：理论20%（实操中暂未严格执行）</td><td>同左</td></tr>
+            <tr><td>港股资本利得税</td><td class="t-green"><strong>0%</strong>（香港不征）</td><td>同左</td></tr>
+            <tr><td>美股股息预扣税</td><td><strong>10%</strong>（填W-8BEN，享中美协定优惠）</td><td>10%（同上）</td></tr>
+            <tr><td>港股股息税</td><td class="t-green"><strong>0%</strong>（香港不征股息税）</td><td>同左</td></tr>
+            <tr><td>美国遗产税</td><td class="t-orange">⚠️ 非美居民持有美国资产 &gt;<strong>6万美元</strong>，超出部分最高<strong>40%</strong></td><td>⚠️ 同左（与券商实体无关，与底层资产有关）</td></tr>
+            <tr><td>监管保障</td><td>香港SFC + 投资者赔偿基金（最高50万HKD）</td><td>美国SEC/FINRA + <strong>SIPC</strong>（最高50万美元，含25万现金）</td></tr>
+            <tr><td>开户难度（2026）</td><td class="t-red">已关闭大陆新用户</td><td class="t-red">需境外居住证明，审核极严</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod4-2">
+      <h3 class="sub-title">4.2 税务损耗速算表</h3>
+      <div class="tax-grid">
+        <div class="tax-card">
+          <div class="tax-card-label">港股资本利得税（香港端）</div>
+          <div class="tax-rate zero">0%</div>
+          <div class="tax-note">香港不征 · 直接免</div>
+        </div>
+        <div class="tax-card">
+          <div class="tax-card-label">美股资本利得税（美国端）</div>
+          <div class="tax-rate zero">0%</div>
+          <div class="tax-note">非美居民免征</div>
+        </div>
+        <div class="tax-card">
+          <div class="tax-card-label">港股股息税</div>
+          <div class="tax-rate zero">0%</div>
+          <div class="tax-note">香港不征股息税</div>
+        </div>
+        <div class="tax-card">
+          <div class="tax-card-label">美股股息预扣税（已填 W-8BEN）</div>
+          <div class="tax-rate low">10%</div>
+          <div class="tax-note">中美协定优惠 · 未填则30%！</div>
+        </div>
+        <div class="tax-card">
+          <div class="tax-card-label">美股资本利得税（中国端理论）</div>
+          <div class="tax-rate mid">20%</div>
+          <div class="tax-note">理论税率 · 目前暂未严格执行</div>
+        </div>
+        <div class="tax-card">
+          <div class="tax-card-label">美国遗产税（超6万美元部分）</div>
+          <div class="tax-rate high">40%</div>
+          <div class="tax-note">非美居民持美资产 · 离世时触发</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod4-3">
+      <h3 class="sub-title">4.3 实战计算：5万HKD投入，赚20%后实际到手多少？</h3>
+      <p class="prose">以盈立证券（uSMART）为平台，假设已填W-8BEN，以下为三大典型场景的完整成本拆解：</p>
+
+      <div class="sub-sub-title">场景 A：港股打新（5万HKD现金认购，中签后涨20%卖出）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>计算</th><th>金额</th></tr></thead>
+          <tbody>
+            <tr><td>初始投入</td><td>—</td><td>50,000 HKD</td></tr>
+            <tr><td>卖出价</td><td>50,000 × 1.2</td><td>60,000 HKD</td></tr>
+            <tr><td>毛利润</td><td>—</td><td class="t-green"><strong>+10,000 HKD</strong></td></tr>
+            <tr><td>① IPO认购手续费</td><td>盈立现金认购</td><td class="t-green"><strong>0 HKD</strong></td></tr>
+            <tr><td>② 卖出佣金</td><td>免佣（选择免佣计划）</td><td class="t-green"><strong>0 HKD</strong></td></tr>
+            <tr><td>③ 卖出平台费</td><td>盈立固定</td><td>12 HKD</td></tr>
+            <tr><td>④ 印花税（买+卖）</td><td>50,000×0.1% + 60,000×0.1%</td><td>110 HKD</td></tr>
+            <tr><td>⑤ 交易征费+交易费+结算费</td><td>约0.011% × (50,000+60,000)</td><td>≈12 HKD</td></tr>
+            <tr><td>⑥ 资本利得税</td><td>港股不征</td><td class="t-green">0 HKD</td></tr>
+            <tr><td><strong>总交易成本</strong></td><td>①+②+③+④+⑤</td><td class="t-gold"><strong>≈134 HKD</strong></td></tr>
+            <tr><td><strong>净利润</strong></td><td>10,000 - 134</td><td class="t-green"><strong>9,866 HKD</strong></td></tr>
+            <tr><td><strong>实际收益率</strong></td><td>9,866 / 50,000</td><td class="t-green"><strong>19.73%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">场景 B：买入美股 ETF（QQQ/SPY），持有1年，涨20%</div>
+      <p class="prose">假设5万HKD ≈ 6,410 USD（汇率7.8），买入QQQ持有1年，股息率约0.6%</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>计算</th><th>金额</th></tr></thead>
+          <tbody>
+            <tr><td>初始投入</td><td>50,000 HKD → 换汇</td><td><strong>6,410 USD</strong></td></tr>
+            <tr><td>① 换汇损耗</td><td>汇率点差约0.05%~0.1%</td><td>≈3~6 USD</td></tr>
+            <tr><td>② 买入佣金</td><td>免佣</td><td class="t-green">0 USD</td></tr>
+            <tr><td>③ 买入平台费</td><td>$0.009/股（最低$1.88），假设买30股QQQ</td><td>≈1.88 USD</td></tr>
+            <tr><td>持有1年后市值</td><td>6,410 × 1.2</td><td>7,692 USD</td></tr>
+            <tr><td>毛利润</td><td>—</td><td class="t-green"><strong>+1,282 USD</strong></td></tr>
+            <tr><td>④ 股息收入（税前）</td><td>6,410 × 0.6%</td><td>38.5 USD</td></tr>
+            <tr><td>⑤ 股息预扣税（W-8BEN）</td><td>38.5 × 10%</td><td class="t-red">-3.85 USD</td></tr>
+            <tr><td>⑥ 卖出佣金</td><td>免佣</td><td class="t-green">0 USD</td></tr>
+            <tr><td>⑦ 卖出平台费</td><td>—</td><td>≈1.88 USD</td></tr>
+            <tr><td>⑧ SEC规费（卖出）</td><td>7,692 × $27.8/百万</td><td>≈0.21 USD</td></tr>
+            <tr><td>⑨ 资本利得税（美国端）</td><td>非美居民免征</td><td class="t-green">0 USD</td></tr>
+            <tr><td><strong>总交易成本</strong></td><td>①+③+⑤+⑦+⑧</td><td class="t-gold"><strong>≈11 USD（≈86 HKD）</strong></td></tr>
+            <tr><td><strong>净收益</strong></td><td>1,282 + 38.5 - 3.85 - 11</td><td class="t-green"><strong>≈1,306 USD</strong></td></tr>
+            <tr><td><strong>实际收益率</strong></td><td>1,306 / 6,410</td><td class="t-green"><strong>20.37%（几乎无损耗）</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">场景 C：美股个股交易（如AAPL），赚20%卖出</div>
+      <p class="prose">假设5万HKD → 6,410 USD，买入AAPL持有6个月，收到一次季度股息约$16</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>计算</th><th>金额</th></tr></thead>
+          <tbody>
+            <tr><td>初始投入</td><td>—</td><td><strong>6,410 USD</strong></td></tr>
+            <tr><td>① 换汇损耗</td><td>约0.05%~0.1%</td><td>≈5 USD</td></tr>
+            <tr><td>② 买入平台费</td><td>约30股 × $0.009</td><td>≈1.88 USD</td></tr>
+            <tr><td>卖出价</td><td>6,410 × 1.2</td><td>7,692 USD</td></tr>
+            <tr><td>③ 卖出平台费</td><td>—</td><td>≈1.88 USD</td></tr>
+            <tr><td>④ 股息收入（税前）</td><td>约$0.25/股 × 30股 × 2次</td><td>≈15 USD</td></tr>
+            <tr><td>⑤ 股息预扣税</td><td>15 × 10%</td><td class="t-red">-1.5 USD</td></tr>
+            <tr><td>⑥ 资本利得税（美国端）</td><td>非美居民0%</td><td class="t-green">0 USD</td></tr>
+            <tr><td><strong>总交易成本</strong></td><td>①+②+③+⑤+⑥</td><td class="t-gold"><strong>≈10.5 USD（≈82 HKD）</strong></td></tr>
+            <tr><td><strong>净收益</strong></td><td>1,282 + 15 - 1.5 - 10.5</td><td class="t-green"><strong>≈1,285 USD</strong></td></tr>
+            <tr><td><strong>实际收益率</strong></td><td>—</td><td class="t-green"><strong>20.05%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">📊 三大场景双情景汇总对比</div>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><p>以下分「<strong>当前实操</strong>」和「<strong>完全合规申报</strong>」两种情景。CRS 2.0（2026年起落地）+ 金税四期大数据比对，使得境外收益被发现的概率大幅上升。</p></div>
+      </div>
+      <p class="prose" style="color:var(--gold);font-weight:600;">情景一：当前实操（未主动申报中国端税）</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>场景</th><th>毛收益</th><th>交易成本</th><th>境外税</th><th>中国端税</th><th>净收益率</th><th>实际到手</th></tr></thead>
+          <tbody>
+            <tr><td>A. 港股打新</td><td>+10,000 HKD</td><td>134 HKD</td><td>0</td><td class="t-green">0</td><td class="t-green"><strong>19.73%</strong></td><td class="t-green">59,866 HKD</td></tr>
+            <tr><td>B. 美股 ETF</td><td>+10,005 HKD</td><td>86 HKD</td><td>30 HKD</td><td class="t-green">0</td><td class="t-green"><strong>20.37%</strong></td><td class="t-green">60,185 HKD</td></tr>
+            <tr><td>C. 美股个股</td><td>+10,117 HKD</td><td>82 HKD</td><td>12 HKD</td><td class="t-green">0</td><td class="t-green"><strong>20.05%</strong></td><td class="t-green">60,021 HKD</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="color:var(--orange);font-weight:600;margin-top:16px;">情景二：完全合规申报（如实向中国税务局申报境外所得）</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>场景</th><th>毛收益</th><th>交易成本</th><th>境外税</th><th>中国端资本利得税（20%）</th><th>合规后净收益</th><th>合规后收益率</th></tr></thead>
+          <tbody>
+            <tr><td>A. 港股打新</td><td>+10,000 HKD</td><td>134</td><td>0</td><td class="t-red">2,000 HKD</td><td class="t-orange"><strong>7,866 HKD</strong></td><td class="t-orange"><strong>15.73%</strong></td></tr>
+            <tr><td>B. 美股 ETF</td><td>+10,005 HKD</td><td>86</td><td>30</td><td class="t-red">2,000 HKD</td><td class="t-orange"><strong>7,859 HKD</strong></td><td class="t-orange"><strong>15.72%</strong></td></tr>
+            <tr><td>C. 美股个股</td><td>+10,117 HKD</td><td>82</td><td>12</td><td class="t-red">2,000 HKD</td><td class="t-orange"><strong>8,011 HKD</strong></td><td class="t-orange"><strong>16.02%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout caution">
+        <span class="callout-icon">⚡</span>
+        <div class="callout-body">
+          <p><strong>现实判断</strong>：</p>
+          <ul>
+            <li><strong>当前</strong>：绝大多数个人投资者未主动申报境外股票收益，税务局也暂未对小额散户严格追缴。</li>
+            <li><strong>未来风险</strong>：CRS 2.0（2026年起落地）+ 金税四期大数据比对，未申报境外所得被发现概率大幅上升。一旦追缴：补税 + 滞纳金（日万分之五）+ 罚款（0.5~5倍）。</li>
+            <li><strong>小资金策略</strong>：5万HKD级别收益（~1万HKD），即便按20%合规申报也就2,000HKD税——金额不大，但需留好完整交易流水以备自查。</li>
+            <li><strong>股息可抵免</strong>：美股已在美国预扣的10%股息税，在中国汇算清缴时可以<strong>申请抵免</strong>，实际只需补缴10%差额。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod4-4">
+      <h3 class="sub-title">4.4 W-8BEN 填写要点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>要素</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>作用</td><td>声明「非美国税务居民」身份，将美股股息预扣税从 <strong>30% 降至 10%</strong></td></tr>
+            <tr><td>有效期</td><td><strong>3年</strong>，到期前必须更新，否则恢复30%</td></tr>
+            <tr><td>填写时机</td><td>开户时券商App会引导填写，务必选择「中国」作为税务居住地</td></tr>
+            <tr><td>常见错误</td><td>忘记续签、填错税务居住地、未勾选条约优惠条款</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod4-5">
+      <h3 class="sub-title">4.5 CRS 2.0（2026年起落地）关键变化</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>变化</th><th>影响</th></tr></thead>
+          <tbody>
+            <tr><td>范围扩展至数字资产</td><td class="t-red">加密货币、稳定币账户纳入信息交换</td></tr>
+            <tr><td>双重税籍全面申报</td><td class="t-red">不再允许"择一申报"，所有关联税务辖区同步信息</td></tr>
+            <tr><td>大数据比对升级</td><td class="t-red">金税四期 + CRS数据联动，未申报境外所得被发现风险<strong>大幅上升</strong></td></tr>
+            <tr><td>处罚力度</td><td class="t-red">补税 + 滞纳金 + 罚款（0.5~5倍）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout caution">
+        <span class="callout-icon">🚨</span>
+        <div class="callout-body"><p><strong>合规建议</strong>：小资金新手不要试图通过US实体逃避CRS。出入金必经香港银行（CRS成员），银行端信息照样被交换。正确做法是：如实填写W-8BEN锁定10%股息税率，依法申报境外所得（已缴税款可抵免），保存完整交易流水和1042-S凭证。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 5: 手机卡
+  ════════════════════════════ -->
+  <section class="section-block" id="mod5">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块五</div>
+        <h2 class="section-title">超低成本香港手机卡保号与地址证明替代</h2>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod5-1">
+      <h3 class="sub-title">5.1 三大保号神卡对比</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>📱 Club SIM（CSL）</th><th>📱 hahaSIM（3HK/丰泽）</th><th>📱 SoSIM（3HK/百佳）</th></tr></thead>
+          <tbody>
+            <tr><td>月租</td><td class="t-green"><strong>0</strong></td><td class="t-green"><strong>0</strong></td><td class="t-green"><strong>0</strong></td></tr>
+            <tr><td>最低保号成本</td><td class="t-gold"><strong>6 HKD/年</strong>（买最低短信包）</td><td class="t-green">10 HKD/年（最低充值）</td><td class="t-orange">~200 HKD/年（充值续期）</td></tr>
+            <tr><td>保号有效期</td><td>消费后延长365天</td><td>充值后延长365天</td><td>充值延长（按金额定天数）</td></tr>
+            <tr><td>eSIM 支持</td><td class="t-green">✅</td><td class="t-red">❌ 实体卡</td><td class="t-green">✅</td></tr>
+            <tr><td>内地接收短信</td><td class="t-green"><strong>免费</strong></td><td class="t-green"><strong>免费</strong></td><td class="t-green"><strong>免费</strong></td></tr>
+            <tr><td>内地数据漫游</td><td>购买套餐（38HKD起）</td><td>有限</td><td>部分套餐含漫游流量</td></tr>
+            <tr><td>购买方式</td><td class="t-green">官网/小程序（<strong>eSIM可远程</strong>）</td><td>丰泽门店/官网</td><td>百佳/屈臣氏/官网</td></tr>
+            <tr><td>实名登记</td><td>必须</td><td>必须</td><td>必须</td></tr>
+            <tr><td>推荐指数</td><td class="t-gold">⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body"><p><strong>极致低成本首选</strong>：Club SIM eSIM — 每年6港币保号，无需实体卡，远程即可开通，在内地免费接收银行/券商验证码。</p></div>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod5-2">
+      <h3 class="sub-title">5.2 地址证明替代方案</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>方案</th><th>是否被银行接受</th><th>操作难度</th><th>推荐度</th></tr></thead>
+          <tbody>
+            <tr><td>内地信用卡账单（PDF）</td><td class="t-green">✅ 大多数银行接受</td><td>低 — 招行/工行App下载<strong>带电子红章</strong>的PDF，必须<strong>彩色打印</strong></td><td class="t-gold">⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>内地水电费账单</td><td class="t-green">✅ 部分银行接受</td><td>中 — 需有本人名下账户</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>预付电话卡账单（Club SIM等）</td><td class="t-red">❌ <strong>不被接受</strong></td><td>—</td><td class="t-red">❌</td></tr>
+            <tr><td>香港租约/水电煤</td><td class="t-green">✅ 最权威</td><td>高 — 需在港有住所</td><td>仅限在港人士</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout important">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body"><p><strong>核心结论</strong>：预付卡（Club SIM/hahaSIM/SoSIM）的用途是<strong>接收验证码</strong>，而非提供地址证明。地址证明请用<strong>内地银行信用卡的PDF电子账单</strong>（近3个月，彩色打印）。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       MODULE 6: 值不值得去
+  ════════════════════════════ -->
+  <section class="section-block" id="mod6">
+    <div class="section-header">
+      <div>
+        <div class="section-num">模块六</div>
+        <h2 class="section-title">到底值不值得去？资金门槛与损益分析</h2>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod6-1">
+      <h3 class="sub-title">6.1 开港卡的固定成本拆解</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>成本项</th><th>金额</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>赴港交通（深圳出发）</td><td class="t-orange">约 300~500 RMB 往返</td><td>高铁福田↔西九龙 68RMB 单程</td></tr>
+            <tr><td>赴港交通（非珠三角）</td><td class="t-red">约 800~2,000 RMB 往返</td><td>机票/高铁+深圳中转</td></tr>
+            <tr><td>住宿（如需过夜）</td><td class="t-orange">约 300~800 RMB/晚</td><td>可选深圳过夜次日过关，或香港青旅</td></tr>
+            <tr><td>港澳通行证/签注</td><td>约 80~160 RMB</td><td>首次办理或续签</td></tr>
+            <tr><td>汇丰定存锁定资金</td><td class="t-gold">10,000 HKD（≈9,200 RMB）</td><td>非消耗性成本，但有机会成本（锁在定存利息~2%）</td></tr>
+            <tr><td>Club SIM 年费</td><td class="t-green">6 HKD（≈5.5 RMB）</td><td>忽略不计</td></tr>
+            <tr><td>时间成本</td><td>2天</td><td>无法量化，因人而异</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sub-sub-title">一次性沉没成本估算</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>出发地</th><th>总花费（含交通+住宿+签注）</th><th>锁定资金</th></tr></thead>
+          <tbody>
+            <tr><td>深圳/珠三角</td><td class="t-green"><strong>500~1,000 RMB</strong></td><td>9,200 RMB</td></tr>
+            <tr><td>长三角/中部</td><td class="t-orange"><strong>1,500~2,500 RMB</strong></td><td>9,200 RMB</td></tr>
+            <tr><td>北方/西部</td><td class="t-red"><strong>2,000~3,500 RMB</strong></td><td>9,200 RMB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod6-2">
+      <h3 class="sub-title">6.2 三大投资场景的回本分析</h3>
+
+      <div class="sub-sub-title">场景 A：港股打新（2025~2026核心数据）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>指标</th><th>数据</th></tr></thead>
+          <tbody>
+            <tr><td>散户一手中签率</td><td class="t-orange">约 <strong>20%</strong>（2025年均值，近十年最低）</td></tr>
+            <tr><td>首日涨幅中位数</td><td class="t-green">约 <strong>9.6%</strong></td></tr>
+            <tr><td>首日涨幅均值</td><td class="t-green">约 <strong>36.6%</strong>（被少数暴涨股拉高）</td></tr>
+            <tr><td>破发率</td><td class="t-red">约 <strong>27%</strong>（2025）；2026 Q1 升至 ~45%</td></tr>
+            <tr><td>全年上市家数</td><td>约119家（2025），预计150+家（2026）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sub-sub-title">打新回本模型（5万HKD现金认购）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>假设</th><th>计算</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>每月参与3~4只新股</td><td>全年约40次申购</td><td>—</td></tr>
+            <tr><td>中签率20%</td><td>40 × 20% = 8次中签</td><td>—</td></tr>
+            <tr><td>每次中签一手约5,000~10,000HKD</td><td>平均约7,000HKD/手</td><td>—</td></tr>
+            <tr><td>首日涨幅中位数9.6%</td><td>7,000 × 9.6% = 672HKD/次</td><td>—</td></tr>
+            <tr><td>扣除破发损失（27%概率，平均亏5%）</td><td>8 × 27% × 7,000 × (-5%) = -756HKD</td><td>—</td></tr>
+            <tr><td><strong>年度打新净收益估算</strong></td><td>8 × 672 - 756</td><td class="t-green"><strong>≈ 4,620 HKD（≈4,250 RMB）</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">场景 B：美股/港股 ETF 长期持有</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>假设</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>投入5万HKD买 QQQ/SPY</td><td>—</td></tr>
+            <tr><td>年化收益10%（历史均值）</td><td class="t-green">+5,000 HKD</td></tr>
+            <tr><td>交易成本（盈立免佣体系）</td><td class="t-green">&lt; 100 HKD</td></tr>
+            <tr><td><strong>净收益</strong></td><td class="t-green"><strong>≈4,900 HKD（≈4,500 RMB）</strong></td></tr>
+            <tr><td>⚠️ 但如果只为买ETF...</td><td class="t-dim">国内通过QDII基金也能实现类似效果，无需港卡</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">场景 C：美股个股交易（打差价）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>假设</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>频繁交易美股个股</td><td>依赖个人能力，无法给出均值</td></tr>
+            <tr><td>港卡的<strong>独特优势</strong></td><td>直接持有美股、T+0交易、无QDII额度限制</td></tr>
+            <tr><td>适合人群</td><td>有交易经验、资金≥5万HKD的主动投资者</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub-section" id="mod6-3">
+      <h3 class="sub-title">6.3 💰 资金门槛建议（核心结论）</h3>
+      <div class="fund-bars">
+        <div class="fund-bar">
+          <div class="fund-bar-label">&lt; 1万HKD（&lt;0.9万RMB）</div>
+          <div class="fund-bar-track"><div class="fund-bar-fill no">❌ 不建议</div></div>
+          <div class="fund-verdict" style="color:var(--red)">❌ 放弃</div>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-bar-label">1~3万HKD（0.9~2.8万RMB）</div>
+          <div class="fund-bar-track"><div class="fund-bar-fill maybe">⚠️ 珠三角用户勉强</div></div>
+          <div class="fund-verdict" style="color:var(--orange)">⚠️ 勉强</div>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-bar-label">3~5万HKD（2.8~4.6万RMB）</div>
+          <div class="fund-bar-track"><div class="fund-bar-fill ok">✅ 达到入门门槛</div></div>
+          <div class="fund-verdict" style="color:var(--gold)">✅ 可以</div>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-bar-label">5~10万HKD（4.6~9.2万RMB）</div>
+          <div class="fund-bar-track"><div class="fund-bar-fill good">✅✅ 性价比最优区间</div></div>
+          <div class="fund-verdict" style="color:var(--green)">✅✅ 推荐</div>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-bar-label">&gt; 10万HKD（&gt;9.2万RMB）</div>
+          <div class="fund-bar-track"><div class="fund-bar-fill great">✅✅✅ 强烈推荐</div></div>
+          <div class="fund-verdict" style="color:var(--green)">✅✅✅ 必去</div>
+        </div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:16px;">
+        <table>
+          <thead><tr><th>投资金额</th><th>建议</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr><td>&lt; 1万HKD（&lt;0.9万RMB）</td><td class="t-red">❌ 不建议去</td><td>光汇丰定存门槛就要1万HKD，剩余可投资金为零</td></tr>
+            <tr><td>1~3万HKD（0.9~2.8万RMB）</td><td class="t-orange">⚠️ 珠三角用户勉强可以</td><td>扣除1万定存后，仅0~2万可投资。打新资金不足，中签后利润微薄</td></tr>
+            <tr><td>3~5万HKD（2.8~4.6万RMB）</td><td class="t-gold">✅ 达到入门门槛</td><td>1万定存 + 2~4万打新/投资。年打新收益约2,000~4,000HKD，可覆盖赴港成本</td></tr>
+            <tr><td>5~10万HKD（4.6~9.2万RMB）</td><td class="t-green">✅✅ 性价比最优区间</td><td>打新+ETF组合年收益可达5,000~10,000HKD。所有地区用户均划算</td></tr>
+            <tr><td>&gt; 10万HKD（&gt;9.2万RMB）</td><td class="t-green">✅✅✅ 强烈推荐</td><td>可分散多只新股、融资打新、长期持仓美股。跨境资产配置战略意义重大</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout important">
+        <span class="callout-icon">🔑</span>
+        <div class="callout-body">
+          <p><strong>一句话结论</strong>：</p>
+          <ul>
+            <li><strong>最低门槛</strong>：<strong>3万HKD（≈2.8万RMB）</strong>— 1万定存免管理费 + 2万可投资金</li>
+            <li><strong>舒适起步</strong>：<strong>5万HKD（≈4.6万RMB）</strong>— 打新+ETF组合，年收益可覆盖所有成本</li>
+            <li><strong>低于3万HKD的用户</strong>：建议先在国内通过QDII基金（如天弘纳斯达克100、华夏恒生ETF）间接参与港美股，等资金积累到位后再赴港开户</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body">
+          <p><strong>隐藏价值提醒</strong>：港卡的价值不仅是投资收益，还有：</p>
+          <ul>
+            <li>🌏 <strong>跨境资产隔离</strong>：人民币单一货币风险对冲</li>
+            <li>💳 <strong>全球消费</strong>：Visa/Mastercard 实体卡，全球刷卡无障碍</li>
+            <li>🏦 <strong>未来扩展性</strong>：保险、债券、海外房产首付等场景的资金通道</li>
+            <li>📈 <strong>一次开户，终身受用</strong>：港卡没有使用期限，开一次用一辈子</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       ACTION PLAN
+  ════════════════════════════ -->
+  <section class="section-block" id="action">
+    <div class="section-header">
+      <span class="section-emoji">🚀</span>
+      <div>
+        <div class="section-num">行动清单</div>
+        <h2 class="section-title">两日赴港极速开户方案</h2>
+      </div>
+    </div>
+
+    <!-- 出发前 -->
+    <div class="sub-section" id="action-pre">
+      <h3 class="sub-title">出发前准备（D-14 至 D-1）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>序号</th><th>事项</th><th>具体操作</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><strong>证件检查</strong></td><td>身份证 + 港澳通行证（有效签注）+ 护照（备用）</td></tr>
+            <tr><td>2</td><td><strong>地址证明</strong></td><td>在招行/工行App下载近3个月信用卡PDF账单（确保<strong>带电子红章</strong>），<strong>彩色打印3份</strong></td></tr>
+            <tr><td>3</td><td><strong>资金准备</strong></td><td>内地银联借记卡存够 ≥1.5万HKD等值人民币（<strong>到港后ATM直接取港币，免携汇过关</strong>）</td></tr>
+            <tr><td>4</td><td><strong>手机卡</strong></td><td>在Club SIM官网购买eSIM（可提前下载App，到港后完成实名登记）</td></tr>
+            <tr><td>5</td><td><strong>银行预约</strong></td><td>⚠️ 微信公众号「汇丰香港」→ 微服务 → <strong>预约开户</strong>（App预填资料≠预约席位！）/ 建银亚洲公众号预约</td></tr>
+            <tr><td>6</td><td><strong>App预装</strong></td><td>汇丰HSBC HK、建银亚洲、ZA Bank、天星银行、Club SIM、<strong>uSMART盈立证券</strong></td></tr>
+            <tr><td>7</td><td><strong>出入境记录</strong></td><td>准备好国家移民管理局小程序，到港后立即导出PDF</td></tr>
+            <tr><td>8</td><td><strong>盈立证券预填资料</strong></td><td>在uSMART App中提交开户申请至「<strong>等待核证</strong>」状态（见下方详细流程）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout caution">
+        <span class="callout-icon">🛡️</span>
+        <div class="callout-body">
+          <p><strong>四大终极避坑补丁（不打会翻车）</strong></p>
+          <p><strong>① 地址证明一致性</strong>：信用卡账单上的「住宅地址」必须与身份证地址<strong>至少一个完全一致</strong>。汇丰开户经理极挑剔，地址不符=当场拒绝。<strong>出发前在银行App改账单地址为身份证地址，等更新后再导出。</strong></p>
+          <p><strong>② 手机环境清洗（Day 1开虚拟银行前必做）</strong>：ZA Bank/天星的反欺诈SDK对代理工具极度敏感。开户前务必：a) <strong>关闭并卸载所有代理</strong>（V2Ray/Clash/Mihomo等）b) <strong>断开Wi-Fi，用Club SIM流量或内地卡官方漫游</strong> c) 安卓用户<strong>关闭「开发者选项」</strong>，尤其是「模拟位置」，否则App直接闪退。</p>
+          <p><strong>③ eDDA拼音空格容错</strong>：汇丰可能登记为ZHANG XIAO MING，ZA Bank可能是ZHANG XIAOMING，拼音不一致会导致eDDA绑定盈立时报错。<strong>解决方案</strong>：直接用<strong>FPS转数快</strong>转账入金（复制盈立FPS ID，银行App转账，5分钟到账零损耗）。</p>
+          <p><strong>④ 银联ATM取现替代携汇</strong>：不需要提前兑换港币现钞过关。带一张内地银联借记卡（招行/建行等），到港后在汇丰/中银ATM直接取港币。银联汇率极佳，手续费约15元/笔。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 盈立开户 -->
+    <div class="sub-section" id="action-usmart">
+      <h3 class="sub-title">盈立证券 uSMART 开户流程（分两阶段完成）</h3>
+
+      <div class="callout caution">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <p><strong>冷启动提醒</strong>：盈立证券虽然支持大陆身份证线上开户，但根据香港证监会（SFC）远程身份核证（KYC）要求，账户不会仅凭提交资料就直接审核通过。你必须通过以下两种方式之一完成最终激活：</p>
+          <ul>
+            <li><strong>同名港卡转账</strong>：用本人香港银行账户向盈立转账 ≥ <strong>1万HKD</strong></li>
+            <li><strong>线下门店面签</strong>：携带身份证正本前往盈立香港网点当场核证</li>
+          </ul>
+          <p>因此正确的流程是：<strong>内地预填资料 → 赴港开银行卡 → 用港卡转账激活 或 线下面签激活</strong>。</p>
+        </div>
+      </div>
+
+      <div class="sub-sub-title">阶段一：内地预填（D-7，约10分钟）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>步骤</th><th>操作</th><th>耗时</th></tr></thead>
+          <tbody>
+            <tr><td>① 注册</td><td>打开uSMART App → 用内地手机号注册</td><td>1分钟</td></tr>
+            <tr><td>② 选择开户类型</td><td>点击「开户」→ 选择「<strong>大陆身份证</strong>」</td><td>—</td></tr>
+            <tr><td>③ 上传证件</td><td>拍摄身份证正反面（注意光线和清晰度）</td><td>2分钟</td></tr>
+            <tr><td>④ 人脸识别</td><td>按提示完成活体检测</td><td>1分钟</td></tr>
+            <tr><td>⑤ 填写资料</td><td>职业信息、年收入范围、投资经验、税务居住地选「中国」</td><td>3分钟</td></tr>
+            <tr><td>⑥ 电子签名</td><td>在屏幕上手写签名</td><td>1分钟</td></tr>
+            <tr><td>⑦ 提交</td><td>系统进入「<strong>等待核证</strong>」状态</td><td>⏸️ 暂停，等赴港后完成</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">阶段二：赴港后激活（二选一）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>方式</th><th>操作</th><th>适合场景</th></tr></thead>
+          <tbody>
+            <tr><td><strong>方式A：同名港卡转账（推荐）</strong></td><td>Day 2拿到汇丰/ZA Bank卡后 → 通过FPS/eDDA向盈立转账 ≥ <strong>1万HKD</strong> → 上传转账凭证 → 1个工作日内审核通过 → 在App内填写<strong>W-8BEN</strong></td><td>大多数人的选择，无需额外跑腿</td></tr>
+            <tr><td><strong>方式B：线下门店面签</strong></td><td>Day 1下午直接去盈立香港网点 → 带身份证正本+过关小票 → 当场完成核证 → 无需等港卡</td><td>想当天就搞定券商的人</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-sub-title">盈立证券香港线下网点</div>
+      <div class="office-card">
+        <div class="office-name">📍 上环总部（首选）</div>
+        <div class="office-row"><span class="office-key">地址</span><span>德辅道中 308 号富卫金融中心 24 楼</span></div>
+        <div class="office-row"><span class="office-key">交通</span><span>港铁上环站 A2 出口步行 3 分钟</span></div>
+        <div class="office-row"><span class="office-key">时间</span><span>交易日 09:00-18:00</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-name">📍 上水网点（新界用户方便）</div>
+        <div class="office-row"><span class="office-key">地址</span><span>龙琛路 39 号上水广场 17 楼</span></div>
+        <div class="office-row"><span class="office-key">交通</span><span>港铁上水站 A4 出口步行 5 分钟</span></div>
+        <div class="office-row"><span class="office-key">时间</span><span>周一至六 09:00-18:00</span></div>
+      </div>
+      <div class="office-card">
+        <div class="office-name">📞 预约联系方式</div>
+        <div class="office-row"><span class="office-key">电话</span><span class="office-phone">+852 3018 4526</span></div>
+        <div class="office-row"><span class="office-key">WhatsApp</span><span class="office-phone">+852 5989 2641</span></div>
+      </div>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="sub-section" id="action-day1">
+      <h3 class="sub-title">Day 1：虚拟银行 + 手机卡 +（可选）券商面签</h3>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><p><strong>过关小纸条是生死线！</strong> 过香港海关时闸机吐出的白色「访港旅客入境标签」（Landing Slip），是虚拟银行在线核验你「肉身在港」的唯一法定凭证。<strong>千万不要丢！</strong> 丢了小纸条，Day 1的虚拟银行开户计划直接报废。</p></div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-phase">
+          <div class="tl-steps">
+            <div class="tl-step">
+              <div class="tl-time">过关时</div>
+              <div class="tl-content">① 收好<strong>白色过关小纸条</strong> ② 连接香港网络（用Club SIM，不要用代理）③ 导出出入境记录PDF</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">10:00</div>
+              <div class="tl-content">打开 <strong>ZA Bank</strong> App → 开户 → 身份证/通行证拍照 → <strong>小纸条拍照</strong> → 人脸识别 → 提交 <span class="tag-inline">即日审核</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">10:30</div>
+              <div class="tl-content">打开 <strong>天星银行 Airstar</strong> App → 同样流程开户 <span class="tag-inline">双保险</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">11:00</div>
+              <div class="tl-content">Club SIM eSIM <strong>实名登记</strong>（如未完成），激活香港手机号</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">下午（可选）</div>
+              <div class="tl-content">如选择<strong>方式B</strong>：前往盈立证券<strong>上环总部或上水网点</strong>线下面签 → 当场核证通过 <span class="tag-inline">券商当天搞定</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">晚间</div>
+              <div class="tl-content">等待ZA Bank审核结果 → 通过后App内存入少量港币（如500HKD）测试账户功能</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="sub-section" id="action-day2">
+      <h3 class="sub-title">Day 2：传统银行面签 + 资金破冰</h3>
+
+      <div class="timeline">
+        <div class="tl-phase">
+          <div class="tl-steps">
+            <div class="tl-step">
+              <div class="tl-time">9:30</div>
+              <div class="tl-content">按预约前往 <strong>汇丰分行</strong> 或 <strong>建银亚洲分行</strong>（二选一）</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">10:00</div>
+              <div class="tl-content">面签开户：出示<strong>身份证 + 通行证 + 信用卡账单 + 过关小票</strong><br>说明开户用途：「<strong>个人理财储蓄，偶尔进行投资</strong>」<span class="tag-inline tag-warn">勿说炒股/打新</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">面签中</div>
+              <div class="tl-content">现场存入 <strong>1.5万HKD</strong>（汇丰：1万开定存免管理费 + 5千活期）激活账户 + TRB达标</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">11:30</div>
+              <div class="tl-content">开户完成，领取<strong>银行卡 + 网银权限</strong> <span class="tag-inline">传统大行到手</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">中午</div>
+              <div class="tl-content">在汇丰App内将 <strong>1万HKD转为定期存款</strong>，锁定TRB，永久免除100/月管理费</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">下午</div>
+              <div class="tl-content"><strong>资金破冰</strong>：汇丰5,000HKD活期 → FPS转入ZA Bank → ZA Bank同名转账 ≥1万HKD至盈立证券 → 上传转账凭证 <span class="tag-inline">完成券商KYC</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-time">可选</div>
+              <div class="tl-content">Walk-in尝试第二家大行（汇丰/建银亚洲/中银香港）作为备选账户</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-sub-title">赴港期间（资金破冰后）</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>时间</th><th>行动</th><th>预期成果</th></tr></thead>
+          <tbody>
+            <tr><td>转账后1个工作日</td><td>盈立证券审核通过 → 在App内完成 <strong>W-8BEN表格</strong> → 锁定美股股息10%税率</td><td class="t-green">券商正式开通 ✅</td></tr>
+            <tr><td>（可选）</td><td>通过复星证券专属链接开户，入金1万HKD激活终身免佣</td><td>备用券商就位</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 回国后 -->
+    <div class="sub-section" id="action-back">
+      <h3 class="sub-title">回到内地后（D+3 起）</h3>
+      <ul class="styled-list">
+        <li>汇丰/建银亚洲网银激活，设置转账额度</li>
+        <li>ZA Bank绑定eDDA至盈立证券（如未完成）</li>
+        <li>盈立证券App确认W-8BEN生效，尝试首笔交易</li>
+        <li>每月保持银行账户1~3笔小额交易（<strong>养户</strong>，防风控）</li>
+        <li>Club SIM设置日历提醒，每年到期前购买<strong>6 HKD短信包</strong>续期</li>
+        <li>（可选）通过复星证券专属链接开户，入金1万HKD激活终身免佣，作为备用券商</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════
+       APPENDIX
+  ════════════════════════════ -->
+  <section class="section-block" id="appendix">
+    <div class="section-header">
+      <div>
+        <div class="section-num">附录</div>
+        <h2 class="section-title">关键费用速查卡</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title" style="margin-top:0;">年度持有成本估算（小资金场景：5万HKD资产）</h3>
+    <div class="cost-summary">
+      <div class="cost-row">
+        <span class="cost-label">🏦 汇丰 HSBC One 账户维护</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label" style="font-size:12px;color:var(--text-muted);">（定存1万HKD达标，还能赚 ~200HKD 利息）</span>
+        <span class="cost-val" style="color:var(--green);font-size:12px;">+200 HKD</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📱 ZA Bank 账户维护</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📡 Club SIM 保号费</span>
+        <span class="cost-val gold">6 HKD / 年</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">📊 盈立证券账户管理费</span>
+        <span class="cost-val zero">0 HKD ✓</span>
+      </div>
+      <div class="cost-row total">
+        <span class="cost-label">🎯 年度总固定成本</span>
+        <span class="cost-val gold">≈ 6 HKD / 年</span>
+      </div>
+    </div>
+
+    <div class="big-stat">
+      <div class="big-stat-label">年维护成本仅需</div>
+      <div class="big-stat-num">6</div>
+      <div class="big-stat-unit">港 币</div>
+      <div class="big-stat-desc">≈ 人民币 5.5 元 · 不到一杯奶茶</div>
+    </div>
+
+    <h3 class="sub-title" style="margin-top:32px;">单次港股打新成本估算（1万HKD现金认购）</h3>
+    <div class="cost-summary">
+      <div class="cost-row">
+        <span class="cost-label">认购手续费</span>
+        <span class="cost-val zero">0 HKD（盈立/复星现金认购免费）</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">中签后卖出佣金</span>
+        <span class="cost-val zero">0~3 HKD（视免佣政策）</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">平台费</span>
+        <span class="cost-val gold">12~15 HKD（盈立12HKD，复星15HKD）</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">印花税</span>
+        <span class="cost-val" style="color:var(--text-dim)">卖出金额 × 0.1%</span>
+      </div>
+      <div class="cost-row total">
+        <span class="cost-label">总计（不含印花税）</span>
+        <span class="cost-val gold">≈ 12~18 HKD</span>
+      </div>
+    </div>
+
+    <div class="callout note" style="margin-top:28px;">
+      <span class="callout-icon">📌</span>
+      <div class="callout-body">
+        <p><strong>免责声明</strong>：本报告基于2026年5月公开信息整理，不构成任何投资、法律或税务建议。金融机构政策随时可能调整，请在操作前通过官方渠道核实最新条款。跨境投资涉及汇率风险、政策风险和税务合规风险，请审慎决策。</p>
+      </div>
+    </div>
+
+    <div class="chip-row" style="margin-top:20px;">
+      <span class="chip green">🌏 跨境资产隔离</span>
+      <span class="chip blue">💳 Visa全球消费</span>
+      <span class="chip gold">🏦 保险/债券/房产通道</span>
+      <span class="chip green">📈 一次开户 终身受用</span>
+      <span class="chip orange">⚠️ CRS 2.0 合规存证</span>
+    </div>
+  </section>
+
+  </div><!-- end content-body -->
+
+  <!-- ══════ PAGE FOOTER ══════ -->
+  <footer class="page-footer">
+    <div class="footer-left">
+      <div class="footer-author-name">撸毛实操手册 <span>@0xTimor</span></div>
+      <div class="footer-desc">持续分享 Web3 撸毛 + 港美股实操 + 跨境资产配置干货</div>
+      <div class="chip-row">
+        <span class="chip gold">港卡开户</span>
+        <span class="chip blue">美股投资</span>
+        <span class="chip green">Web3 撸毛</span>
+        <span class="chip orange">跨境资产配置</span>
+      </div>
+    </div>
+    <div class="footer-x-box">
+      <div class="footer-x-label">关注作者</div>
+      <div class="footer-x-handle">@0xTimor</div>
+      <div class="footer-x-url">
+        <a href="https://x.com/0xTimor" target="_blank">x.com/0xTimor</a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-disclaimer">
+    © 2026 撸毛实操手册 · 调研整理时间：2026年5月16日 · 本内容仅供参考，不构成投资建议 · 金融机构政策随时变更，请以官方最新信息为准
+  </div>
+
+</main>
+
+<script>
+// ── Active nav tracking
+const sections = document.querySelectorAll('[id]');
+const navItems = document.querySelectorAll('.nav-item');
+
+function setActive() {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.getBoundingClientRect().top;
+    if (top <= 120) current = s.id;
+  });
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    const href = item.getAttribute('href');
+    if (href === '#' + current) item.classList.add('active');
+  });
+}
+
+// ── Scroll progress bar
+function updateProgress() {
+  const bar = document.getElementById('progressBar');
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = window.scrollY / docHeight;
+  bar.style.transform = `scaleX(${progress})`;
+}
+
+window.addEventListener('scroll', () => {
+  setActive();
+  updateProgress();
+}, { passive: true });
+
+// ── Mobile nav toggle
+function toggleNav() {
+  const nav = document.getElementById('navSidebar');
+  const btn = document.getElementById('navToggle');
+  nav.classList.toggle('open');
+  btn.textContent = nav.classList.contains('open') ? '✕' : '☰';
+}
+
+// Close nav on link click (mobile)
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      document.getElementById('navSidebar').classList.remove('open');
+      document.getElementById('navToggle').textContent = '☰';
+    }
+  });
+});
+
+// Initial
+setActive();
+</script>
+</body>
+</html>
