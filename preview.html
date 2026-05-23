@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>港澳珠 3天2晚 H5行程卡｜恒丰酒店·轮渡·威尼斯人</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
+      --brand:#0f766e; --brand2:#115e59; --accent:#f59e0b; --danger:#dc2626;
+      --blue:#2563eb; --green:#16a34a; --line:#e5e7eb; --chip:#ecfeff;
+      --shadow:0 10px 30px rgba(15, 23, 42, .08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;line-height:1.55;}
+    a{color:var(--brand);text-decoration:none}
+    .wrap{max-width:920px;margin:0 auto;padding:16px 14px 90px;}
+    header.hero{background:linear-gradient(135deg,#0f766e,#0b4f4a 55%,#111827);color:#fff;border-radius:24px;padding:22px 18px;margin:8px 0 14px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .hero:after{content:"";position:absolute;right:-80px;top:-80px;width:210px;height:210px;background:rgba(255,255,255,.12);border-radius:50%;}
+    .hero h1{font-size:24px;line-height:1.2;margin:0 0 10px;font-weight:850;letter-spacing:.2px;}
+    .hero p{margin:6px 0;color:rgba(255,255,255,.86);font-size:14px;}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+    .chip{font-size:12px;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);white-space:nowrap;}
+    .notice{background:#fff7ed;border:1px solid #fed7aa;border-left:5px solid var(--accent);border-radius:16px;padding:12px 14px;margin:12px 0;box-shadow:0 3px 14px rgba(245,158,11,.08);}
+    .notice strong{color:#9a3412}
+    .tabs{position:sticky;top:0;z-index:20;background:rgba(246,247,251,.92);backdrop-filter:blur(12px);padding:9px 0 8px;margin:0 -14px 12px;overflow-x:auto;border-bottom:1px solid rgba(229,231,235,.8);}
+    .tabs .inner{display:flex;gap:8px;padding:0 14px;min-width:max-content;}
+    .tab{display:inline-flex;align-items:center;gap:5px;padding:9px 11px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:13px;box-shadow:0 3px 10px rgba(15,23,42,.04);color:#111827;white-space:nowrap;}
+    .tab.active{background:var(--brand);color:white;border-color:var(--brand);}
+    section{scroll-margin-top:68px;margin:18px 0;}
+    h2{font-size:21px;margin:20px 0 10px;letter-spacing:.2px;}
+    h3{font-size:16px;margin:14px 0 8px;}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+    @media(max-width:680px){.grid{grid-template-columns:1fr}.hero h1{font-size:22px}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);margin:10px 0;}
+    .small{font-size:13px;color:var(--muted)}
+    .kpi{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0}
+    .kpi span{font-size:12px;background:#f3f4f6;padding:4px 8px;border-radius:999px;color:#374151;}
+    .timeline{position:relative;}
+    .item{display:grid;grid-template-columns:76px 1fr;gap:10px;position:relative;margin:10px 0;}
+    .time{font-weight:800;color:var(--brand);font-size:13px;padding-top:4px;}
+    .box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 12px 12px;box-shadow:0 7px 18px rgba(15,23,42,.05);}
+    .title-row{display:flex;align-items:flex-start;gap:9px;}
+    .check{appearance:none;width:20px;height:20px;border:2px solid #cbd5e1;border-radius:6px;flex:0 0 auto;margin-top:2px;position:relative;background:white;}
+    .check:checked{background:var(--brand);border-color:var(--brand);}
+    .check:checked:after{content:"✓";position:absolute;color:white;font-size:15px;font-weight:900;left:3px;top:-3px;}
+    .task-title{font-weight:800;font-size:15px;}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0;}
+    .tag{font-size:11px;border-radius:999px;padding:3px 7px;background:#f1f5f9;color:#334155;}
+    .tag.smoke{background:#fee2e2;color:#991b1b;}
+    .tag.food{background:#fef3c7;color:#92400e;}
+    .tag.move{background:#dbeafe;color:#1e40af;}
+    .tag.warn{background:#fff1f2;color:#be123c;}
+    .tag.money{background:#dcfce7;color:#166534;}
+    details{margin-top:9px;border-top:1px dashed #e5e7eb;padding-top:8px;}
+    summary{cursor:pointer;color:#0f766e;font-weight:760;font-size:13px;}
+    .sublist{padding-left:18px;margin:8px 0;font-size:13px;color:#374151;}
+    .sublist li{margin:3px 0;}
+    .danger{color:var(--danger);font-weight:760}
+    .ok{color:var(--green);font-weight:760}
+    .btns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+    button,.btn{border:0;border-radius:12px;padding:10px 12px;background:var(--brand);color:white;font-weight:760;font-size:13px;cursor:pointer;box-shadow:0 5px 12px rgba(15,118,110,.2);}
+    button.secondary,.btn.secondary{background:#111827;}
+    button.light,.btn.light{background:#fff;color:#111827;border:1px solid var(--line);box-shadow:none;}
+    .table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:white;font-size:13px;}
+    .table th,.table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;}
+    .table tr:last-child td{border-bottom:0}
+    .table th{background:#f8fafc;font-weight:850;}
+    .weather{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    @media(max-width:760px){.weather{grid-template-columns:repeat(2,1fr)}.item{grid-template-columns:68px 1fr}.time{font-size:12px}}
+    .weather .w{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px;box-shadow:0 6px 16px rgba(15,23,42,.04)}
+    .w b{display:block;margin-bottom:4px}
+    .w .temp{font-size:18px;font-weight:850;color:#111827}
+    .stickybar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom));z-index:30;}
+    .stickybar .inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+    .mini{font-size:12px;padding:8px 6px;border-radius:12px;background:#f3f4f6;color:#111827;text-align:center;font-weight:760;}
+    .mini.primary{background:var(--brand);color:#fff;}
+    .source{font-size:12px;color:var(--muted);margin:16px 0;}
+    .source a{word-break:break-all}
+    .highlight{background:#ecfdf5;border-color:#a7f3d0;}
+    .print-only{display:none}
+    @media print{
+      .tabs,.stickybar,.btns{display:none!important}
+      .wrap{max-width:none;padding:0}
+      .card,.box,header.hero{box-shadow:none}
+      body{background:white}
+      .print-only{display:block}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>港澳珠 3天2晚 H5行程卡</h1>
+      <p>恒丰酒店｜轮渡去澳门｜威尼斯人寄存+小额赌场｜珠海早茶｜2026/5/29–5/31</p>
+      <div class="chips">
+        <span class="chip">香港段：4人</span>
+        <span class="chip">澳门段：2人</span>
+        <span class="chip">酒店：恒丰可吸烟双床房</span>
+        <span class="chip">赌场预算：1000–3000/人</span>
+        <span class="chip">带伞：必须</span>
+      </div>
+    </header>
+
+    <div class="tabs" id="tabs">
+      <div class="inner">
+        <a class="tab active" href="#overview">总览</a>
+        <a class="tab" href="#weather">天气</a>
+        <a class="tab" href="#day1">Day1 香港</a>
+        <a class="tab" href="#day2">Day2 澳门</a>
+        <a class="tab" href="#casino">赌场</a>
+        <a class="tab" href="#day3">Day3 珠海</a>
+        <a class="tab" href="#rules">规则</a>
+        <a class="tab" href="#budget">预算</a>
+      </div>
+    </div>
+
+    <section id="overview">
+      <div class="notice">
+        <strong>总原则：</strong>少走路，不死排；吃饭排队超15–20分钟就换；发财车等超15分钟就打车；赌场22:00收手，最多缓冲到22:15；抽烟只在合法点，排队不抽。
+      </div>
+
+      <div class="card">
+        <h2>一眼看懂路线</h2>
+        <p><b>Day1：</b>深圳/西九龙 → 恒丰酒店4人汇合 → 茶餐厅 → 房间网申港卡 → 旧油麻地警署 → 尖沙咀购物 → 天星小轮夜景 → 红伶饭店。</p>
+        <p><b>Day2：</b>澳门2人小分队：恒丰 → 佐敦地铁到上环 → 金光飞航到氹仔 → 威尼斯人寄存 → 老城/大三巴/官也街 → 威尼斯人/伦敦人休整 → 20:00–22:00小额玩 → 关闸/青茂入珠海。</p>
+        <p><b>Day3：</b>珠海早茶/早午茶 → 11:15–11:45出发深圳机场 → 16:50飞徐州。</p>
+        <div class="btns">
+          <button onclick="copyPlan()">复制简版发群里</button>
+          <button class="secondary" onclick="resetChecks()">重置勾选</button>
+          <button class="light" onclick="window.print()">打印/保存PDF</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>最重要的5个阈值</h3>
+          <ul class="sublist">
+            <li>码头：09:10还没进闸，改下一班。</li>
+            <li>发财车：等超15分钟，打车。</li>
+            <li>寄存/办卡：45分钟没搞定，付费寄存或换伦敦人/巴黎人。</li>
+            <li>餐厅：南屏20分钟、大利来15分钟、晚饭20分钟，超时就换。</li>
+            <li>真人台：找低注超过10分钟，转电子百家乐。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>烟民核心策略</h3>
+          <ul class="sublist">
+            <li><b>恒丰：</b>优先回可吸烟房抽。</li>
+            <li><b>香港外面：</b>不在室内、有盖、排队、码头/地铁/巴士/的士站附近抽。</li>
+            <li><b>澳门赌场：</b>只去指定吸烟室。</li>
+            <li><b>澳门街上：</b>远离巴士站/的士站10米以上。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="weather">
+      <h2>天气 & 带伞判断</h2>
+      <div class="notice">
+        <strong>结论：</strong>每人带轻便折叠伞。港澳珠深这几天闷热，港澳有阵雨/雷雨概率，珠海/深圳也可能热+局部雨。鞋子穿防滑、不怕水的。
+      </div>
+      <div class="weather">
+        <div class="w">
+          <b>5/29 香港</b>
+          <div class="temp">31° / 25°</div>
+          <div class="small">暖湿，多云，下午零星雨/雷雨。Day1购物+夜景要带伞。</div>
+        </div>
+        <div class="w">
+          <b>5/30 澳门</b>
+          <div class="temp">31° / 26°</div>
+          <div class="small">上午阵雨，大部分多云。老城/官也街建议伞随身。</div>
+        </div>
+        <div class="w">
+          <b>5/30 珠海</b>
+          <div class="temp">34° / 24°</div>
+          <div class="small">炎热。晚上过关后也可能闷热，别买太多重手信。</div>
+        </div>
+        <div class="w">
+          <b>5/31 珠海/深圳</b>
+          <div class="temp">32–33°</div>
+          <div class="small">珠海上午有雷雨概率；深圳炎热。跨城车留容错。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="day1">
+      <h2>Day 1｜5月29日 周五｜香港4人汇合</h2>
+      <div class="timeline">
+
+        <div class="item">
+          <div class="time">10:40–13:10</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-1"><div><div class="task-title">徐州先期组飞深圳：HU7752</div><div class="small">徐州观音 → 深圳宝安T3。落地后别吃大餐，直接往福田站。</div></div></div>
+            <div class="tags"><span class="tag move">飞机</span><span class="tag warn">赶高铁</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">14:30–15:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-2"><div><div class="task-title">福田站中转，只简单垫一口</div><div class="small">饭团/三明治/咖啡/一碗粉面即可，别出站吃正式饭。</div></div></div>
+            <div class="tags"><span class="tag food">RMB20–50</span><span class="tag warn">别恋战</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">15:30–17:20</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-3"><div><div class="task-title">香港西九龙站吃饭 + 先期组跑通港卡网申</div><div class="small">优先添好运；排队超过15分钟换上和清汤腩/一乐烧鹅/Hong Kong Daily。</div></div></div>
+            <div class="tags"><span class="tag food">HKD70–120</span><span class="tag warn">排队阈值15分钟</span></div>
+            <details><summary>吃什么 & 抽烟</summary>
+              <ul class="sublist">
+                <li>添好运：叉烧包、虾饺、烧卖、凤爪、萝卜糕。</li>
+                <li>上和清汤腩：牛腩面、牛三宝、萝卜。</li>
+                <li>站内不抽；离开高铁/港铁/有盖通道后，室外无遮挡处抽5–8分钟。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">17:20–18:20</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-4"><div><div class="task-title">前往恒丰酒店 Prudential Hotel</div><div class="small">佐敦地铁站上盖。到房间后放东西，房间可吸烟。</div></div></div>
+            <div class="tags"><span class="tag move">短途打车/港铁</span><span class="tag smoke">房间抽烟</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">18:50</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-5"><div><div class="task-title">4人恒丰酒店大堂汇合</div><div class="small">建议先上可吸烟双床房：放东西、抽一根、再下楼吃饭。</div></div></div>
+            <div class="tags"><span class="tag smoke">合法补烟点</span><span class="tag warn">走廊/大堂别抽</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">19:00–19:40</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-6"><div><div class="task-title">佐敦街坊茶餐厅垫肚子</div><div class="small">菠萝油、干炒牛河、沙嗲牛肉面、冻奶茶。附近找不用排长队的。</div></div></div>
+            <div class="tags"><span class="tag food">HKD45–70</span><span class="tag warn">排队超10分钟换</span></div>
+            <details><summary>抽烟</summary><p class="small">饭后不堵店门，往开阔处走再抽；如果位置不好，回恒丰房间抽。</p></details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">19:45–20:45</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-7"><div><div class="task-title">恒丰房间网申港卡</div><div class="small">用香港定位+酒店Wi-Fi。房间可吸烟，网申前/提交后都能抽，舒服。</div></div></div>
+            <div class="tags"><span class="tag smoke">房间抽烟</span><span class="tag warn">证件别反光</span></div>
+            <details><summary>网申清单</summary>
+              <ul class="sublist">
+                <li>定位权限打开；证件照别反光；地址信息保持一致。</li>
+                <li>活体识别找光线好位置；周五晚上尽量全部提交。</li>
+                <li>烟灰缸固定位置，别把证件/船票/通行证烫了。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">20:45–21:15</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-8"><div><div class="task-title">旧油麻地警署港片打卡</div><div class="small">打车去，停留15–20分钟。港剧警匪片灵魂外景点。</div></div></div>
+            <div class="tags"><span class="tag move">打车</span><span class="tag smoke">出发前房间抽</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">21:15–22:00</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-9"><div><div class="task-title">尖沙咀购物：先YSL，再万宁/药妆</div><div class="small">清单优先香港买；澳门只补香水/手信，珠海口岸不做主采购。</div></div></div>
+            <div class="tags"><span class="tag money">购物</span><span class="tag smoke">商场外合法点抽</span></div>
+            <details><summary>核心购物清单</summary>
+              <ul class="sublist">
+                <li>YSL 自由之水铂金版或浓香。</li>
+                <li>丝塔芙、科颜氏宝宝霜、艾维诺、珮氏驱蚊、宝贝无比滴。</li>
+                <li>艾诗/安宝笛/Essential/Bouncia/撒隆巴斯等。</li>
+                <li>液体回程全部托运。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">22:00–22:45</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-10"><div><div class="task-title">天星小轮 + 维港夜景</div><div class="small">尖沙咀 → 中环 → 尖沙咀往返；回尖沙咀在钟楼/海边看10分钟。</div></div></div>
+            <div class="tags"><span class="tag move">HKD8–12</span><span class="tag smoke">船上不抽</span></div>
+            <details><summary>抽烟</summary><p class="small">上船前/下船后，离开码头建筑、排队区、巴士/的士站，再找室外开阔处抽。</p></details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">23:00–00:15</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d1-11"><div><div class="task-title">红伶饭店潮州打冷</div><div class="small">卤水拼盘、蚝仔粥、炒芥兰、蓝妹啤酒。新仙清汤腩只作为可选加餐。</div></div></div>
+            <div class="tags"><span class="tag food">HKD180–250</span><span class="tag warn">等位超20分钟换</span></div>
+            <details><summary>回酒店</summary><p class="small">饭后如果街边合法位置不好找，直接打车回恒丰，可吸烟房里抽。别在走廊/大堂抽。</p></details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="day2">
+      <h2>Day 2｜5月30日 周六｜澳门2人小分队：轮渡+威尼斯人</h2>
+      <div class="notice"><strong>人员：</strong>你 + 徐州同行朋友。带登机箱+双肩包，默认地铁去上环码头。澳门这天周六，所有餐厅/码头/寄存都按“会排队”处理。</div>
+
+      <div class="timeline">
+
+        <div class="item">
+          <div class="time">07:30–08:05</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-1"><div><div class="task-title">起床退房，房间先抽烟</div><div class="small">07:40房间抽一根；07:50退房；08:05进佐敦站。</div></div></div>
+            <div class="tags"><span class="tag smoke">房间抽烟</span><span class="tag move">地铁优先</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">08:05–08:45</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-2"><div><div class="task-title">恒丰 → 上环港澳码头：默认地铁</div><div class="small">佐敦 → 中环换港岛线 → 上环 → 信德中心3楼港澳码头。</div></div></div>
+            <div class="tags"><span class="tag move">HKD8–12</span><span class="tag warn">08:20后未出酒店则打车</span></div>
+            <details><summary>什么时候打车？</summary>
+              <ul class="sublist">
+                <li>08:20后还没出酒店；下大雨；有人状态差；地铁电梯不方便。</li>
+                <li>打车约HKD140–220/车；地铁更稳更省钱。</li>
+                <li>到上环码头进楼前，时间够就室外合法抽一根。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">08:45–09:20</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-3"><div><div class="task-title">上环港澳码头换票、出境、候船</div><div class="small">目标：09:30 金光飞航，上环 → 澳门氹仔。周六肖码头，高风险排队。</div></div></div>
+            <div class="tags"><span class="tag move">金光飞航</span><span class="tag money">HKD209左右</span><span class="tag warn">09:10未进闸改下一班</span></div>
+            <details><summary>备选 & 抽烟</summary>
+              <ul class="sublist">
+                <li>09:10还没进闸：改10:00/10:30。</li>
+                <li>金光票紧张：改喷射飞航去外港码头，但去威尼斯人更绕。</li>
+                <li>排队不抽；进码头楼后不抽。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">09:30–10:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-4"><div><div class="task-title">船上：香港上环 → 澳门氹仔</div><div class="small">船程约1小时。休息，别把手机玩没电。</div></div></div>
+            <div class="tags"><span class="tag smoke">船上不抽</span><span class="tag move">轮渡体验</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">10:30–11:00</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-5"><div><div class="task-title">氹仔码头 → 威尼斯人</div><div class="small">优先金沙系发财车；等车超15分钟或下雨就打车。</div></div></div>
+            <div class="tags"><span class="tag move">发财车/打车</span><span class="tag smoke">入境后室外先抽</span></div>
+            <details><summary>关键规则</summary>
+              <ul class="sublist">
+                <li>排发财车前抽，排队中不抽。</li>
+                <li>不要在巴士站/的士站10米内抽。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">11:00–12:00</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-6"><div><div class="task-title">威尼斯人寄存行李 + 必要时办金沙会</div><div class="small">先问礼宾/行李服务：“今晚会在赌场玩，晚上取行李，可以寄存吗？”</div></div></div>
+            <div class="tags"><span class="tag warn">预留60分钟</span><span class="tag money">备MOP/HKD30–60/件</span><span class="tag smoke">办完去吸烟室</span></div>
+            <details><summary>分工 & 备选</summary>
+              <ul class="sublist">
+                <li>A去礼宾问寄存；B去金沙会柜台看队伍。</li>
+                <li>礼宾直接收：立刻存。</li>
+                <li>要求会员：办金沙会；排队超过45分钟，问付费寄存。</li>
+                <li>威尼斯人卡住：去伦敦人/巴黎人礼宾问。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">12:00–12:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-7"><div><div class="task-title">威尼斯人 → 澳门老城</div><div class="small">打车去南屏雅叙/议事亭前地附近。别公交折腾。</div></div></div>
+            <div class="tags"><span class="tag move">MOP40–70/人</span><span class="tag smoke">远离的士站再抽</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">12:30–13:15</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-8"><div><div class="task-title">南屏雅叙：老澳门冰室</div><div class="small">沙翁、叉烧蛋治、奶茶、咖啡。不是大正餐，是怀旧开胃。</div></div></div>
+            <div class="tags"><span class="tag food">MOP40–70</span><span class="tag warn">排超20分钟撤</span></div>
+            <details><summary>备选</summary>
+              <ul class="sublist">
+                <li>A：黄枝记，云吞面/粥/捞面。</li>
+                <li>B：荣记牛杂，更快更市井。</li>
+                <li>C：直接拍大三巴，然后去官也街。</li>
+                <li>饭后离开店门和人群再抽。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">13:15–14:00</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-9"><div><div class="task-title">议事亭前地 + 大三巴</div><div class="small">只打卡，不深逛。人多就远景拍，别挤正面。</div></div></div>
+            <div class="tags"><span class="tag warn">人挤人</span><span class="tag smoke">核心人流区不抽</span></div>
+            <details><summary>备选</summary>
+              <ul class="sublist">
+                <li>人太多：街口/侧面拍一张撤。</li>
+                <li>想怀旧：福隆新街/十月初五街短走。</li>
+                <li>想老澳门赌场味：新葡京/老葡京30–45分钟短看，但会压缩后面时间。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">14:00–14:45</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-10"><div><div class="task-title">荣记牛杂 / 祥记面家</div><div class="small">优先荣记牛杂。祥记排队超过15分钟就放弃。</div></div></div>
+            <div class="tags"><span class="tag food">MOP40–100</span><span class="tag warn">排超15分钟换</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">14:45–16:15</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-11"><div><div class="task-title">打车去官也街，短逛小吃</div><div class="small">大利来猪扒包可尝；排超15分钟不排。手信少买，别买大盒。</div></div></div>
+            <div class="tags"><span class="tag food">MOP30–150</span><span class="tag warn">人多就撤</span></div>
+            <details><summary>备选 & 抽烟</summary>
+              <ul class="sublist">
+                <li>安德鲁蛋挞、莫义记甜品都比硬排猪扒包更灵活。</li>
+                <li>官也街人密，不边走边抽；走到外围开阔处再抽。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">16:15–17:45</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-12"><div><div class="task-title">回威尼斯人/伦敦人片区休整</div><div class="small">上厕所、喝水、咖啡、找吸烟室、看电子百家乐/低额老虎机/真人台区域。</div></div></div>
+            <div class="tags"><span class="tag smoke">指定吸烟室</span><span class="tag warn">养精神</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">17:45–18:45</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-13"><div><div class="task-title">威尼斯人/伦敦人内晚饭</div><div class="small">不跑远。正餐等位超20分钟，换美食广场；都挤就去巴黎人。</div></div></div>
+            <div class="tags"><span class="tag food">MOP80–250</span><span class="tag smoke">饭前饭后吸烟室</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">18:45–19:45</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d2-14"><div><div class="task-title">赌场踩点，不正式开赌</div><div class="small">威尼斯人 → 伦敦人 → 巴黎人外观 → 回威尼斯人。找台、找吸烟室、确认22:00取行李路线。</div></div></div>
+            <div class="tags"><span class="tag smoke">19:30开赌前抽</span><span class="tag warn">先看不玩</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="casino">
+      <h2>20:00–22:00｜赌场正式安排</h2>
+      <div class="notice"><strong>纪律：</strong>每人本金HKD/MOP1000–3000，分轮换，不一次全换。22:00收手，最多22:15缓冲。不说“最后一把”。</div>
+
+      <div class="timeline">
+        <div class="item">
+          <div class="time">20:00–20:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="c-1"><div><div class="task-title">威尼斯人：电子百家乐 / 电子多游戏</div><div class="small">先电子，不急真人台。问工作人员：电子百家乐在哪里？小额百家乐有没有三百/五百起？</div></div></div>
+            <div class="tags"><span class="tag money">先换1000</span><span class="tag warn">别一口气全换</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">20:30–21:00</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="c-2"><div><div class="task-title">威尼斯人：老虎机</div><div class="small">每人HKD/MOP300–500封顶，娱乐一下，输完换项目。</div></div></div>
+            <div class="tags"><span class="tag money">300–500</span><span class="tag smoke">21:00前吸烟室</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">21:00–21:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="c-3"><div><div class="task-title">真人百家乐 / 21点</div><div class="small">有300–500起的台可以玩；只有1000起最多体验几手；更高就回电子百家乐。</div></div></div>
+            <div class="tags"><span class="tag warn">找低注超10分钟撤</span><span class="tag money">不追输</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">21:30–21:50</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="c-4"><div><div class="task-title">伦敦人/巴黎人短换场</div><div class="small">威尼斯人顺就不换；太挤/太贵就去伦敦人。巴黎人只拍铁塔+小玩，不做主场。</div></div></div>
+            <div class="tags"><span class="tag smoke">换场不在通道抽</span><span class="tag warn">别跑远</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">21:50–22:15</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="c-5"><div><div class="task-title">回威尼斯人收尾：兑筹码、取行李、抽最后一根</div><div class="small">查证件、手机、钱包、行李牌。去吸烟室抽完，出发口岸。</div></div></div>
+            <div class="tags"><span class="tag danger">不最后一把</span><span class="tag smoke">吸烟室</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>赌场问路话术</h3>
+        <ul class="sublist">
+          <li>请问电子百家乐在哪里？</li>
+          <li>有没有三百或五百起的小额百家乐？</li>
+          <li>21点最低多少？</li>
+          <li>低额老虎机区在哪边？</li>
+          <li>吸烟室在哪里？</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="day3">
+      <h2>Day 3｜5月31日 周日｜珠海早茶/早午茶 → 深圳机场</h2>
+
+      <div class="timeline">
+        <div class="item">
+          <div class="time">22:15–23:45<br><span class="small">前夜</span></div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d3-0"><div><div class="task-title">澳门 → 珠海：优先关闸，太晚青茂</div><div class="small">22:15–23:00出发最稳。发财车等超15分钟打车。00:30后直接青茂。</div></div></div>
+            <div class="tags"><span class="tag move">关闸/青茂</span><span class="tag smoke">过关后室外开阔处抽</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">09:00–10:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d3-1"><div><div class="task-title">珠海早茶/早午茶</div><div class="small">前晚23:30前到珠海：08:45–10:15；前晚00:30后到：09:30–11:00。住哪附近吃哪。</div></div></div>
+            <div class="tags"><span class="tag food">RMB70–120</span><span class="tag warn">等位超20分钟换</span><span class="tag smoke">饭前饭后抽</span></div>
+            <details><summary>点单</summary>
+              <ul class="sublist">
+                <li>虾饺、凤爪、排骨、肠粉、萝卜糕、叉烧包、粥、烧味拼盘。</li>
+                <li>不要跑远，不为某一家茶楼排40分钟。</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">11:15–11:45</div>
+          <div class="box highlight">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d3-2"><div><div class="task-title">出发去深圳宝安机场</div><div class="small">提前约跨城车/商务车，目标14:30前到机场。别临时碰运气。</div></div></div>
+            <div class="tags"><span class="tag move">RMB100–180</span><span class="tag smoke">上车前抽</span><span class="tag warn">留雨天容错</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">14:30</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d3-3"><div><div class="task-title">抵达深圳机场</div><div class="small">托运行李；洗发水、沐浴液、身体乳全部托运；安检前室外指定区域抽烟。</div></div></div>
+            <div class="tags"><span class="tag warn">液体托运</span><span class="tag smoke">安检前抽</span></div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="time">16:50–19:25</div>
+          <div class="box">
+            <div class="title-row"><input class="check" type="checkbox" data-id="d3-4"><div><div class="task-title">深圳 → 徐州：GJ8630</div><div class="small">16:50深圳起飞，19:25到徐州。</div></div></div>
+            <div class="tags"><span class="tag move">返程航班</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <h2>规则 & 备选</h2>
+      <div class="card">
+        <h3>抽烟红线</h3>
+        <table class="table">
+          <tr><th>地区</th><th>能抽</th><th>别碰</th></tr>
+          <tr><td>恒丰酒店</td><td>可吸烟双床房内</td><td>大堂、走廊、电梯、餐厅、门口有盖处</td></tr>
+          <tr><td>香港街上</td><td>室外、无遮挡、非禁烟、非排队、远离站点</td><td>室内/有盖/码头/地铁/巴士站/的士站/排队中</td></tr>
+          <tr><td>澳门赌场</td><td>指定吸烟室</td><td>赌场大厅、商场通道、餐厅门口、洗手间门口</td></tr>
+          <tr><td>澳门街上</td><td>室外开阔、远离车站/的士站10米以上</td><td>巴士站/的士站10米内、禁烟标识区、人群核心区</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>现场放弃阈值</h3>
+        <ul class="sublist">
+          <li><b>码头：</b>09:10还没进闸，改下一班。</li>
+          <li><b>发财车：</b>等超15分钟，打车。</li>
+          <li><b>寄存/办卡：</b>45分钟没搞定，付费寄存或换伦敦人/巴黎人。</li>
+          <li><b>南屏：</b>排超20分钟，黄枝记/牛杂。</li>
+          <li><b>大利来：</b>排超15分钟，安德鲁蛋挞/莫义记。</li>
+          <li><b>晚饭：</b>等位超20分钟，美食广场。</li>
+          <li><b>真人台：</b>找低注超10分钟，电子百家乐。</li>
+          <li><b>过关：</b>00:30后直接青茂。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="budget">
+      <h2>人均预算参考</h2>
+      <div class="card">
+        <table class="table">
+          <tr><th>段落</th><th>人均参考</th><th>备注</th></tr>
+          <tr><td>Day1香港吃喝+交通</td><td>HKD380–630</td><td>不含购物</td></tr>
+          <tr><td>Day2轮渡</td><td>约HKD209</td><td>周末普通舱参考</td></tr>
+          <tr><td>Day2澳门吃喝交通</td><td>MOP400–1100</td><td>不含赌本；含打车/吃饭/可能寄存</td></tr>
+          <tr><td>Day2娱乐本金</td><td>HKD/MOP1000–3000</td><td>分轮换，不一次全换</td></tr>
+          <tr><td>Day3珠海+去机场</td><td>RMB170–300</td><td>早茶+跨城车</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>资料核对说明</h3>
+        <p class="small">天气与交通信息核对时间：2026-05-23。轮渡班次、票价、发财车时间、口岸开放可能临时调整，出发前一天再看官方页面/购票页面。</p>
+        <div class="source">
+          官方来源备忘：金光飞航班次/票价、威尼斯人交通/发财车、金沙会会员权益、港澳口岸开放时间、MTR路线/票价页面。
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="stickybar">
+    <div class="inner">
+      <a class="mini primary" href="#day1">Day1</a>
+      <a class="mini primary" href="#day2">Day2</a>
+      <a class="mini primary" href="#casino">赌场</a>
+      <a class="mini primary" href="#rules">规则</a>
+    </div>
+  </div>
+
+<script>
+  const checks = document.querySelectorAll('.check');
+  checks.forEach(c => {
+    const id = 'tripcheck-' + c.dataset.id;
+    c.checked = localStorage.getItem(id) === '1';
+    c.addEventListener('change', () => localStorage.setItem(id, c.checked ? '1' : '0'));
+  });
+
+  function resetChecks(){
+    if(!confirm('确定清空所有勾选进度？')) return;
+    checks.forEach(c => {
+      localStorage.removeItem('tripcheck-' + c.dataset.id);
+      c.checked = false;
+    });
+  }
+
+  function copyPlan(){
+    const txt = `港澳珠最终路线：Day1香港4人汇合：西九龙吃饭跑通港卡，恒丰可吸烟双床房网申，旧油麻地警署，尖沙咀购物，天星小轮维港夜景，红伶饭店夜宵。Day2澳门2人：恒丰坐地铁到上环港澳码头，09:30金光飞航到氹仔，发财车/打车去威尼斯人，寄存行李/办金沙会，南屏雅叙、大三巴、牛杂、官也街，傍晚回威尼斯人/伦敦人休整，20:00–22:00小额玩百家乐/21点/老虎机，22:15后取行李走关闸入珠海，太晚走青茂。Day3珠海早茶/早午茶，11:15–11:45出发深圳机场。带折叠伞；抽烟只在合法点，排队不抽。`;
+    navigator.clipboard.writeText(txt).then(()=>alert('已复制简版行程，可直接发群里。')).catch(()=>alert('复制失败，可手动选择页面文字复制。'));
+  }
+
+  // tab active on scroll
+  const tabs = [...document.querySelectorAll('.tab')];
+  const sections = tabs.map(t => document.querySelector(t.getAttribute('href'))).filter(Boolean);
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
