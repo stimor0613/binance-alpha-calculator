@@ -7,6 +7,7 @@ const { crawlerFetchJson } = require('../src/binance_request_layer');
 
 const LEADERBOARD_ENDPOINT = 'https://www.binance.com/bapi/growth/v1/friendly/growth-paas/resource/summary/list';
 const FUNDING_RATE_ENDPOINT = 'https://fapi.binance.com/fapi/v1/fundingRate';
+const EXCHANGE_INFO_ENDPOINT = 'https://fapi.binance.com/fapi/v1/exchangeInfo';
 const OUT_DIR = __dirname;
 const PROJECT_DIR = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(OUT_DIR, 'competition_config.json');
@@ -260,6 +261,35 @@ async function fetchDailyClose(config, symbol, ymd) {
   }
 }
 
+async function fetchMarketMicro(symbol) {
+  const exchangeUrl = `${EXCHANGE_INFO_ENDPOINT}?symbol=${encodeURIComponent(symbol)}`;
+  const out = {
+    ok: false,
+    symbol,
+    tickSize: null,
+    endClosePrice: null,
+    oneTickCostPer1mUAtEnd: null,
+    sourceUrls: { exchangeInfo: exchangeUrl },
+  };
+  try {
+    const { json: exchange } = await crawlerFetchJson(exchangeUrl, {
+      method: 'GET',
+      label: `exchangeInfo:${symbol}`,
+      cacheKey: `exchangeInfo:${symbol}`,
+      cacheTtlMs: 3_600_000,
+      preflight: true,
+      jitter: false,
+    });
+    const info = Array.isArray(exchange?.symbols) ? exchange.symbols.find((item) => item.symbol === symbol) : null;
+    const priceFilter = Array.isArray(info?.filters) ? info.filters.find((item) => item.filterType === 'PRICE_FILTER') : null;
+    out.tickSize = numOrNull(priceFilter?.tickSize);
+    out.ok = Number.isFinite(out.tickSize);
+    return out;
+  } catch (err) {
+    return { ...out, reason: err.message };
+  }
+}
+
 async function fetchFundingRates(symbol, startTime, endTime) {
   if (!symbol || !Number.isFinite(startTime) || !Number.isFinite(endTime) || endTime <= startTime) {
     return { ok: false, reason: 'invalid_time_range', rows: [], sumFundingRate: null };
@@ -427,6 +457,12 @@ async function main() {
       end: await fetchDailyClose(config, competition.symbol, endDate),
       reward: await fetchDailyClose(config, competition.symbol, competition.rewardIssueDate),
     };
+    const market = await fetchMarketMicro(competition.symbol);
+    const endClose = prices.end?.price ?? null;
+    market.endClosePrice = endClose;
+    market.oneTickCostPer1mUAtEnd = Number.isFinite(market.tickSize) && Number.isFinite(endClose) && endClose > 0
+      ? round(market.tickSize / endClose * 1_000_000, 6)
+      : null;
     if ((prices.reward.price === null || prices.reward.price === undefined) && prices.end.price !== null && prices.end.price !== undefined) {
       prices.reward = {
         ...prices.reward,
@@ -466,6 +502,7 @@ async function main() {
       rewardPoolAmount: competition.rewardPoolAmount,
       rewardTiers: competition.rewardTiers,
       prices,
+      market,
       hedge,
       leaderboardStatus: {
         ok: leaderboardResult.ok,
@@ -495,6 +532,8 @@ async function main() {
       reason: item.leaderboardStatus.reason,
       endPrice: item.prices.end.price,
       rewardPrice: item.prices.reward.price,
+      tickSize: item.market?.tickSize ?? null,
+      oneTickCostPer1mUAtEnd: item.market?.oneTickCostPer1mUAtEnd ?? null,
       bestRank: item.bestForUser?.rank ?? null,
       bestNetU: item.bestForUser?.user?.netAtIssueU ?? null,
     })),

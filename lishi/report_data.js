@@ -1,5 +1,5 @@
 window.LISHI_REPORT = {
-  "generatedAt": "2026-05-27T02:43:53.587Z",
+  "generatedAt": "2026-05-27T03:19:36.017Z",
   "captureDateBeijing": "2026-05-27",
   "assumptions": {
     "maxRank": 200,
@@ -158,6 +158,16 @@ window.LISHI_REPORT = {
           "close": 0.03001,
           "source": "override",
           "reason": "locked from earlier Binance FAPI read; current UTC daily kline was still moving when rerun"
+        }
+      },
+      "market": {
+        "ok": true,
+        "symbol": "AIGENSYNUSDT",
+        "tickSize": 0.00001,
+        "endClosePrice": 0.03408,
+        "oneTickCostPer1mUAtEnd": 293.42723,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=AIGENSYNUSDT"
         }
       },
       "hedge": {
@@ -14935,6 +14945,16 @@ window.LISHI_REPORT = {
           "sourceUrl": "https://fapi.binance.com/fapi/v1/klines?symbol=BILLUSDT&interval=1d&startTime=1779753600000&limit=1"
         }
       },
+      "market": {
+        "ok": true,
+        "symbol": "BILLUSDT",
+        "tickSize": 0.00001,
+        "endClosePrice": 0.11197,
+        "oneTickCostPer1mUAtEnd": 89.309637,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=BILLUSDT"
+        }
+      },
       "hedge": {
         "periodDays": 15,
         "startTime": 1779148740000,
@@ -29703,6 +29723,16 @@ window.LISHI_REPORT = {
           "ymd": "2026-05-28",
           "close": 0.05841,
           "source": "fallback_to_end_price"
+        }
+      },
+      "market": {
+        "ok": true,
+        "symbol": "CHIPUSDT",
+        "tickSize": 0.00001,
+        "endClosePrice": 0.05841,
+        "oneTickCostPer1mUAtEnd": 171.203561,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=CHIPUSDT"
         }
       },
       "hedge": {
@@ -44717,6 +44747,16 @@ window.LISHI_REPORT = {
           "quoteVolume": 16077616.20398,
           "price": 0.09027,
           "sourceUrl": "https://fapi.binance.com/fapi/v1/klines?symbol=BASEDUSDT&interval=1d&startTime=1777939200000&limit=1"
+        }
+      },
+      "market": {
+        "ok": true,
+        "symbol": "BASEDUSDT",
+        "tickSize": 0.00001,
+        "endClosePrice": 0.11403,
+        "oneTickCostPer1mUAtEnd": 87.69622,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=BASEDUSDT"
         }
       },
       "hedge": {
@@ -59768,6 +59808,16 @@ window.LISHI_REPORT = {
           "sourceUrl": "https://fapi.binance.com/fapi/v1/klines?symbol=BASEDUSDT&interval=1d&startTime=1777075200000&limit=1"
         }
       },
+      "market": {
+        "ok": true,
+        "symbol": "BASEDUSDT",
+        "tickSize": 0.00001,
+        "endClosePrice": 0.0538,
+        "oneTickCostPer1mUAtEnd": 185.873606,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=BASEDUSDT"
+        }
+      },
       "hedge": {
         "periodDays": 15,
         "startTime": 1775779140000,
@@ -74817,6 +74867,16 @@ window.LISHI_REPORT = {
           "sourceUrl": "https://fapi.binance.com/fapi/v1/klines?symbol=SOONUSDT&interval=1d&startTime=1779408000000&limit=1"
         }
       },
+      "market": {
+        "ok": true,
+        "symbol": "SOONUSDT",
+        "tickSize": 0.0001,
+        "endClosePrice": 0.1849,
+        "oneTickCostPer1mUAtEnd": 540.832883,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=SOONUSDT"
+        }
+      },
       "hedge": {
         "periodDays": 15,
         "startTime": 1778111940000,
@@ -89864,6 +89924,16 @@ window.LISHI_REPORT = {
           "quoteVolume": 10542229.4623,
           "price": 0.1838,
           "sourceUrl": "https://fapi.binance.com/fapi/v1/klines?symbol=SOONUSDT&interval=1d&startTime=1778544000000&limit=1"
+        }
+      },
+      "market": {
+        "ok": true,
+        "symbol": "SOONUSDT",
+        "tickSize": 0.0001,
+        "endClosePrice": 0.1689,
+        "oneTickCostPer1mUAtEnd": 592.066311,
+        "sourceUrls": {
+          "exchangeInfo": "https://fapi.binance.com/fapi/v1/exchangeInfo?symbol=SOONUSDT"
         }
       },
       "hedge": {

@@ -170,6 +170,18 @@
     }
     h2 { margin: 0; font-size: 17px; }
     .meta { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .market-highlight {
+      display: inline-block;
+      margin: 8px 0 2px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #fff7d6;
+      color: #7a4d00;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+    .market-highlight span { color: #111827; }
     .status { font-weight: 700; }
     .status.ok { color: var(--good); }
     .status.bad { color: var(--bad); }
@@ -394,6 +406,10 @@
       const hedgeLine = competition.hedge?.funding?.ok
         ? `套保：${competition.hedge.periodDays || 15}天，funding ${competition.hedge.funding.count || 0}条，累计 ${(Number(competition.hedge.funding.sumFundingRate || 0) * 100).toFixed(4)}%，限价开平仓 maker BNB 9折`
         : `套保：funding 未取到（${competition.hedge?.funding?.reason || 'unknown'}）`;
+      const market = competition.market || {};
+      const marketLine = market.ok
+        ? `最小价差单位 <span>${money(market.tickSize, 8)}</span> ｜ 按结束日价格 <span>${money(market.endClosePrice, 8)}</span>，100万交易额 1 tick ≈ <span>${money(market.oneTickCostPer1mUAtEnd, 2)} U</span>`
+        : `最小价差单位未取到：${market.reason || 'unknown'}`;
       const best = bestForCompetition(competition, inputs);
       const bestLine = best
         ? best.status === 'viable'
@@ -436,6 +452,7 @@
         <div class="section-head">
           <div>
             <h2>${competition.name}</h2>
+            <div class="market-highlight">${marketLine}</div>
             <div class="meta">${competition.symbol} ｜ ${competition.endTimeBeijing || '-'} 结束 ｜ 发奖日假设 ${competition.rewardIssueDate || '-'} ｜ ${priceLine}</div>
             <div class="meta">${hedgeLine}</div>
             <div class="meta">${bestLine}</div>
