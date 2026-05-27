@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>历史交易赛收益推算</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #15171a;
+      --muted: #667085;
+      --line: #d8dde6;
+      --accent: #0f8b8d;
+      --warn: #b54708;
+      --bad: #b42318;
+      --good: #027a48;
+      --shadow: 0 1px 3px rgba(16, 24, 40, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+    }
+    header {
+      padding: 18px 24px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    h1 { margin: 0 0 10px; font-size: 20px; line-height: 1.25; }
+    .controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+    label { display: grid; gap: 5px; color: var(--muted); font-size: 12px; }
+    input, select {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      background: #fff;
+      color: var(--text);
+      min-width: 160px;
+    }
+    button {
+      height: 34px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0 12px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+    }
+    .help-btn {
+      flex: 0 0 auto;
+      width: 34px;
+      padding: 0;
+      border-radius: 50%;
+      font-weight: 800;
+      background: #fff;
+      color: var(--accent);
+    }
+    .help-popover {
+      position: fixed;
+      top: 58px;
+      right: 24px;
+      width: min(420px, calc(100vw - 32px));
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 32px rgba(16, 24, 40, .16);
+      padding: 14px 16px;
+      z-index: 20;
+      display: none;
+    }
+    .help-popover.open { display: block; }
+    .help-popover h3 { margin: 0 0 8px; font-size: 15px; }
+    .help-popover p { margin: 8px 0; color: var(--muted); line-height: 1.55; }
+    .help-popover strong { color: var(--text); }
+    main { padding: 16px 24px 32px; display: grid; gap: 16px; }
+    .competition-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 4px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 260px;
+      background: var(--panel);
+      color: #344054;
+      border-color: var(--line);
+      box-shadow: var(--shadow);
+    }
+    .tab-btn.active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .tab-btn .tab-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tab-btn .tab-count {
+      flex: 0 0 auto;
+      min-width: 38px;
+      height: 20px;
+      line-height: 20px;
+      border-radius: 999px;
+      padding: 0 7px;
+      background: #eef2f6;
+      color: #344054;
+      font-size: 12px;
+      text-align: center;
+    }
+    .tab-btn.active .tab-count { background: rgba(255, 255, 255, .18); color: #fff; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+    }
+    .best-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+    .best-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+      min-width: 0;
+    }
+    .best-item .rank { font-size: 16px; font-weight: 750; }
+    .best-item .detail { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .metric, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .metric { padding: 12px; }
+    .metric .label { color: var(--muted); font-size: 12px; }
+    .metric .value { margin-top: 5px; font-size: 18px; font-weight: 700; }
+    section { overflow: hidden; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    h2 { margin: 0; font-size: 17px; }
+    .meta { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .status { font-weight: 700; }
+    .status.ok { color: var(--good); }
+    .status.bad { color: var(--bad); }
+    .status.warn { color: var(--warn); }
+    .table-wrap {
+      overflow: auto;
+      max-height: min(680px, calc(100vh - 330px));
+      min-height: 360px;
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 1180px; }
+    th, td {
+      padding: 7px 9px;
+      border-bottom: 1px solid #edf0f4;
+      text-align: right;
+      white-space: nowrap;
+      height: 34px;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      background: #f2f5f8;
+      z-index: 1;
+      color: #344054;
+      font-size: 12px;
+    }
+    td:first-child, th:first-child,
+    td:nth-child(2), th:nth-child(2) { text-align: left; }
+    .rank-col { width: 64px; }
+    .name-col {
+      width: 138px;
+      max-width: 138px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .scenario-cell {
+      min-width: 118px;
+      line-height: 1.35;
+    }
+    .scenario-cell .main { font-weight: 700; }
+    .scenario-cell .sub { color: var(--muted); font-size: 12px; }
+    .scenario-cell.negative .sub { color: var(--bad); }
+    .scenario-cell.positive .sub { color: var(--good); }
+    .positive { color: var(--good); font-weight: 650; }
+    .negative { color: var(--bad); font-weight: 650; }
+    .muted { color: var(--muted); }
+    .note { padding: 10px 16px; color: var(--muted); border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <h1>历史交易赛收益推算</h1>
+      <button id="helpBtn" class="help-btn" type="button" title="查看计算说明">?</button>
+    </div>
+    <div class="controls">
+      <label>我的每百万非手续费磨损
+        <input id="wearInput" type="number" step="0.01" placeholder="例如 120">
+      </label>
+      <label>我的当前返佣比例
+        <input id="myRebateInput" type="number" min="0" max="100" step="1" value="20">
+      </label>
+      <button id="applyBtn">重新计算</button>
+    </div>
+    <div id="helpPopover" class="help-popover" role="dialog" aria-label="计算说明">
+      <h3>计算说明</h3>
+      <p><strong>目标磨损</strong>：这一列的主数字是“策略非手续费磨损必须 <= 多少 U/百万才不亏”。绿色代表当前输入能扛住，红色代表还差多少。</p>
+      <p><strong>手续费</strong>：BNB 9折固定纳入计算，挂单基础手续费按 200 U/百万。返佣后手续费 = 200 * 0.9 * (1 - 返佣)。20%返佣就是 144 U/百万。</p>
+      <p><strong>竞对50%目标</strong>：假设所有对手都是 BNB 9折 + 50%返佣，手续费 90 U/百万，用最低成本压测。</p>
+      <p><strong>套保收益</strong>：按 15 天 1x 看空计算，限价开平仓手续费用 BNB 9折 maker 费率，资金费率来自 Binance 历史资金费率接口。正资金费率时空单收钱，负资金费率时空单付钱。</p>
+    </div>
+  </header>
+  <main>
+    <div class="summary" id="summary"></div>
+    <div class="competition-tabs" id="competitionTabs"></div>
+    <div id="sections"></div>
+  </main>
+  <script src="./report_data.js"></script>
+  <script>
+    const report = window.LISHI_REPORT || { competitions: [], feeScenarios: [] };
+    const wearInput = document.getElementById('wearInput');
+    const myRebateInput = document.getElementById('myRebateInput');
+    const REBATE_SCENARIOS = [10, 20, 30, 50];
+    const MAKER_FEE_PER_1M = 200;
+    const BNB_DISCOUNT = 0.9;
+    let activeCompetitionSlug = report.competitions[0]?.slug || '';
+    wearInput.value = report.assumptions && Number.isFinite(Number(report.assumptions.userWearCostPer1mU))
+      ? String(report.assumptions.userWearCostPer1mU)
+      : '0';
+
+    function money(value, digits = 2) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '-';
+      return Number(value).toLocaleString('en-US', { maximumFractionDigits: digits, minimumFractionDigits: digits });
+    }
+    function token(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '-';
+      return Number(value).toLocaleString('en-US', { maximumFractionDigits: 4 });
+    }
+    function shortName(value, maxUnits = 16) {
+      const text = String(value || '');
+      let units = 0;
+      let out = '';
+      for (const char of text) {
+        const code = char.codePointAt(0);
+        const width = code > 255 ? 2 : 1;
+        if (units + width > maxUnits) return `${out}...`;
+        units += width;
+        out += char;
+      }
+      return out;
+    }
+    function cssNum(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '';
+      return Number(value) >= 0 ? 'positive' : 'negative';
+    }
+    function rewardForRank(tiers, rank) {
+      const tier = tiers.find((item) => rank >= item.rankStart && rank <= item.rankEnd);
+      return tier ? Number(tier.rewardToken) : 0;
+    }
+    function makerFeeCostPer1m(rebatePct) {
+      const rebateRate = Math.max(0, Math.min(100, Number(rebatePct || 0))) / 100;
+      return MAKER_FEE_PER_1M * BNB_DISCOUNT * (1 - rebateRate);
+    }
+    function scenarioCalc(row, rebatePct, inputs) {
+      const feePer1m = makerFeeCostPer1m(rebatePct);
+      const volumeM = row.volumeUSDT / 1000000;
+      const rewardIssueU = row.rewardAtIssueU;
+      const hedgePnLU = row.hedgeNetU;
+      const lockedRewardU = row.hedgeLockedRewardU;
+      const maxWearIssue = rewardIssueU === null ? null : rewardIssueU / volumeM - feePer1m;
+      const maxWearHedged = lockedRewardU === null ? null : lockedRewardU / volumeM - feePer1m;
+      const tradingCostU = volumeM * (feePer1m + inputs.nonFeeWearPer1m);
+      return {
+        rebatePct,
+        feePer1m,
+        hedgePnLU,
+        lockedRewardU,
+        maxWearIssue,
+        maxWearHedged,
+        netIssueU: rewardIssueU === null ? null : rewardIssueU - tradingCostU,
+        netHedgedU: lockedRewardU === null ? null : lockedRewardU - tradingCostU,
+      };
+    }
+    function calculateRow(row, competition, inputs) {
+      const current = scenarioCalc(row, inputs.myRebatePct, inputs);
+      const competitor = scenarioCalc(row, 50, inputs);
+      const optimizeNeeded = current.maxWearIssue === null ? null : Math.max(0, inputs.nonFeeWearPer1m - current.maxWearIssue);
+      return {
+        current,
+        competitor,
+        marginAfterMyCost: current.maxWearIssue === null ? null : current.maxWearIssue - inputs.nonFeeWearPer1m,
+        costCeiling: current.maxWearIssue,
+        optimizeNeeded,
+        userNet: current.netIssueU,
+        hedgedUserNet: current.netHedgedU,
+      };
+    }
+    function currentInputs() {
+      return {
+        nonFeeWearPer1m: Number(wearInput.value || 0),
+        myRebatePct: Number(myRebateInput.value || 0),
+      };
+    }
+    function bestForCompetition(competition, inputs, limit = 1) {
+      const candidates = [];
+      for (const row of competition.rows || []) {
+        const calc = calculateRow(row, competition, inputs);
+        if (Number.isFinite(calc.userNet)) candidates.push({ competition, row, calc });
+      }
+      const viable = candidates.filter((item) => item.calc.marginAfterMyCost >= 0)
+        .sort((a, b) => b.calc.userNet - a.calc.userNet);
+      if (viable.length) return limit === 1 ? { status: 'viable', ...viable[0] } : viable.slice(0, limit).map((item) => ({ status: 'viable', ...item }));
+      candidates.sort((a, b) => a.calc.optimizeNeeded - b.calc.optimizeNeeded);
+      if (!candidates.length) return limit === 1 ? null : [];
+      return limit === 1
+        ? { status: 'needs_optimization', ...candidates[0] }
+        : candidates.slice(0, limit).map((item) => ({ status: 'needs_optimization', ...item }));
+    }
+    function renderBestStrip(competition, inputs) {
+      const bestItems = bestForCompetition(competition, inputs, 3);
+      if (!bestItems.length) return '<div class="best-strip"><div class="muted">当前没有可计算榜单行。</div></div>';
+      return `<div class="best-strip">${bestItems.map((item, idx) => {
+        const status = item.status === 'viable' ? '可打' : '需优化';
+        return `<div class="best-item">
+          <div class="rank">TOP${idx + 1}：#${item.row.rank} ${status}</div>
+          <div class="detail">当前返佣 ${money(inputs.myRebatePct, 0)}% ｜ 策略磨损需 <= ${money(item.calc.costCeiling, 2)} U/百万 ｜ ${item.calc.marginAfterMyCost >= 0 ? '余量' : '还差'} ${money(Math.abs(item.calc.marginAfterMyCost), 2)} U/百万 ｜ 净 ${money(item.calc.userNet, 2)} U</div>
+        </div>`;
+      }).join('')}</div>`;
+    }
+    function competitionTabLabel(competition) {
+      if (competition.token && competition.stage) return `${competition.token} ${competition.stage}`;
+      if (competition.token) return competition.token;
+      return competition.name || competition.slug || '未命名交易赛';
+    }
+    function renderCompetitionTabs() {
+      const tabsEl = document.getElementById('competitionTabs');
+      if (!report.competitions.length) {
+        tabsEl.innerHTML = '';
+        return;
+      }
+      if (!report.competitions.some((item) => item.slug === activeCompetitionSlug)) {
+        activeCompetitionSlug = report.competitions[0].slug;
+      }
+      tabsEl.innerHTML = report.competitions.map((competition) => {
+        const st = competition.leaderboardStatus || {};
+        const active = competition.slug === activeCompetitionSlug ? ' active' : '';
+        return `<button class="tab-btn${active}" type="button" data-slug="${competition.slug}" title="${competition.name}">
+          <span class="tab-name">${competitionTabLabel(competition)}</span>
+          <span class="tab-count">${st.rowCount || 0}行</span>
+        </button>`;
+      }).join('');
+      tabsEl.querySelectorAll('.tab-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          activeCompetitionSlug = button.dataset.slug;
+          render();
+        });
+      });
+    }
+    function renderCompetition(competition, inputs) {
+      const st = competition.leaderboardStatus || {};
+      const statusClass = st.ok ? 'ok' : (st.reason === 'missing_resource_id' ? 'bad' : 'warn');
+      const priceLine = `结束日 ${competition.prices?.end?.ymd || '-'} close=${money(competition.prices?.end?.price, 6)}，发奖日 ${competition.prices?.reward?.ymd || competition.rewardIssueDate || '-'} close=${money(competition.prices?.reward?.price, 6)}`;
+      const hedgeLine = competition.hedge?.funding?.ok
+        ? `套保：${competition.hedge.periodDays || 15}天，funding ${competition.hedge.funding.count || 0}条，累计 ${(Number(competition.hedge.funding.sumFundingRate || 0) * 100).toFixed(4)}%，限价开平仓 maker BNB 9折`
+        : `套保：funding 未取到（${competition.hedge?.funding?.reason || 'unknown'}）`;
+      const best = bestForCompetition(competition, inputs);
+      const bestLine = best
+        ? best.status === 'viable'
+          ? `当前返佣 ${money(inputs.myRebatePct, 0)}% 下最佳：#${best.row.rank}，你的策略磨损上限 ${money(best.calc.costCeiling, 2)} U/百万，当前余量 ${money(best.calc.marginAfterMyCost, 2)} U/百万。`
+          : `当前返佣 ${money(inputs.myRebatePct, 0)}% 下暂无可行名次；最接近 #${best.row.rank}，策略磨损需至少再降 ${money(best.calc.optimizeNeeded, 2)} U/百万。`
+        : '当前没有可计算榜单行。';
+      const rows = (competition.rows || []).map((row) => {
+        const calc = calculateRow(row, competition, inputs);
+        const hedgeCell = calc.current.hedgePnLU === null
+          ? '-'
+          : `${money(calc.current.hedgePnLU, 2)}`;
+        const scenarioCells = REBATE_SCENARIOS.map((rebatePct) => {
+          const sc = scenarioCalc(row, rebatePct, inputs);
+          const gap = sc.maxWearIssue === null ? null : sc.maxWearIssue - inputs.nonFeeWearPer1m;
+          const cls = cssNum(gap);
+          const statusText = gap === null ? '-' : gap >= 0 ? `余 ${money(gap, 2)}` : `差 ${money(Math.abs(gap), 2)}`;
+          return `<td class="scenario-cell ${cls}" title="BNB 9折固定，挂单手续费/百万=${money(sc.feePer1m, 2)}。主数字是该返佣档下，为了不亏钱，策略非手续费磨损必须小于等于多少；下面用你顶部输入的当前磨损计算余量/差距，并给出发奖日净利润。">
+            <div class="main"><= ${money(sc.maxWearIssue, 2)}</div>
+            <div class="sub">${statusText} ｜ 净 ${money(sc.netIssueU, 2)}</div>
+          </td>`;
+        }).join('');
+        return `<tr>
+          <td class="rank-col">#${row.rank}</td>
+          <td class="name-col" title="${row.name || ''}">${shortName(row.name)}</td>
+          <td>${money(row.volumeUSDT, 2)}</td>
+          <td>${token(row.rewardToken)}</td>
+          <td>${money(row.rewardAtEndU, 2)}</td>
+          <td>${money(row.rewardAtIssueU, 2)}</td>
+          <td class="${cssNum(calc.current.hedgePnLU)}" title="结束日奖励U - 发奖日奖励U - 限价开平仓手续费 + 空单资金费率收益。">${hedgeCell}</td>
+          <td title="竞对最坏假设：BNB 9折 + 50%返佣。这里是竞对在该名次不亏钱时，策略非手续费磨损最多能到多少；括号内是手续费/百万。"><= ${money(calc.competitor.maxWearIssue, 2)} (${money(calc.competitor.feePer1m, 2)})</td>
+          ${scenarioCells}
+          <td class="${cssNum(calc.current.netHedgedU)}" title="按结束日奖励价值锁定，扣自动计算的套保手续费/资金费率，再扣当前返佣档位手续费和非手续费磨损。">${money(calc.current.netHedgedU, 2)}</td>
+        </tr>`;
+      }).join('');
+      const sourceText = st.reason === 'snapshot_file' ? '本地 Top200 快照' : 'Binance 接口';
+      const note = st.ok
+        ? `榜单来源：${sourceText}；已读取 ${st.rowCount} 行，当前表格按 Top1-50 + 51-200 关键名次展示。`
+        : `榜单未抓取：${st.reason || 'unknown'}。补上 resourceId 或快照后重新运行脚本即可生成同样维度的计算。`;
+      return `<section>
+        <div class="section-head">
+          <div>
+            <h2>${competition.name}</h2>
+            <div class="meta">${competition.symbol} ｜ ${competition.endTimeBeijing || '-'} 结束 ｜ 发奖日假设 ${competition.rewardIssueDate || '-'} ｜ ${priceLine}</div>
+            <div class="meta">${hedgeLine}</div>
+            <div class="meta">${bestLine}</div>
+            ${competition.stageNote ? `<div class="meta">${competition.stageNote}</div>` : ''}
+          </div>
+          <div class="status ${statusClass}">${st.ok ? '榜单可用' : '榜单缺失'}</div>
+        </div>
+        ${renderBestStrip(competition, inputs)}
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>名次</th><th>昵称</th><th>成交额 USDT</th><th>奖励代币</th>
+                <th title="比赛结束日代币奖励价值。">结束日奖励U</th>
+                <th title="奖励发布当日代币奖励价值，未套保口径。">发奖日奖励U</th>
+                <th title="结束日奖励U - 发奖日奖励U - 限价开平仓手续费 + 空单资金费率收益。">套保收益U</th>
+                <th title="竞对最坏假设：BNB 9折 + 50%返佣。显示竞对不亏钱所能承受的策略非手续费磨损/百万，括号为手续费/百万。">竞对50%目标</th>
+                ${REBATE_SCENARIOS.map((pct) => `<th title="BNB 9折固定。主数字=该返佣档下，你的策略非手续费磨损必须压到多少以内才不亏钱；下方显示当前余量/差距和发奖日净利润。">${pct}%返 目标磨损</th>`).join('')}
+                <th title="按当前返佣比例、结束日奖励价值、自动套保成本计算。">当前套保后利润</th>
+              </tr>
+            </thead>
+            <tbody>${rows || '<tr><td colspan="12" class="muted">暂无榜单行</td></tr>'}</tbody>
+          </table>
+        </div>
+        <div class="note">${note} 表格里的 10%/20%/30%/50% 列现在看“目标磨损”：你的策略非手续费磨损必须 <= 主数字才不亏；绿色表示当前顶部输入能扛住，红色表示还差多少。BNB 9折固定纳入手续费；挂单基础手续费按 200 U/百万，返佣后手续费=200*0.9*(1-返佣)。</div>
+      </section>`;
+    }
+    function render() {
+      const inputs = currentInputs();
+      document.getElementById('summary').innerHTML = [
+        ['生成时间', report.generatedAt || '-'],
+        ['我的非手续费磨损', `${money(inputs.nonFeeWearPer1m, 2)} U / 100万成交额`],
+        ['当前手续费', `${money(makerFeeCostPer1m(inputs.myRebatePct), 2)} U / 100万成交额`],
+        ['当前总成本', `${money(inputs.nonFeeWearPer1m + makerFeeCostPer1m(inputs.myRebatePct), 2)} U / 100万成交额`],
+        ['怎么看表格', '目标磨损列：绿色能打，红色还要优化'],
+        ['竞对压力假设', '全部名次：BNB 9折 + 50%返佣，手续费90 U/百万'],
+      ].map(([label, value]) => `<div class="metric"><div class="label">${label}</div><div class="value">${value}</div></div>`).join('');
+
+      renderCompetitionTabs();
+      const activeCompetition = report.competitions.find((competition) => competition.slug === activeCompetitionSlug);
+      document.getElementById('sections').innerHTML = activeCompetition
+        ? renderCompetition(activeCompetition, inputs)
+        : '<section><div class="note">暂无交易赛数据。</div></section>';
+    }
+    document.getElementById('applyBtn').addEventListener('click', render);
+    document.getElementById('helpBtn').addEventListener('click', () => {
+      document.getElementById('helpPopover').classList.toggle('open');
+    });
+    document.addEventListener('click', (event) => {
+      const popover = document.getElementById('helpPopover');
+      const button = document.getElementById('helpBtn');
+      if (!popover.contains(event.target) && event.target !== button) popover.classList.remove('open');
+    });
+    wearInput.addEventListener('input', render);
+    myRebateInput.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+{
+  "generatedFor": "historical competition ROI comparison",
+  "notes": [
+    "rewardIssueDate is an assumption/configurable input. Binance event pages often say rewards are distributed within a fixed number of working days after the event; verify the exact date before hedge decisions.",
+    "CHIP and SOON resourceId values were not available from the current local archive. Fill them in when confirmed, then rerun fetch_lishi_competitions.js."
+  ],
+  "priceSource": {
+    "endpoint": "https://fapi.binance.com/fapi/v1/klines",
+    "interval": "1d",
+    "priceField": "close",
+    "timezone": "UTC kline close"
+  },
+  "priceOverrides": {
+    "AIGENSYNUSDT": {
+      "2026-05-26": {
+        "price": 0.03001,
+        "reason": "locked from earlier Binance FAPI read; current UTC daily kline was still moving when rerun"
+      }
+    }
+  },
+  "feeScenarios": [
+    {
+      "id": "no_discount",
+      "label": "无BNB折扣",
+      "bnbDiscount": 1,
+      "rebateRate": 0
+    },
+    {
+      "id": "bnb_10",
+      "label": "9折BNB",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0
+    },
+    {
+      "id": "bnb_10_rebate_10",
+      "label": "9折BNB+10%返手续费",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0.1
+    },
+    {
+      "id": "bnb_10_rebate_20",
+      "label": "9折BNB+20%返手续费",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0.2
+    },
+    {
+      "id": "bnb_10_rebate_30",
+      "label": "9折BNB+30%返手续费",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0.3
+    },
+    {
+      "id": "bnb_10_rebate_40",
+      "label": "9折BNB+40%返手续费",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0.4
+    },
+    {
+      "id": "bnb_10_rebate_50",
+      "label": "9折BNB+50%返手续费",
+      "bnbDiscount": 0.9,
+      "rebateRate": 0.5
+    }
+  ],
+  "baseFees": {
+    "makerFee": 0.0002,
+    "takerFee": 0.0005
+  },
+  "competitions": [
+    {
+      "slug": "aigensyn",
+      "name": "AIGENSYN 合约交易挑战赛",
+      "symbol": "AIGENSYNUSDT",
+      "token": "AIGENSYN",
+      "resourceId": 54596,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-aigensyn-challenge?utm_source=appanns",
+      "startTimeBeijing": "2026-05-12 18:00",
+      "endTimeBeijing": "2026-05-19 07:59",
+      "rewardIssueDate": "2026-05-26",
+      "rewardPoolAmount": 3200000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 480000,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 384000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 224000,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 128000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 64000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 32000,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 16000,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 6400,
+          "label": "第51-200名均分"
+        }
+      ],
+      "leaderboardSnapshotHint": "Binance endpoint updated after final leaderboard; use fetched report.json for latest endpoint state, or older research/competition_snapshots/*_2026-05-18_0759.json for page-visible 2026-05-18 snapshot."
+    },
+    {
+      "slug": "bill",
+      "name": "BILL 合约交易挑战赛",
+      "symbol": "BILLUSDT",
+      "token": "BILL",
+      "resourceId": 54211,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-bill-challenge?utm_source=appanns",
+      "startTimeBeijing": "2026-05-08 18:00",
+      "endTimeBeijing": "2026-05-19 07:59",
+      "rewardIssueDate": "2026-05-26",
+      "rewardPoolAmount": 4000000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 600000,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 480000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 280000,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 160000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 80000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 40000,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 20000,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 8000,
+          "label": "第51-200名均分"
+        }
+      ],
+      "leaderboardSnapshotHint": "Binance endpoint updated after final leaderboard; use fetched report.json for latest endpoint state, or older research/competition_snapshots/*_2026-05-18_0759.json for page-visible 2026-05-18 snapshot."
+    },
+    {
+      "slug": "chip",
+      "name": "CHIP 合约交易挑战赛",
+      "symbol": "CHIPUSDT",
+      "token": "CHIP",
+      "resourceId": 51202,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-chip-challenge?utm_source=appanns",
+      "startTimeBeijing": "2026-04-22 18:00",
+      "endTimeBeijing": "2026-05-13 07:59",
+      "rewardIssueDate": "2026-05-28",
+      "rewardPoolAmount": 6000000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 900000,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 720000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 420000,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 240000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 120000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 60000,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 30000,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 12000,
+          "label": "第51-200名均分"
+        }
+      ],
+      "fallbackLeaderboardSource": "Chrome visible page capture, 2026-05-27, while direct Node summary/list returned empty for resourceId 51201",
+      "rewardIssueDateNote": "estimated: event end + about 15 days, around 16:00 Beijing; official rule says within 30 days",
+      "snapshotFile": "research/competition_snapshots/chip_51202_verified_leaderboard_top200_2026-05-27.json"
+    },
+    {
+      "slug": "based_r2",
+      "name": "BASED 合约交易挑战赛 R2",
+      "symbol": "BASEDUSDT",
+      "token": "BASED",
+      "resourceId": 47868,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-based-challenge/tradingcompetitionr2",
+      "stage": "R2",
+      "startTimeBeijing": "2026-04-10 08:00",
+      "endTimeBeijing": "2026-04-20 07:59",
+      "rewardIssueDate": "2026-05-05",
+      "rewardPoolAmount": 1250000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 187500,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 150000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 87500,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 50000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 25000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 12500,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 6250,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 2500,
+          "label": "第51-200名均分"
+        }
+      ],
+      "stageNote": "BASED 页面分阶段。当前配置对应 tradingcompetitionr2 第二阶段；页面规则显示每阶段奖池 125万 BASED。",
+      "fallbackLeaderboardSource": "Chrome visible page capture / provided resource, 2026-05-27",
+      "rewardIssueDateNote": "estimated: event end + about 15 days, around 16:00 Beijing; official rule says within 30 days",
+      "snapshotFile": "research/competition_snapshots/based-r2_phase2_47868_verified_leaderboard_top200_2026-05-27.json"
+    },
+    {
+      "slug": "based_r1",
+      "name": "BASED 合约交易挑战赛 R1",
+      "symbol": "BASEDUSDT",
+      "token": "BASED",
+      "resourceId": 47866,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-based-challenge/tradingcompetitionr1",
+      "stage": "R1",
+      "startTimeBeijing": "2026-03-31 18:00",
+      "endTimeBeijing": "2026-04-10 07:59",
+      "rewardIssueDate": "2026-04-25",
+      "rewardPoolAmount": 1250000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 187500,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 150000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 87500,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 50000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 25000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 12500,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 6250,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 2500,
+          "label": "第51-200名均分"
+        }
+      ],
+      "stageNote": "BASED 页面分阶段。当前配置对应 tradingcompetitionr1 第一阶段；页面规则显示每阶段奖池 125万 BASED。",
+      "fallbackLeaderboardSource": "Chrome visible page capture / provided resource, 2026-05-27",
+      "rewardIssueDateNote": "estimated: event end + about 15 days, around 16:00 Beijing; official rule says within 30 days",
+      "snapshotFile": "research/competition_snapshots/based-r1_phase1_47866_verified_leaderboard_top200_2026-05-27.json"
+    },
+    {
+      "slug": "soon_r2",
+      "name": "SOON 合约交易挑战赛 R2",
+      "symbol": "SOONUSDT",
+      "token": "SOON",
+      "resourceId": 50570,
+      "sourceUrl": "https://www.binance.com/activity/trading-competition/futures-soon-challenge3/tradingcompetitionr2?utm_source=appanns",
+      "stage": "R2",
+      "startTimeBeijing": "2026-04-27 08:00",
+      "endTimeBeijing": "2026-05-07 07:59",
+      "rewardIssueDate": "2026-05-22",
+      "rewardPoolAmount": 1000000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 150000,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 120000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 70000,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 40000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 20000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 10000,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 5000,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 2000,
+          "label": "第51-200名均分"
+        }
+      ],
+      "stageNote": "SOON 页面分阶段。当前配置对应 Chrome 当前可见的 tradingcompetitionr2 第二阶段。",
+      "fallbackLeaderboardSource": "Chrome visible page capture, 2026-05-27, while direct Node summary/list returned empty for resourceId 50567",
+      "rewardIssueDateNote": "estimated: event end + about 15 days, around 16:00 Beijing; official rule says within 30 days",
+      "snapshotFile": "research/competition_snapshots/soon-r2_phase2_50570_verified_leaderboard_top200_2026-05-27.json"
+    },
+    {
+      "slug": "soon_r1",
+      "name": "SOON 合约交易挑战赛 R1",
+      "symbol": "SOONUSDT",
+      "token": "SOON",
+      "resourceId": 50568,
+      "sourceUrl": "https://www.binance.com/zh-CN/activity/trading-competition/futures-soon-challenge3/tradingcompetitionr1?utm_source=appanns",
+      "stage": "R1",
+      "startTimeBeijing": "2026-04-17 21:00",
+      "endTimeBeijing": "2026-04-27 07:59",
+      "rewardIssueDate": "2026-05-12",
+      "rewardPoolAmount": 1000000,
+      "rewardTiers": [
+        {
+          "rankStart": 1,
+          "rankEnd": 1,
+          "rewardToken": 150000,
+          "label": "第1名"
+        },
+        {
+          "rankStart": 2,
+          "rankEnd": 2,
+          "rewardToken": 120000,
+          "label": "第2名"
+        },
+        {
+          "rankStart": 3,
+          "rankEnd": 3,
+          "rewardToken": 70000,
+          "label": "第3名"
+        },
+        {
+          "rankStart": 4,
+          "rankEnd": 4,
+          "rewardToken": 40000,
+          "label": "第4名"
+        },
+        {
+          "rankStart": 5,
+          "rankEnd": 5,
+          "rewardToken": 20000,
+          "label": "第5名"
+        },
+        {
+          "rankStart": 6,
+          "rankEnd": 20,
+          "rewardToken": 10000,
+          "label": "第6-20名均分"
+        },
+        {
+          "rankStart": 21,
+          "rankEnd": 50,
+          "rewardToken": 5000,
+          "label": "第21-50名均分"
+        },
+        {
+          "rankStart": 51,
+          "rankEnd": 200,
+          "rewardToken": 2000,
+          "label": "第51-200名均分"
+        }
+      ],
+      "stageNote": "SOON 页面分阶段。当前配置对应 Chrome 可见的 tradingcompetitionr1 第一阶段。",
+      "fallbackLeaderboardSource": "Chrome visible page capture, 2026-05-27",
+      "rewardIssueDateNote": "estimated: event end + about 15 days, around 16:00 Beijing; official rule says within 30 days",
+      "snapshotFile": "research/competition_snapshots/soon-r1_phase1_50568_verified_leaderboard_top200_2026-05-27.json"
+    }
+  ],
+  "sampleRanks51To200": [
+    51,
+    60,
+    70,
+    80,
+    90,
+    100,
+    120,
+    150,
+    180,
+    200
+  ]
+}
