@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>徐州老李肉夹馍 · 全套商业配方助手</title>
+    <!-- 引入高端现代字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background"></div>
+    
+    <div class="container">
+        <!-- 头部 Header -->
+        <header class="app-header animate-fade-in">
+            <div class="logo-area">
+                <span class="badge">商业绝密配方</span>
+                <h1>徐州老李肉夹馍</h1>
+                <p class="subtitle">全套商业配方比例计算器 & 动态制作流程指导工具</p>
+                <div class="version-switch">
+                    <a href="family.html" class="btn-switch-link to-family"><i class="fa-solid fa-house-chimney"></i> 切换到：家庭温馨简易版</a>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <span class="label">经典工艺</span>
+                    <span class="value">5 步秘制</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">秘传大料</span>
+                    <span class="value">22 味草药</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">黄金比例</span>
+                    <span class="value">肥瘦相间</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主体布局：计算器 + 时间轴步骤 -->
+        <main class="app-main">
+            
+            <!-- 左侧：计算器控制面板 -->
+            <section class="calc-section animate-slide-up">
+                <!-- 导航 Tab -->
+                <nav class="tabs-nav" id="calc-tabs">
+                    <button class="tab-btn active" data-tab="stew-meat">
+                        <i class="fa-solid fa-meat"></i> 🍖 秘制卤肉
+                    </button>
+                    <button class="tab-btn" data-tab="dough-bake">
+                        <i class="fa-solid fa-cookie"></i> 🫓 白吉馍和面
+                    </button>
+                    <button class="tab-btn" data-tab="bone-soup">
+                        <i class="fa-solid fa-bowl-hot"></i> 🍲 骨头高汤
+                    </button>
+                </nav>
+
+                <!-- Tab 内容 1: 秘制卤肉计算器 -->
+                <div class="tab-content active" id="tab-stew-meat">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-sliders"></i> 卤肉配方动态缩放</h3>
+                            <span class="info-tag">基准: 38斤肉</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group-wrapper">
+                                <div class="input-field">
+                                    <label for="meat-weight">输入目标肉总量 (斤)</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="meat-weight" value="38" min="0.5" step="0.5">
+                                        <span class="unit">斤</span>
+                                    </div>
+                                </div>
+                                <div class="preset-wrapper">
+                                    <label>快速预设：</label>
+                                    <div class="preset-buttons">
+                                        <button class="btn-preset" data-val="3">家庭试做 (3斤)</button>
+                                        <button class="btn-preset" data-val="10">微商业 (10斤)</button>
+                                        <button class="btn-preset active" data-val="38">经典商用桶 (38斤)</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-wrapper">
+                                <label>香料包模式：</label>
+                                <div class="toggle-buttons">
+                                    <button class="btn-toggle active" id="mode-commercial" data-mode="commercial">
+                                        <i class="fa-solid fa-award"></i> 商业22味秘传大料包 (推荐)
+                                    </button>
+                                    <button class="btn-toggle" id="mode-simple" data-mode="simple">
+                                        <i class="fa-solid fa-leaf"></i> 简易家用香料包 (3味)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 计算结果展示 -->
+                    <div class="results-grid">
+                        <!-- 主料与调料 -->
+                        <div class="card result-card main-ingredients-card">
+                            <div class="card-header">
+                                <h4><i class="fa-solid fa-cubes"></i> 主料与调味料</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="ingredient-list" id="meat-main-list">
+                                    <!-- 动态插入 -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 绝密大料包 -->
+                        <div class="card result-card spice-ingredients-card">
+                            <div class="card-header">
+                                <h4><i class="fa-solid fa-mortar-pestle"></i> 绝密香料大料包配比</h4>
+                                <span class="total-spice-weight" id="total-spice-weight">共 0 克</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="spice-grid" id="meat-spice-list">
+                                    <!-- 动态插入 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 内容 2: 白吉馍和面计算器 -->
+                <div class="tab-content" id="tab-dough-bake">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-wheat-awn"></i> 白吉馍和面配方缩放</h3>
+                            <span class="info-tag">水面比 1:2</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group-wrapper">
+                                <div class="input-field">
+                                    <label for="flour-weight">输入面粉总量</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="flour-weight" value="1000" min="100" step="50">
+                                        <span class="unit" id="flour-unit-label">克 (g)</span>
+                                    </div>
+                                </div>
+                                <div class="preset-wrapper">
+                                    <label>快速预设：</label>
+                                    <div class="preset-buttons">
+                                        <button class="btn-preset-flour" data-val="500">约10个馍 (500g)</button>
+                                        <button class="btn-preset-flour active" data-val="1000">约20个馍 (1kg)</button>
+                                        <button class="btn-preset-flour" data-val="5000">商用发面 (5kg)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card result-card">
+                        <div class="card-header">
+                            <h4><i class="fa-solid fa-scale-balanced"></i> 和面原材料精确配比</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="ingredient-list flour-result-list" id="flour-ingredients-list">
+                                <!-- 动态插入 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 内容 3: 骨头高汤计算器 -->
+                <div class="tab-content" id="tab-bone-soup">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-fire-burner"></i> 骨头高汤熬制计算</h3>
+                            <span class="info-tag">基准: 50斤水</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group-wrapper">
+                                <div class="input-field">
+                                    <label for="water-weight">输入拟加清水量 (斤)</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="water-weight" value="50" min="5" step="5">
+                                        <span class="unit">斤</span>
+                                    </div>
+                                </div>
+                                <div class="preset-wrapper">
+                                    <label>快速预设：</label>
+                                    <div class="preset-buttons">
+                                        <button class="btn-preset-water" data-val="10">家用小锅 (10斤)</button>
+                                        <button class="btn-preset-water active" data-val="50">商用标配 (50斤)</button>
+                                        <button class="btn-preset-water" data-val="100">大锅熬汤 (100斤)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card result-card">
+                        <div class="card-header">
+                            <h4><i class="fa-solid fa-kitchen-set"></i> 高汤熬制料单与盐量</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="ingredient-list soup-result-list" id="soup-ingredients-list">
+                                <!-- 动态插入 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 右侧：分步工艺向导 -->
+            <section class="flow-section animate-slide-up-delay">
+                <div class="card flow-card">
+                    <div class="card-header flow-header">
+                        <h3><i class="fa-solid fa-list-check"></i> 制作工艺分步向导</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="flow-progress" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="steps-timeline" id="steps-container">
+                        <!-- 步骤 1: 食材准备 -->
+                        <div class="step-item" id="step-1" data-step="1">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>第①步：食材与香料包准备</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    根据左侧计算器得出的分量，称量好前腿肉、五花肉、酱油、盐等。大料包用密实的纱布包妥扎紧。大葱整根洗净，生姜拍散备用。
+                                </p>
+                                <div class="step-tips">
+                                    <i class="fa-solid fa-circle-info"></i> <strong>老李提醒</strong>：生姜多点没关系，大葱不能少，这是去腥增香的基础。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 步骤 2: 切肉与焯水 -->
+                        <div class="step-item" id="step-2" data-step="2">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>第②步：切肉和焯水（关键出油）</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    把买回来的肉切成大小均匀的四方块。<strong>前腿肉和五花肉分开切，分开焯水。</strong>
+                                </p>
+                                <div class="sub-steps">
+                                    <div class="sub-step">
+                                        <span class="sub-badge">1. 焯前腿肉</span>
+                                        <p>冷水下锅，水烧开后煮 <strong>1分钟</strong> 左右捞出，冲凉水清洗干净并控干备用。<strong>注意：焯完前腿肉的水不要倒掉！</strong></p>
+                                    </div>
+                                    <div class="sub-step">
+                                        <span class="sub-badge">2. 焯五花肉</span>
+                                        <p>直接下入刚才焯前腿肉的滚水中。<strong>中火煮 5-6 分钟</strong> 捞出，冲洗干净。目的是把肥肉里的油脂充分煮出来，让肥肉肥而不腻。</p>
+                                    </div>
+                                </div>
+                                <!-- 焯水计时器 -->
+                                <div class="timer-widget" data-duration="360" data-timer-name="五花肉焯水">
+                                    <div class="timer-display">06:00</div>
+                                    <div class="timer-controls">
+                                        <button class="btn-timer btn-start"><i class="fa-solid fa-play"></i> 开始</button>
+                                        <button class="btn-timer btn-pause" disabled><i class="fa-solid fa-pause"></i> 暂停</button>
+                                        <button class="btn-timer btn-reset"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                                    </div>
+                                    <span class="timer-label">五花肉中火焯水 (6分钟)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 步骤 3: 开始卤肉细节 -->
+                        <div class="step-item" id="step-3" data-step="3">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>第③步：装桶装料与防粘锅</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    装桶的顺序和防粘极其关键，是肉品受热均匀和“肥而不腻、瘦而不柴”的核心。
+                                </p>
+                                <ol class="order-list">
+                                    <li>在桶底部放入一块<strong>不锈钢篦子</strong>，防止底部的瘦肉长时间受热粘锅焦糊。</li>
+                                    <li>放入包好的香料包、大葱、生姜以及按比例计算出的食盐。</li>
+                                    <li><strong>分层放肉</strong>：将冲洗控干的<strong>前腿/后腿瘦肉放在最下面</strong>，再把<strong>肥五花肉码在最上面</strong>。</li>
+                                </ol>
+                                <div class="step-tips important-tip">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>物理学原理解析</strong>：前腿瘦肉质地较紧不易软烂，在底部受热充分更易酥烂；肥五花肉放在最上层，在加热过程中油脂向下渗透融化，既能浸润下方的瘦肉，又能使上层的肥肉吐油变轻，达到“肥而不腻”的效果。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 步骤 4: 调色与焖煮 -->
+                        <div class="step-item" id="step-4" data-step="4">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>第④步：调色加水、焖煮掌控</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    加水及煮焖时间是汤汁浓郁、肉质软烂的保障。
+                                </p>
+                                <div class="process-box">
+                                    <h6>1. 加水比例（10公分法则）</h6>
+                                    <p>肉放好后，根据老汤的多少加水。要求<strong>老汤/高汤的液面距离最上层的肉表面相差 10 公分左右（不要没过肉）</strong>。因为肉在受热后会收缩并出水，水太多了汤汁就会变淡。</p>
+                                    
+                                    <h6>2. 调色煮制</h6>
+                                    <p>倒入配比的酱油，开<strong>全程中火</strong>。烧开前不用搅动，烧开后用勺子把表面的酱油往下压一下，稍微搅动。<strong>从开火到关火，煮制 1 小时 10 分钟。</strong></p>
+                                    
+                                    <h6>3. 焖制入味</h6>
+                                    <p>关火后，立即盖紧盖子，<strong>焖制 2 到 2.5 小时</strong>，让大料和汤汁的味道充分渗入肉纤维中。商业出摊时，在大桶里浸泡时间可达 6-8 小时。</p>
+                                </div>
+
+                                <div class="timers-group">
+                                    <!-- 煮肉计时器 -->
+                                    <div class="timer-widget" data-duration="4200" data-timer-name="煮肉">
+                                        <div class="timer-display">01:10:00</div>
+                                        <div class="timer-controls">
+                                            <button class="btn-timer btn-start"><i class="fa-solid fa-play"></i> 开始煮</button>
+                                            <button class="btn-timer btn-pause" disabled><i class="fa-solid fa-pause"></i> 暂停</button>
+                                            <button class="btn-timer btn-reset"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                                        </div>
+                                        <span class="timer-label">中火煮肉 (1小时10分钟)</span>
+                                    </div>
+                                    <!-- 焖肉计时器 -->
+                                    <div class="timer-widget" data-duration="9000" data-timer-name="焖肉">
+                                        <div class="timer-display">02:30:00</div>
+                                        <div class="timer-controls">
+                                            <button class="btn-timer btn-start"><i class="fa-solid fa-play"></i> 开始焖</button>
+                                            <button class="btn-timer btn-pause" disabled><i class="fa-solid fa-pause"></i> 暂停</button>
+                                            <button class="btn-timer btn-reset"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                                        </div>
+                                        <span class="timer-label">关火焖肉 (2.5小时)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 步骤 5: 出油与调味 -->
+                        <div class="step-item" id="step-5" data-step="5">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>第⑤步：撇出红油、料包压榨与放味精</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    出锅前的最后一环，也是汤汁保质和肉质鲜美的点睛之笔。
+                                </p>
+                                <ol class="order-list">
+                                    <li><strong>撇油</strong>：焖好开盖后，用勺子轻轻把表面厚厚的一层红油舀到油缸中，舀到舀不出纯油、露出老汤为止。捞出来的油可以用来炒菜、炸辣椒或淋在肉夹馍里。</li>
+                                    <li><strong>料包二次利用</strong>：轻轻将大料包拉出（别用力过猛拉坏）。把料包放进一个干净锅里，倒入里面的葱、姜，加少许冷水，烧开后关火。用密漏把锅里的香料残渣捞干净扔掉。这碗煮好的浓缩料汤倒进容器中，留作第二天老汤不够时补充进去。<strong>大料包每天必须用新的，仅用一次！</strong></li>
+                                    <li><strong>调味</strong>：捞出料包后，按比例撒入<strong>味精</strong>，用勺子上下均匀搅动，鲜美诱人的卤肉即大功告成！</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- 附加步骤 6: 炸干辣椒 -->
+                        <div class="step-item" id="step-6" data-step="6">
+                            <div class="step-number"><i class="fa-solid fa-circle-dot"></i></div>
+                            <div class="step-content">
+                                <div class="step-title">
+                                    <h5>附加：秘制魔鬼辣炸制与复脆</h5>
+                                    <button class="btn-complete-step"><i class="fa-solid fa-check"></i> 完成</button>
+                                </div>
+                                <p class="step-desc">
+                                    辣椒是肉夹馍不可或缺的灵魂佐料。老李推荐选用<strong>印度魔鬼辣</strong>。
+                                </p>
+                                <div class="chili-flow">
+                                    <div class="chili-step">
+                                        <h6>🔥 炸制流</h6>
+                                        <p>起锅烧油，<strong>冷锅冷油</strong>下入干魔鬼辣椒，用勺子不停来回翻动。看到辣椒颜色<strong>微微变深</strong>时立即关火，利用油的余温继续浸炸一会儿，捞出控油，待冷却后舂碎或直接使用。</p>
+                                    </div>
+                                    <div class="chili-step">
+                                        <h6>⚡ 隔天复脆秘籍</h6>
+                                        <p>第一天没用完的辣椒极易回潮、不再脆香。第二天使用前，<strong>千万不要加油</strong>，直接把辣椒放入电饼铛或无油炒锅中，低功率干炒加热，辣椒即可重新恢复焦香焦脆！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部原理解析卡片 -->
+        <footer class="app-footer animate-fade-in">
+            <div class="footer-card">
+                <h3>💡 老李商业肉夹馍三大核心秘密</h3>
+                <div class="secrets-grid">
+                    <div class="secret-item">
+                        <div class="secret-icon"><i class="fa-solid fa-arrow-down-up-lock"></i></div>
+                        <h5>瘦下肥上，物理融油</h5>
+                        <p>将瘦肉压在桶底，既能让瘦肉在底温区焖煮至酥烂不柴，又能被上方五花肉渗出的油脂自上而下反复浸润，形成外裹油脂的保护层。</p>
+                    </div>
+                    <div class="secret-item">
+                        <div class="secret-icon"><i class="fa-solid fa-whiskey-glass"></i></div>
+                        <h5>10公分法则，控水控咸</h5>
+                        <p>汤水绝不能没过肉。肉块在受热时会大量吐水，如果水放多了，老汤会被过度稀释，导致卤肉上色差、香味不足。</p>
+                    </div>
+                    <div class="secret-item">
+                        <div class="secret-icon"><i class="fa-solid fa-rotate"></i></div>
+                        <h5>残渣二次榨汁，老汤保鲜</h5>
+                        <p>香料在大料包内部不能完全释放。取出料包后，必须通过小火加冷水煮开“二次榨干”香料余香，过滤出的料汤是第二天最完美的天然高汤补给。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>徐州夜市老李肉夹馍传承秘方 · 商业计算器 © 2026</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 内置提示音效（使用 Web Audio API 动态合成，无需外部音频文件） -->
+    <script src="app.js"></script>
+</body>
+</html>
